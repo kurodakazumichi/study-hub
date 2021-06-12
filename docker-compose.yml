@@ -20,6 +20,3 @@ services:
     build: ./infra/mysql
     volumes:
       - ./db:/var/lib/mysql
-      
-volumes:
-  db-store:
