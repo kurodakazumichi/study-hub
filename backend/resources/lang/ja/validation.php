@@ -106,7 +106,7 @@ return [
 
     'attributes' => [
       'name'  => '名前',
-      'order' => '表示順',
+      'order_no' => '表示順',
     ],
 
 ];

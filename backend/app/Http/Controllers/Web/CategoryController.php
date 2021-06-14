@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Web;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Category;
 
 class CategoryController extends Controller
 {
   function index() {
-    $categories = Category::all()->sortBy('order');
+    
+    $categories = Category::all()->sortBy('order_no');
     return view('category.index', ['categories' => $categories]);
   }
 
@@ -35,4 +37,5 @@ class CategoryController extends Controller
     $category->fill($req->except('_token', '_method'))->save();
     return redirect('/categories');
   }
+
 }

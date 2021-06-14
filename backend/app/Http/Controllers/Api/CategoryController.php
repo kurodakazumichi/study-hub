@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -30,9 +31,18 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-      print_r($request->all());
+      // 表示順の最大値を取得する
+      $order_no = Category::max('order_no');
+      $order_no = is_null($order_no)? 0 : $order_no + 1;
+
+      // カテゴリの新規作成
       $category = new Category();
-      $category->fill($request->all())->save();
+      $category->fill([
+        'name'     => $request->get('name'),
+        'order_no' =>  $order_no,
+      ])->save();
+
+      // レスポンス
       return response()->json([
         'message' => 'Category created successfully.',
         'data'    => $category
@@ -104,5 +114,59 @@ class CategoryController extends Controller
           'message' => 'Book not found'
         ], 404);
       }
+    }
+
+    public function order(Request $request, $id) {
+
+      $from = Category::find($id);
+
+      // カテゴリがなかったら終了
+      if(is_null($from)) {
+        return response404('category');
+      }
+
+      $to = Category::where('order_no', $request->order_no)->first();
+
+      // カテゴリを移動するSQL
+      $sql1 = <<< SQL
+        UPDATE categories as c
+        SET c.order_no = :to_order_no
+        WHERE c.id = :from_id
+      SQL;
+
+      // 全体的にずらすSQL
+      $sql2 = <<< SQL
+        UPDATE categories as c
+        SET c.order_no = c.order_no + (:value)
+        WHERE c.id != :ignore_id
+        AND c.order_no >= :min_order_no
+        AND c.order_no <= :max_order_no
+      SQL;
+
+      DB::update($sql1, [
+        'to_order_no' => $to->order_no,
+        'from_id' => $id
+      ]);
+
+      DB::update($sql2, [
+        'value' => ($from->order_no < $to->order_no)? -1 : +1,
+        'ignore_id' => $id,
+        'min_order_no' => min($from->order_no, $to->order_no),
+        'max_order_no' => max($from->order_no, $to->order_no)
+      ]);
+
+      // fromのorder_noを更新しつつ、間のレコードのorder_noを-1する
+      // 前の方に移動する場合
+      // fromのorder_noを更新しつつ、間のレコードのorder_noを+1する
+
+      return response()->json([
+        'message' => 'test',
+        'data' => [ 
+          'id' => $id, 
+          'request' => $request->all(),
+          'from' => $from,
+          'to'   => $to,
+        ]
+      ], 200);
     }
 }

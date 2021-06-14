@@ -20,4 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('/categoreis', CategoryController::class);
+Route::put('/categories/{id}/order', [CategoryController::class, 'order'])->name('categories.order');
+Route::apiResource('/categories', CategoryController::class);

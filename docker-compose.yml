@@ -19,4 +19,4 @@ services:
   db:
     build: ./infra/mysql
     volumes:
-      - ./db:/var/lib/mysql
+      - ./db/${DB_ENV:-dev}:/var/lib/mysql
