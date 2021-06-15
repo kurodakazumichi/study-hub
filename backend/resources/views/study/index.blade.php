@@ -16,11 +16,17 @@
           name="category_id" 
           hasEmpty="true" 
           :options="$categories"
-          :selected="2"
+          :selected="$search['category_id']"
         />
         
         <label for="search-variety_id">バラエティ</label>
-        <x-forms.drop-box id="search-variety_id" name="variety_id" hasEmpty="true" :options="$varieties"/>
+        <x-forms.drop-box 
+          id="search-variety_id" 
+          name="variety_id" 
+          hasEmpty="true" 
+          :options="$varieties"
+          :selected="$search['variety_id']"
+        />
 
         <input type="submit" value="検索">
       </form>
@@ -39,13 +45,16 @@
           </tr>
         </thead>
         <tbody id="sortdata">
-          <tr>
-            <td>1</td>
-            <td>数学:数Ⅱ+B</td>
-            <td>チャート式 基礎を演習 数学Ⅱ+B</td>
-            <td>2021年6月15日</td>
-            <td>2021年6月15日</td>
-          </tr>
+          @foreach($studies as $study)
+            <tr>
+              <td>{{ $study->id }}</td>
+              <td>{{ $study->category->name }}:{{ $study->variety->name }}</td>
+              <td>{{ $study->name }}</td>
+              <td>{{ $study->created_at->format('Y年m月d日') }}</td>
+              <td>{{ $study->updated_at->format('Y年m月d日') }}</td>
+            </tr>          
+          @endforeach
+
         </tbody>
       </table>  
     </section>

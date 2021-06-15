@@ -19,11 +19,11 @@ class Study extends Model
   ];
 
   public function category() {
-    return $this->hasOne(Category::class);
+    return $this->belongsTo(Category::class);
   }
 
   public function variety() {
-    return $this->hasOne(Variety::class);
+    return $this->belongsTo(Variety::class);
   }
 
   public static function maxOrderNo() {
