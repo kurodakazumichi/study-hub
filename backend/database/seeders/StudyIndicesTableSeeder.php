@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class StudyIndecesTableSeeder extends Seeder
+class StudyIndicesTableSeeder extends Seeder
 {
   /**
    * Run the database seeds.
@@ -29,7 +29,7 @@ class StudyIndecesTableSeeder extends Seeder
     ];
 
     foreach($datas as $data) {
-      DB::insert("INSERT INTO study_indeces (study_id, major, minor, micro, title) VALUES (2, ?, ?, ?, ?)", $data);
+      DB::insert("INSERT INTO study_indices (study_id, major, minor, micro, title) VALUES (2, ?, ?, ?, ?)", $data);
     }
   }
 }

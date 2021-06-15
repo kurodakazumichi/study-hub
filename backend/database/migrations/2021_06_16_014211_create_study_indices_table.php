@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStudyIndecesTable extends Migration
+class CreateStudyIndicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateStudyIndecesTable extends Migration
      */
     public function up()
     {
-      Schema::create('study_indeces', function (Blueprint $table) 
+      Schema::create('study_indices', function (Blueprint $table) 
       {
         $table->id();
         $table->integer('study_id');

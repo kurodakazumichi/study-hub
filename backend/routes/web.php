@@ -5,6 +5,7 @@ use App\Http\Controllers\Web\CategoryController;
 use App\Http\Controllers\Web\VarietyController;
 use App\Http\Controllers\Web\StudyController;
 use App\Http\Controllers\Web\DebugController;
+use App\Http\Controllers\Web\StudyIndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,10 @@ Route::prefix('/varieties')->group(function() {
 Route::prefix('/studies')->group(function() {
   Route::get('/', [StudyController::class, 'index']);
   Route::get('/{id}/edit', [StudyController::class, 'edit']);
+});
+
+Route::prefix('study_indeces')->group(function() {
+  Route::get('/{study_id}', [StudyIndexController::class, 'index']);
 });
 
 Route::prefix('/debug')->group(function(){

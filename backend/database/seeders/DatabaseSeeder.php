@@ -13,6 +13,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-      $this->call(StudyIndecesTableSeeder::class);
+      $this->call(StudyIndicesTableSeeder::class);
     }
 }
