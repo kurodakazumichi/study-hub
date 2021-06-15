@@ -46,7 +46,7 @@
         </thead>
         <tbody id="sortdata">
           @foreach($studies as $study)
-            <tr>
+            <tr id="{{ $study->id }}">
               <td>{{ $study->id }}</td>
               <td>{{ $study->category->name }}:{{ $study->variety->name }}</td>
               <td>{{ $study->name }}</td>

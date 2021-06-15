@@ -3,29 +3,31 @@
 //-----------------------------------------------------------------------------
 function SetupSortable() 
 {
+  // ドラッグ開始時のstudy-idの並び
+  let startingIDs = [];
+
   $('#sortdata').sortable(
   {
+    activate: (event, ui) => {
+      startingIDs = $("#sortdata").sortable("toArray");
+    },   
     // ドラッグ&ドロップ完了時
-    stop: (event, ui) => 
+    update: (event, ui) => 
     {
-      const target = $(ui.item[0]);
-      console.log("target", target.data("id"), target.data("order-no"));
+      // 完了時のstudy_idの並び
+      const updatingIDs = $("#sortdata").sortable("toArray");
 
-      const id = target.data("id");
-      let order_no = 0;
+      // 移動先の位置を探す
+      const index = updatingIDs.findIndex((id) => ui.item[0].id == id)
 
-      $("#sortdata").children().each((index, e) => {
-        if (target.data('id') == $(e).data('id')) {
-          console.log("target order_no = " + index);
-          order_no = index;
-        }
-      });
+      // 移動させるstudyと、移動先のstudyのidを準備
+      const from_id = ui.item[0].id;
+      const to_id = startingIDs[index];
 
-      console.log("ajax");
       $.ajax({
-        url     : `/api/categories/${id}/order`, 
+        url     : `/api/studies/${from_id}/sort`, 
         type    : 'put',
-        data    : {order_no},
+        data    : {to_id},
         dataType: 'json',
       })
       .done(() => { alert("成功"); })
@@ -78,5 +80,6 @@ function SetupCreateForm()
 
 // 初期処理
 $(() => {
+  SetupSortable();
   SetupCreateForm();
 });

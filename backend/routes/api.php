@@ -27,3 +27,4 @@ Route::put('/categories/{id}/order', [CategoryController::class, 'order'])->name
 Route::apiResource('/varieties', VarietyController::class);
 Route::put('/varieties/{id}/order', [VarietyController::class, 'order'])->name('varieties.order');
 Route::apiResource('/studies', StudyController::class);
+Route::put('/studies/{id}/sort', [StudyController::class, 'sort'])->name('studies.sort');
