@@ -59,7 +59,9 @@ class StudyController extends Controller
      */
     public function update(Request $request, $id)
     {
-      //
+      $study = Study::findOrFail($id);
+      $study->fill($request->all())->save();
+      return response200();
     }
 
     /**

@@ -29,6 +29,7 @@ Route::prefix('/varieties')->group(function() {
 
 Route::prefix('/studies')->group(function() {
   Route::get('/', [StudyController::class, 'index']);
+  Route::get('/{id}/edit', [StudyController::class, 'edit']);
 });
 
 Route::prefix('/debug')->group(function(){

@@ -51,4 +51,18 @@ class StudyController extends Controller
 
     return view('study.index', $data);
   }
+
+  public function edit(Request $request, $id) 
+  {
+    //-------------------------------------------------------------------------
+    // Studyデータを取得
+    $study = Study::with(['category', 'variety'])
+      ->findOrFail($id);
+
+    return view('study.edit', [
+      'study'      => $study,
+      'categories' => Category::orderBy('order_no')->get(['id', 'name']),
+      'varieties'  => Variety::orderBy('order_no')->get(['id', 'name']),      
+    ]);
+  }
 }

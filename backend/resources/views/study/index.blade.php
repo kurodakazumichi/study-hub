@@ -42,6 +42,7 @@
             <th>名前</th>
             <th>作成日</th>
             <th>更新日</th>
+            <th>操作</th>
           </tr>
         </thead>
         <tbody id="sortdata">
@@ -52,6 +53,9 @@
               <td>{{ $study->name }}</td>
               <td>{{ $study->created_at->format('Y年m月d日') }}</td>
               <td>{{ $study->updated_at->format('Y年m月d日') }}</td>
+              <td>
+                <a href="/studies/{{ $study->id }}/edit">編集</a>
+              </td>
             </tr>          
           @endforeach
 
