@@ -11,6 +11,6 @@ class Category extends Model
   protected $fillable = ['name', 'order_no'];
   public static $rules = [
     'name' => 'required',
-    'order' => 'required|integer|min:0'
+    'order_no' => 'required|integer|min:0'
   ];
 }
