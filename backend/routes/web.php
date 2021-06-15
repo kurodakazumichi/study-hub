@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\CategoryController;
+use App\Http\Controllers\Web\VarietyController;
 use App\Http\Controllers\Web\DebugController;
 
 /*
@@ -20,6 +21,10 @@ Route::get('/categories/create', [CategoryController::class, 'create']);
 Route::post('/categories/store', [CategoryController::class, 'store']);
 Route::get('/categories/{id}/edit', [CategoryController::class, 'edit']);
 Route::patch('/categories/{id}', [CategoryController::class, 'update']);
+
+Route::prefix('/varieties')->group(function() {
+  Route::get('/', [VarietyController::class, 'index']);
+});
 
 Route::prefix('/debug')->group(function(){
   Route::get('/', [DebugController::class, 'index']);
