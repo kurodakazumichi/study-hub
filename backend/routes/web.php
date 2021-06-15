@@ -35,5 +35,4 @@ Route::prefix('/debug')->group(function(){
   Route::get('/', [DebugController::class, 'index']);
   Route::get('/plural', [DebugController::class, 'plural']);
   Route::get('/query', [DebugController::class, 'query']);
-  Route::get('debug01', [DebugController::class, 'debug01']);
 });
