@@ -13,6 +13,11 @@
     <script src="/js/@yield('js', 'empty.js')"></script>
   </head>
   <body>
+    <header>
+      <a href="/categories">category</a>
+      <a href="/varieties">variety</a>
+      <a href="/studies">study</a>
+    </header>
     @section('main')
     @show
   </body>
