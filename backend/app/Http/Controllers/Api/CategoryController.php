@@ -81,7 +81,6 @@ class CategoryController extends Controller
     {
       $update = [
         'name'   => $request->name,
-        'author' => $request->order,
       ];
 
       $category = Category::find($id)->fill($update)->save();
