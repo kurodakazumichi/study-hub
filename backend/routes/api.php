@@ -21,7 +21,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::put('/categories/{id}/order', [CategoryController::class, 'order'])->name('categories.order');
 Route::apiResource('/categories', CategoryController::class);
+Route::put('/categories/{id}/order', [CategoryController::class, 'order'])->name('categories.order');
 Route::apiResource('/varieties', VarietyController::class);
+Route::put('/varieties/{id}/order', [VarietyController::class, 'order'])->name('varieties.order');
 

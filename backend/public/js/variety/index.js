@@ -1,4 +1,40 @@
 //-----------------------------------------------------------------------------
+// バラエティのテーブルのソート処理をセットアップ
+//-----------------------------------------------------------------------------
+function SetupSortable() 
+{
+  $('#sortdata').sortable(
+  {
+    // ドラッグ&ドロップ完了時
+    stop: (event, ui) => 
+    {
+      const target = $(ui.item[0]);
+      console.log("target", target.data("id"), target.data("order-no"));
+
+      const id = target.data("id");
+      let order_no = 0;
+
+      $("#sortdata").children().each((index, e) => {
+        if (target.data('id') == $(e).data('id')) {
+          console.log("target order_no = " + index);
+          order_no = index;
+        }
+      });
+
+      console.log("ajax");
+      $.ajax({
+        url     : `/api/varieties/${id}/order`, 
+        type    : 'put',
+        data    : {order_no},
+        dataType: 'json',
+      })
+      .done(() => { alert("成功"); })
+      .fail(() => { alert("失敗"); });
+    }
+  });
+}
+
+//-----------------------------------------------------------------------------
 // バラエティの新規登録フォームをセットアップ
 //-----------------------------------------------------------------------------
 function SetupCreateForm() 
@@ -52,6 +88,7 @@ function SetupNameEdit()
 
 // 初期処理
 $(() => {
+  SetupSortable();
   SetupCreateForm();
   SetupNameEdit();
 });
