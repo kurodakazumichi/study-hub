@@ -10,16 +10,18 @@
     <section>
       <h2>検索フォーム</h2>
       <form action="/studies" method="get">
-        <label for="category_id">カテゴリ</label>
-        <select name="category_id" id="">
-          <option value="">なし</option>
-          <option value="1">数学</option>
-        </select>
-        <label for="variety_id">バラエティ</label>
-        <select name="variety_id" id="">
-          <option value="">なし</option>
-          <option value="1">数学</option>
-        </select>
+        <label for="search-category_id">カテゴリ</label>
+        <x-forms.drop-box 
+          id="search-category_id" 
+          name="category_id" 
+          hasEmpty="true" 
+          :options="$categories"
+          :selected="2"
+        />
+        
+        <label for="search-variety_id">バラエティ</label>
+        <x-forms.drop-box id="search-variety_id" name="variety_id" hasEmpty="true" :options="$varieties"/>
+
         <input type="submit" value="検索">
       </form>
     </section>
@@ -52,18 +54,20 @@
       <h2>新規登録フォーム</h2>
       <ul id="errors"></ul>
       <form id="create-form">
-        <label for="category_id">カテゴリ</label>
-        <select name="category_id" id="">
-          <option value="">なし</option>
-          <option value="1">数学</option>
-          <option value="100">hoge</option>
-        </select>
-        <label for="variety_id">バラエティ</label>
-        <select name="variety_id" id="">
-          <option value="">なし</option>
-          <option value="1">数学</option>
-          <option value="100">hoge</option>
-        </select>
+        <label for="create-category_id">カテゴリ</label>
+        <x-forms.drop-box 
+          id="create-category_id" 
+          name="category_id" 
+          hasEmpty="true" 
+          :options="$categories"
+        />
+        <label for="createvariety_id">バラエティ</label>
+        <x-forms.drop-box 
+          id="create-variety_id" 
+          name="variety_id" 
+          hasEmpty="true" 
+          :options="$varieties"
+        />
         <label for="name">名称</label>
         <input name="name" type="text" value="">
         <input id="create" type="button" value="作成">
