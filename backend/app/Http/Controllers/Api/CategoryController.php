@@ -116,16 +116,24 @@ class CategoryController extends Controller
       }
     }
 
+    /**
+     * カテゴリの並び順を更新。
+     */
     public function order(Request $request, $id) {
 
       $from = Category::find($id);
 
       // カテゴリがなかったら終了
       if(is_null($from)) {
-        return response404('category');
+        return response404('The specified category');
       }
 
       $to = Category::where('order_no', $request->order_no)->first();
+
+      // 移動先のカテゴリがなかったら終了
+      if (is_null($to)) {
+        return response404('Destination category');
+      }
 
       // カテゴリを移動するSQL
       $sql1 = <<< SQL
@@ -136,37 +144,39 @@ class CategoryController extends Controller
 
       // 全体的にずらすSQL
       $sql2 = <<< SQL
-        UPDATE categories as c
-        SET c.order_no = c.order_no + (:value)
-        WHERE c.id != :ignore_id
-        AND c.order_no >= :min_order_no
-        AND c.order_no <= :max_order_no
+        UPDATE categories as c SET 
+          c.order_no = c.order_no + (:value)
+        WHERE 
+          c.id != :ignore_id
+          AND c.order_no >= :min_order_no
+          AND c.order_no <= :max_order_no
       SQL;
 
-      DB::update($sql1, [
-        'to_order_no' => $to->order_no,
-        'from_id' => $id
-      ]);
+      DB::beginTransaction();
 
-      DB::update($sql2, [
-        'value' => ($from->order_no < $to->order_no)? -1 : +1,
-        'ignore_id' => $id,
-        'min_order_no' => min($from->order_no, $to->order_no),
-        'max_order_no' => max($from->order_no, $to->order_no)
-      ]);
+      try 
+      {
+        DB::update($sql1, [
+          'to_order_no' => $to->order_no,
+          'from_id'     => $id
+        ]);
+  
+        DB::update($sql2, [
+          'value'        => ($from->order_no < $to->order_no)? -1 : +1,
+          'ignore_id'    => $id,
+          'min_order_no' => min($from->order_no, $to->order_no),
+          'max_order_no' => max($from->order_no, $to->order_no)
+        ]);
 
-      // fromのorder_noを更新しつつ、間のレコードのorder_noを-1する
-      // 前の方に移動する場合
-      // fromのorder_noを更新しつつ、間のレコードのorder_noを+1する
+        DB::commit();
 
-      return response()->json([
-        'message' => 'test',
-        'data' => [ 
-          'id' => $id, 
-          'request' => $request->all(),
-          'from' => $from,
-          'to'   => $to,
-        ]
-      ], 200);
+        return response()->json([
+          'message' => 'category sorted successfully.'
+        ], 200);
+
+      } catch(\Exception $e) {
+        DB::rollBack();
+        response500($e->getMessage());
+      }
     }
 }
