@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\VarietyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::put('/categories/{id}/order', [CategoryController::class, 'order'])->name('categories.order');
 Route::apiResource('/categories', CategoryController::class);
+Route::apiResource('/varieties', VarietyController::class);
+

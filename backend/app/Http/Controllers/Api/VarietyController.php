@@ -25,7 +25,18 @@ class VarietyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      // 表示順の最大値を取得する
+      $order_no = Variety::maxOrderNo();
+
+      // ヴァラエティの新規作成
+      $variety = new Variety();
+      $variety->fill([
+        'name'     => $request->get('name'),
+        'order_no' => $order_no,
+      ])->save();
+
+      // レスポンス
+      return response201('Variety', $variety);
     }
 
     /**

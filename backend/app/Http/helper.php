@@ -1,4 +1,11 @@
 <?php
+function response201($name, $data) {
+  return response()->json([
+    'message' => $name . " created successfully.",
+    'data'    => $data
+  ], 201);
+}
+
 function response404($name) {
   return response()->json([
     'message' => $name . " not found."
