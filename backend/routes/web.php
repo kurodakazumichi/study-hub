@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\CategoryController;
 use App\Http\Controllers\Web\VarietyController;
+use App\Http\Controllers\Web\StudyController;
 use App\Http\Controllers\Web\DebugController;
 
 /*
@@ -24,6 +25,10 @@ Route::patch('/categories/{id}', [CategoryController::class, 'update']);
 
 Route::prefix('/varieties')->group(function() {
   Route::get('/', [VarietyController::class, 'index']);
+});
+
+Route::prefix('/studies')->group(function() {
+  Route::get('/', [StudyController::class, 'index']);
 });
 
 Route::prefix('/debug')->group(function(){

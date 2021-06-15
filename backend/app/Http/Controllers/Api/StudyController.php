@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Study;
+use Exception;
+use App\Http\Requests\StudyStoreRequest;
 
 class StudyController extends Controller
 {
@@ -23,9 +26,17 @@ class StudyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StudyStoreRequest $request)
     {
-        //
+      $study = new Study();
+      $data = array_merge($request->all(), ['order_no' => Study::maxOrderNo()]);
+
+      try{
+        $study->fill($data)->save();
+        return response201('Study', $study);
+      } catch(Exception $e) {
+        return response500($e->getMessage());
+      }
     }
 
     /**
@@ -36,7 +47,6 @@ class StudyController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**

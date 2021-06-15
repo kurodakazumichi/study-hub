@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\VarietyController;
+use App\Http\Controllers\Api\StudyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +26,4 @@ Route::apiResource('/categories', CategoryController::class);
 Route::put('/categories/{id}/order', [CategoryController::class, 'order'])->name('categories.order');
 Route::apiResource('/varieties', VarietyController::class);
 Route::put('/varieties/{id}/order', [VarietyController::class, 'order'])->name('varieties.order');
-
+Route::apiResource('/studies', StudyController::class);

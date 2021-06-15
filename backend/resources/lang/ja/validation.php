@@ -107,6 +107,8 @@ return [
     'attributes' => [
       'name'  => '名前',
       'order_no' => '表示順',
+      'category_id' => 'カテゴリ',
+      'variety_id' => 'バラエティ',
     ],
 
 ];

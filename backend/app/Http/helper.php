@@ -1,27 +1,29 @@
 <?php
+use Illuminate\Http\Response;
 
 function response200($data = []) {
   return response()->json([
     'message' => 'ok',
     'data'    => $data
-  ], 200);
+  ], Response::HTTP_OK);
 }
 
 function response201($name, $data) {
   return response()->json([
     'message' => $name . " created successfully.",
     'data'    => $data
-  ], 201);
+  ], Response::HTTP_CREATED);
 }
 
 function response404($name) {
   return response()->json([
     'message' => $name . " not found."
-  ], 404);
+  ], Response::HTTP_NOT_FOUND);
 }
 
-function response500($msg) {
+function response500($msg, $data = []) {
   return response()->json([
-    'message' => $msg
-  ], 500);
+    'message' => $msg,
+    'data'    => $data,
+  ], Response::HTTP_INTERNAL_SERVER_ERROR);
 }
