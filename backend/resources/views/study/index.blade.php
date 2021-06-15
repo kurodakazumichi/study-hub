@@ -29,6 +29,7 @@
         />
 
         <input type="submit" value="検索">
+        <input type="button" value="リセット" onclick="location.href='/studies'; return false;" >
       </form>
     </section>
 

@@ -17,11 +17,10 @@ use App\Http\Controllers\Web\DebugController;
 |
 */
 Route::get('/', function() { return view('welcome'); });
-Route::get('/categories', [CategoryController::class, 'index']);
-Route::get('/categories/create', [CategoryController::class, 'create']);
-Route::post('/categories/store', [CategoryController::class, 'store']);
-Route::get('/categories/{id}/edit', [CategoryController::class, 'edit']);
-Route::patch('/categories/{id}', [CategoryController::class, 'update']);
+
+Route::prefix('/categories')->group(function() {
+  Route::get('/', [CategoryController::class, 'index']);
+});
 
 Route::prefix('/varieties')->group(function() {
   Route::get('/', [VarietyController::class, 'index']);
