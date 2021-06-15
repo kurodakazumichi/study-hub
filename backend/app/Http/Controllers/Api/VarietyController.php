@@ -59,7 +59,17 @@ class VarietyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $update = [
+        'name'   => $request->name,
+      ];
+
+      $variety = Variety::find($id)->fill($update)->save();
+      
+      if ($variety) {
+        return response200();
+      } else {
+        return response404('Variety');
+      }
     }
 
     /**

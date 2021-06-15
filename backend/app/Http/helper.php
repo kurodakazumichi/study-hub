@@ -1,4 +1,12 @@
 <?php
+
+function response200($data = []) {
+  return response()->json([
+    'message' => 'ok',
+    'data'    => $data
+  ], 200);
+}
+
 function response201($name, $data) {
   return response()->json([
     'message' => $name . " created successfully.",
