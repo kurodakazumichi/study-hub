@@ -45,8 +45,8 @@ class StudyController extends Controller
     $data = [
       'search'     => $search,
       'studies'   => $studies,
-      'categories' => Category::orderBy('order_no')->get(['id', 'name']),
-      'varieties'  => Variety::orderBy('order_no')->get(['id', 'name']),
+      'categories' => Category::orderBy('order_no')->pluck('name', 'id'),
+      'varieties'  => Variety::orderBy('order_no')->pluck('name', 'id'),
     ];
 
     return view('study.index', $data);
@@ -61,8 +61,8 @@ class StudyController extends Controller
 
     return view('study.edit', [
       'study'      => $study,
-      'categories' => Category::orderBy('order_no')->get(['id', 'name']),
-      'varieties'  => Variety::orderBy('order_no')->get(['id', 'name']),      
+      'categories' => Category::orderBy('order_no')->pluck('name', 'id'),
+      'varieties'  => Variety::orderBy('order_no')->pluck('name', 'id'),  
     ]);
   }
 }

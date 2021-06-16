@@ -2,12 +2,12 @@
   @if($hasEmpty)
     <option value="">--</option>
   @endif
-  @foreach($options as $option)
+  @foreach($options as $key => $value)
     <option 
-      value="{{ $option->id }}"
-      @if($selected == $option->id) selected @endif
+      value="{{ $key }}"
+      @if($selected == $key) selected @endif
     >
-      {{ $option->name }}
+      {{ $value }}
     </option>
   @endforeach
 </select>
