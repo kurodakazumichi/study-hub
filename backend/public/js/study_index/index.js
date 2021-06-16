@@ -86,8 +86,114 @@ function SetupCreateForm()
   $('#create-button').on('click', createIndexAsync);
 }
 
+//-----------------------------------------------------------------------------
+// 編集フォームクラス
+//-----------------------------------------------------------------------------
+class EditForm 
+{
+  constructor() {
+    this.form = $('#edit-form');
+    this.index_id = this.form.find('[name=id]');
+    this.study_id = this.form.find('[name=study_id]');
+    this.title = this.form.find('[name=title]');
+    this.index = this.form.find('[name=index]');
+    this.mastery = this.form.find('[name=mastery]');
+    this.comment = this.form.find('[name=comment]');
+
+    $('#edit-button').on('click', this.update.bind(this));
+  }
+
+  init(index_id) {
+    this.index_id.val(index_id);
+
+    $.ajax({
+      url     : `/api/studies/${this.studyId}/indices/${this.indexId}`, 
+      type    : 'get',
+    })
+    .done((res) => {
+      this.index.val(this.toIndex(res.data.major, res.data.minor, res.data.micro));
+      this.title.val(res.data.title);
+      this.mastery.val(res.data.mastery);
+      this.comment.val(res.data.comment);
+    });
+  }
+
+  update() 
+  {
+    console.log(this.data);
+    $.ajax({
+      url     : `/api/studies/${this.studyId}/indices/${this.indexId}`, 
+      type    : 'put',
+      data    : this.data,
+      dataType: 'json',
+    })
+    .done((res) => {
+      location.reload();
+    });
+  }
+
+  get indexId() {
+    return this.index_id.val();
+  }
+
+  get studyId() {
+    return this.study_id.val();
+  }
+
+  get major() {
+    const major = this.index.val().split('.')[0];
+    return (major !== "0" && !major)? null : major;
+  }
+
+  get minor() {
+    const minor = this.index.val().split('.')[1];
+    return (minor !== "0" && !minor)? null : minor;
+  }
+
+  get micro() {
+    const micro = this.index.val().split('.')[2];
+    return (micro !== "0" && !micro)? null : micro;
+  }
+
+  get data() {
+    const data = {
+      major: this.major,
+      minor: this.minor,
+      micro: this.micro,
+      mastery: this.mastery.val(),
+      title: this.title.val(),
+      comment: this.comment.val(),
+    }
+
+    return data;
+  }
+
+  toIndex(major, minor, micro) {
+
+    let index = "";
+    if (major) {
+      index += major + ".";
+    }
+    if (minor) {
+      index += minor + ".";
+    }
+    if (micro) {
+      index += micro;
+    }
+    return index;
+  }
+}
+
+function SetupEditButton() {
+  const form = new EditForm();
+  $(".edit-button").on('click', (e) => {
+    form.init($(e.target).data('id'));
+  });
+}
+
 // 初期処理
 $(() => {
   SetupBatch();
   SetupCreateForm();
+  SetupEditButton();
 });

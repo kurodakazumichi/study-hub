@@ -13,6 +13,22 @@ export UID=$(id -u)
 export GID=$(id -g)
 ```
 
+## DBの切り替え
+
+DBのデータ保存先は環境変数で指定可能、指定しない場合はデフォルトで`./db/dev`が使われる。
+
+```
+# `./db/prod`にデータを保存する場合
+export DB_ENV=(prod)
+```
+
+## 環境変数表示
+```
+echo $UID
+echo $GID
+echo $DB_ENV
+```
+
 ## 初回
 
 gitからcloneしてきた直後は以下のコマンドで環境を作成する。

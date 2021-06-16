@@ -12,6 +12,20 @@ class StudyIndexController extends Controller
 {
   public function index(Request $request, $id) 
   {
+    $masteries = [
+      '未読',
+      'Lv1',
+      'Lv2',
+      'Lv3',
+      'Lv4',
+      'Lv5',
+      'Lv6',
+      'Lv7',
+      'Lv8',
+      'Lv9',
+      'Master'
+    ];
+
     $study = Study::findOrFail($id);
     $indices = StudyIndex::where('study_id', $id)
       ->orderBy('major')
@@ -22,7 +36,8 @@ class StudyIndexController extends Controller
 
     return view('study_index.index', [
       'study'   => $study,
-      'indices' => $indices
+      'indices' => $indices,
+      'masteries' => $masteries
     ]);
   }
 }

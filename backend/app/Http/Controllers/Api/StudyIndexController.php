@@ -25,6 +25,18 @@ class StudyIndexController extends Controller
       return response201('index', $index);
     }
 
+    public function update(Request $request, $study_id, $index_id)
+    {
+      $index = StudyIndex::findOrFail($index_id);
+      $index->fill($request->all())->save();
+      return response200();
+    }
+
+    public function show($study_id, $index_id) {
+      $index = StudyIndex::findOrFail($index_id);
+      return response200($index);
+    }
+
     /**
      * CSVによる一括登録処理
      */

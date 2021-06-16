@@ -33,4 +33,6 @@ Route::put('/studies/{id}/sort', [StudyController::class, 'sort'])->name('studie
 Route::prefix('/studies/{study_id}/indices')->group(function() {
   Route::post('/'     , [StudyIndexController::class, 'store'])->name('studies.indices.store');
   Route::post('/batch', [StudyIndexController::class, 'batch'])->name('studies.indices.batch');
+  Route::get('/{index_id}', [StudyIndexController::class, 'show'])->name('studies.indices.show');
+  Route::put('/{index_id}', [StudyIndexController::class, 'update'])->name('studies.indices.update');
 });

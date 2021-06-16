@@ -22,7 +22,7 @@ class CreateStudyIndicesTable extends Migration
         $table->tinyInteger('minor')->nullable();
         $table->tinyInteger('micro')->nullable();;
         $table->string('title');
-        $table->string('comment')->default('');
+        $table->string('comment')->nullable();
         $table->integer('note_id')->nullable();
         $table->timestamps();
       });
@@ -35,6 +35,6 @@ class CreateStudyIndicesTable extends Migration
      */
     public function down()
     {
-      Schema::dropIfExists('study_indeces');
+      Schema::dropIfExists('study_indices');
     }
 }
