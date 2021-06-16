@@ -4,6 +4,12 @@
 function SetupBatch() {
 
   $("#batch-file-button").on('change', (e) => {
+
+    if (confirm("既に登録されているデータは全て削除されますが本当によろしいですか？") === false) {
+      return;
+    }
+
+
     var file_reader = new FileReader();
 
     // ファイルの読み込みを行ったら実行
