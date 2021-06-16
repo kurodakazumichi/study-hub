@@ -1,9 +1,11 @@
 @extends('layouts.default')
 
-@section('title', 'StudyIndex')
+@section('title', $study->name)
 @section('js', 'study_index/index.js')
 
 @section('main')
+
+<h1>{{ $study->name }}</h1>
 
 <form id="create-form">
   <input type="hidden" name="id" value="{{ $study->id }}">
@@ -11,6 +13,11 @@
   <input type="text" name="index" size="1" value="">
   <input type="text" name="title" size="64" value="">
   <input type="button" value="作成" id="create-button">
+</form>
+
+<form id="batch-form">
+  <input type="hidden" name="id" value="{{ $study->id }}">
+  <input type="file" name="file" value="ファイル送信" id="batch-file-button">
 </form>
 
 <table>

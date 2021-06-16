@@ -21,6 +21,12 @@ function response404($name) {
   ], Response::HTTP_NOT_FOUND);
 }
 
+function response422($errors) {
+  return response()->json([
+    'errors' => $errors,
+  ], Response::HTTP_UNPROCESSABLE_ENTITY);
+}
+
 function response500($msg, $data = []) {
   return response()->json([
     'message' => $msg,
