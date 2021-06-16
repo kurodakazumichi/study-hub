@@ -92,6 +92,7 @@ function SetupCreateForm()
 class EditForm 
 {
   constructor() {
+    this.root = $('#edit-container');
     this.form = $('#edit-form');
     this.index_id = this.form.find('[name=id]');
     this.study_id = this.form.find('[name=study_id]');
@@ -100,10 +101,20 @@ class EditForm
     this.mastery = this.form.find('[name=mastery]');
     this.comment = this.form.find('[name=comment]');
 
+    this.hide();
     $('#edit-button').on('click', this.update.bind(this));
   }
 
+  show() {
+    this.root.css('display', 'block');
+  }
+
+  hide() {
+    this.root.css('display', 'none');
+  }
+
   init(index_id) {
+    this.show();
     this.index_id.val(index_id);
 
     $.ajax({

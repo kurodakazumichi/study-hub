@@ -4,7 +4,16 @@
 @section('js', 'study_index/index.js')
 
 @section('main')
+<style>
+#edit-container {
+  position: fixed;
+  bottom: 0;
+  background-color: #dad8da;
+  padding: 10px;
+  width: 100%;
+}
 
+</style>
 <h1>{{ $study->name }}</h1>
 
 <h2>新規フォーム</h2>
@@ -17,7 +26,7 @@
   <input type="button" value="作成" id="create-button">
 </form>
 
-<div>
+<div id="edit-container">
   <h2>編集フォーム</h2>
   <form id="edit-form">
     <input type="hidden" name="id">
