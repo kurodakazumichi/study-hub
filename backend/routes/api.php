@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\VarietyController;
 use App\Http\Controllers\Api\StudyController;
+use App\Http\Controllers\Api\StudyIndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,7 @@ Route::apiResource('/varieties', VarietyController::class);
 Route::put('/varieties/{id}/order', [VarietyController::class, 'order'])->name('varieties.order');
 Route::apiResource('/studies', StudyController::class);
 Route::put('/studies/{id}/sort', [StudyController::class, 'sort'])->name('studies.sort');
+
+Route::prefix('/studies/{study_id}/indices')->group(function() {
+  Route::post('/', [StudyIndexController::class, 'store'])->name('studies.indices.store');
+});

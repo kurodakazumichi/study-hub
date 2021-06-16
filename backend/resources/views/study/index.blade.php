@@ -56,7 +56,7 @@
               <td>{{ $study->updated_at->format('Y年m月d日') }}</td>
               <td>
                 <a href="/studies/{{ $study->id }}/edit">編集</a>
-                <a href="/study_indeces/{{ $study->id }}">目次</a>
+                <a href="/studies/{{ $study->id }}/indices">目次</a>
               </td>
             </tr>          
           @endforeach

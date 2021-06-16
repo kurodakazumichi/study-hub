@@ -32,8 +32,8 @@ Route::prefix('/studies')->group(function() {
   Route::get('/{id}/edit', [StudyController::class, 'edit']);
 });
 
-Route::prefix('study_indeces')->group(function() {
-  Route::get('/{study_id}', [StudyIndexController::class, 'index']);
+Route::prefix('studies/{study_id}/indices')->group(function() {
+  Route::get('/', [StudyIndexController::class, 'index']);
 });
 
 Route::prefix('/debug')->group(function(){
