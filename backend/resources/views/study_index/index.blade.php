@@ -60,11 +60,28 @@
     @foreach($indices as $index)
       <tr>
         <td>
-          {{ $index->major }}.
-          @if(!is_null($index->minor)){{ $index->minor }}.@endif
-          @if(!is_null($index->micro)){{ $index->micro }}.@endif
+          @if(is_null($index->minor) && is_null($index->micro))
+            {{$index->major}}
+          @endif
+          @if(!is_null($index->minor) && is_null($index->micro))
+            {{$index->major}}.{{$index->minor}}
+          @endif          
+          @if(!is_null($index->minor) && !is_null($index->micro))
+            {{$index->major}}.{{$index->minor}}.{{$index->micro}}
+          @endif
         </td>
-        <td>{{ $index->title }}</td>
+        <td>
+          @if(is_null($index->minor) && is_null($index->micro))
+            <span style="font-size:16px; font-weight:bold;">{{ $index->title }}</span>
+          @endif
+          @if(!is_null($index->minor) && is_null($index->micro))
+            <span style="font-size:14px;">{{ $index->title }}</span>
+          @endif          
+          @if(!is_null($index->minor) && !is_null($index->micro))
+            <span style="font-size:12px;">{{ $index->title }}</span>
+          @endif        
+          
+        </td>
         <td>
           {{ $masteries[$index->mastery] }}
         </td>
