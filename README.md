@@ -3,32 +3,6 @@
 ## 参考サイト
 https://qiita.com/ucan-lab/items/56c9dc3cf2e6762672f4
 
-## 共通事項
-
-ホストのユーザID、グループIDを環境変数に設定する。
-(ホストとコンテナでユーザIDとグループIDが揃ってないとPermission周りで苦労する)
-
-```
-export UID=$(id -u)
-export GID=$(id -g)
-```
-
-## DBの切り替え
-
-DBのデータ保存先は環境変数で指定可能、指定しない場合はデフォルトで`./db/dev`が使われる。
-
-```
-# `./db/prod`にデータを保存する場合
-export DB_ENV=(prod)
-```
-
-## 環境変数表示
-```
-echo $UID
-echo $GID
-echo $DB_ENV
-```
-
 ## 初回
 
 gitからcloneしてきた直後は以下のコマンドで環境を作成する。
@@ -98,7 +72,10 @@ https://qiita.com/_masa_u/items/d3c1fa7898b0783bc3ed
 
 ## appコンテナでファイルを作成するとホストから操作できない
 
-Dockerホストとコンテナでuser_idやgroup_idが揃ってない事が原因のようだ。
-`docker-compose.yml`にて、[app]コンテナを起動する際のユーザIDとグループIDを
-環境変数を参照するようにした。
-また`/etc/group`、`/etc/passwd`をappコンテナにマウントする。
+Dockerホストとコンテナでuser_idやgroup_idが揃ってないといろんなところで問題が起こる。
+
+あれこれしたが、コンテナはだいたいrootユーザで動く事を前提にしていたり
+もしくはなんらか特定のユーザで動作する想定で作られていたりするので
+コンテナ内のユーザを変えたりなんだったりするとこれまたおかしなことが起こる。
+
+最終的にWSL側のUbuntuをrootユーザにしてしまうことで今のところ落ち着いている。
