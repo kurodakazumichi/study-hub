@@ -32,19 +32,9 @@
     <input type="hidden" name="id">
     Index:<input type="text" name="index"><br>
     title:<input type="text" name="title"><br>
-    mastery:<select name="mastery">
-      <option value="0">未読</option>
-      <option value="1">Lv.1</option>
-      <option value="2">Lv.2</option>
-      <option value="3">Lv.3</option>
-      <option value="4">Lv.4</option>
-      <option value="5">Lv.5</option>
-      <option value="6">Lv.6</option>
-      <option value="7">Lv.7</option>
-      <option value="8">Lv.8</option>
-      <option value="9">Lv.9</option>
-      <option value="10">Master</option>
-    </select><br>
+    mastery:<x-forms.drop-box 
+      id="" name="mastery" :options="App\Consts\StudyIndexConsts::MASTERIES"
+    /><br>
     コメント：<input type="text" name="comment">
     <input type="button" value="更新" id="edit-button">
   </form>
@@ -92,7 +82,7 @@
           
         </td>
         <td>
-          {{ $masteries[$index->mastery] }}
+          {{ \App\Consts\StudyIndexConsts::MASTERIES[$index->mastery] }}
         </td>
         <td>
           <div style="background-color:blue; border-radius:3px; width:{{ $index->mastery * 10 }}px;">&nbsp</div>

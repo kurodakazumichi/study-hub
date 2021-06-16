@@ -17,7 +17,7 @@ class DropBox extends Component
    *
    * @return void
    */
-  public function __construct($id, $name, $options, $hasEmpty = false, $selected="")
+  public function __construct($name, $options, $id = "", $hasEmpty = false, $selected="")
   {
     $this->id       = $id;
     $this->name     = $name;
