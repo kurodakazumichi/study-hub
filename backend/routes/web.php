@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\VarietyController;
 use App\Http\Controllers\Web\StudyController;
 use App\Http\Controllers\Web\DebugController;
 use App\Http\Controllers\Web\StudyIndexController;
+use App\Http\Controllers\Web\StudyProblemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,10 @@ Route::prefix('/studies')->group(function() {
 
 Route::prefix('studies/{study_id}/indices')->group(function() {
   Route::get('/', [StudyIndexController::class, 'index']);
+});
+
+Route::prefix('studies/{study_id}/problems')->group(function() {
+  Route::get('/', [StudyProblemController::class, 'index']);
 });
 
 Route::prefix('/debug')->group(function(){

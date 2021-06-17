@@ -23,8 +23,8 @@ class StudyProblemConsts
   public const KINDS = [
     0 => '例題',
     1 => 'EX',
-    2 => 'EXERCISES'
+    2 => 'EXERCISES',
     3 => '演習',
     4 => '章末問題',
-  ]
+  ];
 }
