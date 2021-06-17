@@ -16,6 +16,22 @@
 </style>
 <h1>{{ $study->name }}</h1>
 
+<h2>検索フォーム</h2>
+<form action="/studies/{{ $study->id }}/problems" method="get">
+  <x-forms.drop-box 
+    name="kind"
+    :options="\App\Consts\StudyProblemConsts::KINDS"
+    :hasEmpty="true"
+    :selected="$search['kind']"
+  />
+  <x-forms.drop-box 
+    id="" name="mastery" :options="App\Consts\StudyProblemConsts::MASTERIES"
+    :hasEmpty="true"
+    :selected="$search['mastery']"
+  />以下
+  <input type="submit" value="検索">
+</form>
+
 <h2>新規フォーム</h2>
 <form id="create-form">
   <input type="hidden" name="study_id" value="{{ $study->id }}">
