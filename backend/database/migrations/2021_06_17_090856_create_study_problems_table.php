@@ -15,6 +15,15 @@ class CreateStudyProblemsTable extends Migration
     {
       Schema::create('study_problems', function (Blueprint $table) {
         $table->id();
+        $table->integer('study_id');
+        $table->tinyInteger('kind');
+        $table->tinyInteger('mastery')->default(0);
+        $table->tinyInteger('major');
+        $table->tinyInteger('minor')->nullable();
+        $table->tinyInteger('micro')->nullable();;
+        $table->string('title');
+        $table->string('comment')->nullable();
+        $table->integer('note_id')->nullable();        
         $table->timestamps();
       });
     }
