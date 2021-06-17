@@ -57,6 +57,7 @@
               <td>
                 <a href="/studies/{{ $study->id }}/edit">編集</a>
                 <a href="/studies/{{ $study->id }}/indices">目次</a>
+                <a href="/studies/{{ $study->id }}/problems">問題</a>
               </td>
             </tr>          
           @endforeach
