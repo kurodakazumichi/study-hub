@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title', $study->name)
-@section('js', 'study_index/index.js')
+@section('js', 'study_problem/index.js')
 
 @section('main')
 <style>
@@ -18,7 +18,6 @@
 
 <h2>新規フォーム</h2>
 <form id="create-form">
-  <input type="hidden" name="index_id">
   <input type="hidden" name="study_id" value="{{ $study->id }}">
   <x-forms.drop-box 
     name="kind"
@@ -34,10 +33,14 @@
   <h2>編集フォーム</h2>
   <form id="edit-form">
     <input type="hidden" name="id">
-    Index:<input type="text" name="index"><br>
-    title:<input type="text" name="title"><br>
+    <input type="hidden" name="study_id" value="{{ $study->id }}">
+    <x-forms.drop-box 
+      name="kind"
+      :options="\App\Consts\StudyProblemConsts::KINDS"
+    />    
+    <input type="text" name="index" size="2"><input type="text" name="title" size="64"><br>
     mastery:<x-forms.drop-box 
-      id="" name="mastery" :options="App\Consts\StudyIndexConsts::MASTERIES"
+      id="" name="mastery" :options="App\Consts\StudyProblemConsts::MASTERIES"
     /><br>
     コメント：<input type="text" name="comment">
     <input type="button" value="更新" id="edit-button">
@@ -57,6 +60,7 @@
     @foreach($problems as $problem)
       <tr>
         <td>
+          {{ \App\Consts\StudyProblemConsts::KINDS[$problem->kind] }}
           @if(is_null($problem->minor) && is_null($problem->micro))
             {{$problem->major}}
           @endif
@@ -69,7 +73,7 @@
         </td>
         <td>
           @if(is_null($problem->minor) && is_null($problem->micro))
-            <span style="font-size:16px; font-weight:bold;">{{ $problem->title }}</span>
+            <span style="font-size:16px;">{{ $problem->title }}</span>
           @endif
           @if(!is_null($problem->minor) && is_null($problem->micro))
             <span style="font-size:14px;">{{ $problem->title }}</span>
@@ -83,7 +87,7 @@
           {{ \App\Consts\StudyProblemConsts::MASTERIES[$problem->mastery] }}
         </td>
         <td>
-          <div style="background-color:blue; border-radius:3px; width:{{ $index->mastery * 10 }}px;">&nbsp</div>
+          <div style="background-color:blue; border-radius:3px; width:{{ $problem->mastery * 10 }}px;">&nbsp</div>
         </td>
         <td>{{ $problem->comment }}</td>
         <td>

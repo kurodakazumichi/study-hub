@@ -3,62 +3,34 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\StudyProblem;
 use Illuminate\Http\Request;
 
 class StudyProblemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $study_id)
     {
-        //
+      $data = array_merge($request->all(), ['study_id' => $study_id]);
+      $problem = new StudyProblem();
+      $problem->fill($data)->save();
+      return response201('problem', $problem);
+    }
+ 
+    public function update(Request $request, $study_id, $problem_id)
+    {
+       $problem = StudyProblem::findOrFail($problem_id);
+       $problem->fill($request->all())->save();
+       return response200();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    public function show($study_id, $problem_id) {
+      $problem = StudyProblem::findOrFail($problem_id);
+      return response200($problem);
+    }     
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\VarietyController;
 use App\Http\Controllers\Api\StudyController;
 use App\Http\Controllers\Api\StudyIndexController;
+use App\Http\Controllers\Api\StudyProblemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +36,10 @@ Route::prefix('/studies/{study_id}/indices')->group(function() {
   Route::post('/batch', [StudyIndexController::class, 'batch'])->name('studies.indices.batch');
   Route::get('/{index_id}', [StudyIndexController::class, 'show'])->name('studies.indices.show');
   Route::put('/{index_id}', [StudyIndexController::class, 'update'])->name('studies.indices.update');
+});
+
+Route::prefix('/studies/{study_id}/problems')->group(function() {
+  Route::post('/'         , [StudyProblemController::class, 'store'])->name('studies.problems.store');
+  Route::get('/{index_id}', [StudyProblemController::class, 'show'])->name('studies.problems.show');
+  Route::put('/{index_id}', [StudyProblemController::class, 'update'])->name('studies.problems.update');  
 });
