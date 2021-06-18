@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Study extends Model
 {
   use HasFactory;
-  protected $fillable = ['category_id', 'variety_id', 'name', 'order_no', 'link'];
+  protected $fillable = ['category_id', 'variety_id', 'name', 'order_no', 'link', 'note_id'];
   public static $rules = [
     'category_id' => ['required', 'exists:categories,id'],
     'variety_id'  => ['required', 'exists:varieties,id'],
     'name'        => 'required',
     'order_no'    => 'required|integer|min:0',
     'link'        => 'max:255',
+    'note_id'     => ['exists:notes,id'],
   ];
 
   public function category() {
@@ -23,6 +24,10 @@ class Study extends Model
 
   public function variety() {
     return $this->belongsTo(Variety::class);
+  }
+
+  public function note() {
+    return $this->belongsTo(Note::class);
   }
 
   public static function maxOrderNo() {

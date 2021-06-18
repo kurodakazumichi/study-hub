@@ -52,7 +52,13 @@
             <tr id="{{ $study->id }}">
               <td>{{ $study->id }}</td>
               <td>{{ $categories[$study->category_id] }}:{{ $varieties[$study->variety_id] }}</td>
-              <td>{{ $study->name }}</td>
+              <td>
+                @if (empty($study->note_id))
+                  {{ $study->name }}
+                @else
+                  <a href="/notes/{{ $study->note_id }}/show">{{ $study->name }}</a>  
+                @endif
+              </td>
               <td>
                 {{ $study->progress }}%
               </td>

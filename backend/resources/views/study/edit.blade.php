@@ -34,6 +34,9 @@
 
         <label for="link">リンク</label>
         <input type="text" name="link" size="50" value="{{ $study->link }}"><br>
+
+        <label for="note_id">ノートID</label>
+        <input type="text" name="note_id" size="1" value="{{ $study->note_id }}"><br>        
         <input id="create" type="button" value="編集">
       </form>    
     </section>    
