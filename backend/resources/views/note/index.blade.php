@@ -51,7 +51,9 @@
             <tr>
               <td>{{ $note->id }}</td>
               <td>{{ $categories[$note->category_id] }}:{{ $varieties[$note->variety_id] }}</td>
-              <td>{{ $note->title }}</td>
+              <td>
+                <a href="/notes/{{ $note->id }}/show">{{ $note->title }}</a>
+              </td>
               <td>
                 <a href="/notes/{{ $note->id }}/edit">編集</a>
               </td>

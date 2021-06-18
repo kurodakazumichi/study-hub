@@ -37,7 +37,7 @@ class NoteController extends Controller
     ]);
   }
 
-  public function edit(Request $request, $id) 
+  public function edit($id) 
   {
     $note = Note::findOrFail($id);
     return view('note.edit', [
@@ -45,5 +45,15 @@ class NoteController extends Controller
       'categories' => Category::orderBy('order_no')->pluck('name', 'id'),
       'varieties'  => Variety::orderBy('order_no')->pluck('name', 'id'),
     ]);
-  }  
+  }
+
+  public function show($id) {
+    $note = Note::findOrFail($id);
+
+    return view('note.show', [
+      'note'       => $note,
+      'categories' => Category::orderBy('order_no')->pluck('name', 'id'),
+      'varieties'  => Variety::orderBy('order_no')->pluck('name', 'id'),
+    ]);
+  }
 }
