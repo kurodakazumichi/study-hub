@@ -9,7 +9,6 @@ function SetupBatch() {
       return;
     }
 
-
     var file_reader = new FileReader();
 
     // ファイルの読み込みを行ったら実行
@@ -51,7 +50,7 @@ function SetupCreateForm()
   const createIndexAsync = () => 
   {
     const form = $("#create-form");
-    const study_id = form.find("[name=id]").val();
+    const study_id = form.find("[name=study_id]").val();
     const indices  = form.find("[name=index]").val().split('.');
 
     const data = {
