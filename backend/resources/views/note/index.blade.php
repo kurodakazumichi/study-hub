@@ -31,7 +31,7 @@
         />
 
         <input type="submit" value="検索">
-        <input type="button" value="リセット" onclick="location.href='/studies'; return false;" >
+        <input type="button" value="リセット" onclick="location.href='/notes'; return false;" >
       </form>
     </section>
 
@@ -48,12 +48,12 @@
         </thead>
         <tbody id="sortdata">
           @foreach($notes as $note)
-            <tr id="{{ $study->id }}">
+            <tr>
               <td>{{ $note->id }}</td>
               <td>{{ $categories[$note->category_id] }}:{{ $varieties[$note->variety_id] }}</td>
               <td>{{ $note->title }}</td>
               <td>
-                <a href="/studies/{{ $study->id }}/edit">編集</a>
+                <a href="/notes/{{ $note->id }}/edit">編集</a>
               </td>
             </tr>          
           @endforeach
