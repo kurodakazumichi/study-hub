@@ -79,3 +79,14 @@ Dockerホストとコンテナでuser_idやgroup_idが揃ってないといろ�
 コンテナ内のユーザを変えたりなんだったりするとこれまたおかしなことが起こる。
 
 最終的にWSL側のUbuntuをrootユーザにしてしまうことで今のところ落ち着いている。
+
+## DBのバックアップ
+
+```
+# フォーマット
+docker exec -it `コンテナ名` mysqldump --single-transaction -u`DBユーザ` -p`DBパスワード` `DB名` > `出力先のパス`
+
+# サンプル
+docker exec -it study-hub_db_1 mysqldump --single-transaction -uphper -psecret laravel > ./dump.sql
+mv ./dump.sql /mnt/d/backup/study-hub/db_`date "+%Y%m%d_%H%M%S"`.dump
+```
