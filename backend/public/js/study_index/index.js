@@ -182,13 +182,13 @@ class EditForm
   toIndex(major, minor, micro) {
 
     let index = "";
-    if (major) {
+    if (typeof(major) === 'number') {
       index += major + ".";
     }
-    if (minor) {
+    if (typeof(minor) === 'number') {
       index += minor + ".";
     }
-    if (micro) {
+    if (typeof(micro) === 'number') {
       index += micro;
     }
     return index;

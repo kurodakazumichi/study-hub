@@ -84,7 +84,7 @@
             {{$problem->major}}.{{$problem->minor}}
           @endif          
           @if(!is_null($problem->minor) && !is_null($problem->micro))
-            {{$problem->major}}.{{$index->minor}}.{{$problem->micro}}
+            {{$problem->major}}.{{$problem->minor}}.{{$problem->micro}}
           @endif
         </td>
         <td>
