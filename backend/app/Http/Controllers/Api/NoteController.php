@@ -8,25 +8,21 @@ use Illuminate\Http\Request;
 class NoteController extends Controller
 {
   /**
-    * Store a newly created resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @return \Illuminate\Http\Response
-    */
+   * Store a newly created resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @return \Illuminate\Http\Response
+   */
   public function store(Request $request)
   {
-      //
-  }
+    $note = new Note();
 
-  /**
-    * Display the specified resource.
-    *
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
-  public function show($id)
-  {
-      //
+    try{
+      $note->fill($request->all())->save();
+      return response201('Note', $note);
+    } catch(Exception $e) {
+      return response500($e->getMessage());
+    }
   }
 
   /**
@@ -36,9 +32,28 @@ class NoteController extends Controller
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-  public function update(Request $request, $id)
+    public function update(Request $request, $id)
+    {
+      $note = Note::findOrFail($id);
+
+      try{
+        $note->fill($request->all())->save();
+        return response200('Note', $note);
+      } catch(Exception $e) {
+        return response500($e->getMessage());
+      }
+    }  
+
+  /**
+    * Display the specified resource.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+  public function show($id)
   {
-      //
+    $note = Note::findOrFail($id);
+    return response200($note);
   }
 
   /**
