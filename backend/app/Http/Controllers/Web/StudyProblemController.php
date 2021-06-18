@@ -30,7 +30,7 @@ class StudyProblemController extends Controller
       $problems = $problems->where('kind', $search['kind']);
     }
 
-    if (!is_null($search['mastery'] && $search['mastery'] !== "")) {
+    if (!is_null($search['mastery']) && $search['mastery'] !== "") {
       $problems = $problems->where('mastery', '<=', $search['mastery']);
     }
 
