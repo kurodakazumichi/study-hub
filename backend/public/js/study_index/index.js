@@ -99,6 +99,7 @@ class EditForm
     this.index = this.form.find('[name=index]');
     this.mastery = this.form.find('[name=mastery]');
     this.comment = this.form.find('[name=comment]');
+    this.note_id = this.form.find('[name=note_id]');
     this.link    = this.form.find('[name=link]');
 
     this.hide();
@@ -175,7 +176,8 @@ class EditForm
       mastery: this.mastery.val(),
       title: this.title.val(),
       comment: this.comment.val(),
-      link: this.link.val(),      
+      link: this.link.val(),
+      note_id: this.note_id.val(),
     }
 
     return data;

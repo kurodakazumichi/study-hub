@@ -37,7 +37,9 @@
     /><br>
     コメント：<input type="text" name="comment"><br>
     リンク：<input type="text" name="link" size="50"><br>
+    ノートID：<input type="text" name="note_id" size="2"><br>
     <input type="button" value="更新" id="edit-button">
+    
   </form>
 </div>
 
@@ -80,8 +82,8 @@
           @endif          
           @if(!is_null($index->minor) && !is_null($index->micro))
             <span style="font-size:12px;">{{ $index->title }}</span>
-          @endif        
-          
+          @endif
+
         </td>
         <td>
           {{ \App\Consts\StudyIndexConsts::MASTERIES[$index->mastery] }}
@@ -91,6 +93,9 @@
         </td>
         <td>{{ $index->comment }}</td>
         <td>
+          @if (!empty($index->note_id))
+            <a href="/notes/{{ $index->note_id }}/show">ノート</a>
+          @endif        
           @if (!empty($index->link))
             <a href="{{$index->link}}" target="_blank">関連</a>
           @endif
@@ -102,7 +107,7 @@
           @endif
           @if (0 < $index->mastery)
             <button data-id="{{ $index->id }}" data-study_id="{{ $study->id }}" data-mastery="{{ $index->mastery - 1 }}" class="edit-mastery">－</button>
-          @endif          
+          @endif
         </td>
       </tr>
     @endforeach
