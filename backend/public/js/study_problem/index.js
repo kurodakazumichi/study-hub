@@ -57,6 +57,7 @@ class EditForm
     this.mastery = this.form.find('[name=mastery]');
     this.kind    = this.form.find('[name=kind]');
     this.comment = this.form.find('[name=comment]');
+    this.note_id = this.form.find('[name=note_id]');
 
     this.hide();
     $('#edit-button').on('click', this.update.bind(this));
@@ -82,6 +83,7 @@ class EditForm
       this.title.val(res.data.title);
       this.mastery.val(res.data.mastery);
       this.comment.val(res.data.comment);
+      this.note_id.val(res.data.note_id);
     });
   }
 
@@ -131,6 +133,7 @@ class EditForm
       title: this.title.val(),
       kind: this.kind.val(),
       comment: this.comment.val(),
+      note_id: this.note_id.val(),
     }
 
     return data;

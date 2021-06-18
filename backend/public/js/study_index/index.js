@@ -128,6 +128,7 @@ class EditForm
       this.mastery.val(res.data.mastery);
       this.comment.val(res.data.comment);
       this.link.val(res.data.link);      
+      this.note_id.val(res.data.note_id);
     });
   }
 
