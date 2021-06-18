@@ -90,6 +90,12 @@
         <td>{{ $index->comment }}</td>
         <td>
           <button data-id="{{ $index->id }}" class="edit-button">編集</button>
+          @if ($index->mastery < 10)
+            <button data-id="{{ $index->id }}" data-study_id="{{ $study->id }}" data-mastery="{{ $index->mastery + 1 }}" class="edit-mastery">＋</button>
+          @endif
+          @if (0 < $index->mastery)
+            <button data-id="{{ $index->id }}" data-study_id="{{ $study->id }}" data-mastery="{{ $index->mastery - 1 }}" class="edit-mastery">－</button>
+          @endif          
         </td>
       </tr>
     @endforeach

@@ -202,9 +202,32 @@ function SetupEditButton() {
   });
 }
 
+//-----------------------------------------------------------------------------
+// Masteru Update
+//-----------------------------------------------------------------------------
+function SetupMasteryUpdate() {
+  $('.edit-mastery').on('click', (e) => {
+    const target = $(e.target);
+    const indexId = target.data('id');
+    const studyId = target.data('study_id');
+    const mastery = target.data('mastery');
+
+    $.ajax({
+      url     : `/api/studies/${studyId}/indices/${indexId}`, 
+      type    : 'put',
+      data    : {mastery},
+      dataType: 'json',
+    })
+    .done((res) => {
+      location.reload();
+    });    
+  });
+}
+
 // 初期処理
 $(() => {
   SetupBatch();
   SetupCreateForm();
   SetupEditButton();
+  SetupMasteryUpdate();
 });
