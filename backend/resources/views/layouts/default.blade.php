@@ -16,7 +16,7 @@
   <body>
     @if( config('app.env') !== "production")
     <div id="app-env" style="background-color:#444; font-size:8px; padding:2px; color:white;">
-      {{ config('app.env') }}
+      <a href="/debug" style="color:white;">{{ config('app.env') }}</a>
     </div>
     @endif
 
@@ -25,6 +25,7 @@
       <a href="/categories">category</a>
       <a href="/varieties">variety</a>
       <a href="/studies">study</a>
+      <a href="/notes">note</a>
     </header>
     @section('main')
     @show

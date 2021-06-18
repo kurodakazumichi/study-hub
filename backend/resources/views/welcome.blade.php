@@ -27,6 +27,7 @@
           <a href="/categories">categories</a><br>
           <a href="/varieties">variety</a><br>
           <a href="/studies">study</a><br>
+          <a href="/notes">note</a><br>
         </div>
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
