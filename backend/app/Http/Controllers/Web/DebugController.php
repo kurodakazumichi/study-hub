@@ -26,11 +26,70 @@ class DebugController extends Controller
   public function query() 
   {
     DB::enableQueryLog();
+
+    //$this->query01();
+    //$this->query02();
+    $this->query03();
+    dd(DB::getQueryLog());
+  }
+
+  private function query01() {
+    // テーブルの結合
     $studies = Study::with(['category', 'variety'])->orderBy('order_no')->get();
     foreach($studies as $study) {
       echo $study->category->id;
       echo $study->category->name;
     }
-    dd(DB::getQueryLog());
+  }
+  private function query02() {
+    // 生クエリ
+    $sql = <<< SQL
+      SELECT
+        s.id,
+        s.name,
+        s.category_id,
+        s.variety_id,
+        count(i.id) as index_count,
+        sum(CASE WHEN i.mastery != 0 THEN 1 ELSE 0 END) as finished_count,
+        sum(i.mastery) as mastery
+      FROM       
+        studies as s
+        INNER JOIN study_indices as i
+          ON s.id = i.study_id
+      WHERE
+        1 = 1
+        AND s.category_id = 1
+      GROUP BY i.study_id
+      ORDER BY 
+        s.category_id asc, 
+        s.variety_id asc,
+        s.order_no asc
+    SQL;
+
+    echo DB::escape(";a");
+    $studies = DB::select($sql);
+    print_r($studies);
+  }
+
+  private function query03() {
+    $studies = DB::table('studies as s')
+      ->join('study_indices as i', 's.id', '=', 'i.study_id')
+      ->select(
+        's.id',
+        's.name',
+        's.category_id',
+        's.variety_id',
+        DB::raw('count(i.id) as index_count'),
+        DB::raw('sum(CASE WHEN i.mastery != 0 THEN 1 ELSE 0 END) as finished_count'),
+        DB::raw('sum(i.mastery) as mastery')
+      )
+      ->groupBy('i.study_id')
+      ->orderBy('s.category_id')
+      ->orderBy('s.variety_id')
+      ->orderBy('s.order_no')
+      ->get();
+    print_r($studies);
   }
 }
+
+
