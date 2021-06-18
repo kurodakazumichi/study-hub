@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Category;
 use App\Models\Study;
+use App\Models\StudyIndex;
 
 class DebugController extends Controller
 {
@@ -70,7 +71,6 @@ class DebugController extends Controller
     $studies = DB::select($sql);
     print_r($studies);
   }
-
   private function query03() {
     $studies = DB::table('studies as s')
       ->join('study_indices as i', 's.id', '=', 'i.study_id')
@@ -89,6 +89,33 @@ class DebugController extends Controller
       ->orderBy('s.order_no')
       ->get();
     print_r($studies);
+  }
+
+  public function diary() {
+    $study_ids = StudyIndex::where('updated_at', '>=', date('Y-m-d 00:00:00'))
+      ->where('mastery', '>=', 1)
+      ->groupBy('study_id')->pluck('study_id');
+
+    $indices = StudyIndex::where('updated_at', '>=', date('Y-m-d 00:00:00'))
+      ->orderBy('study_id')
+      ->orderBy('updated_at')
+      ->get();
+
+    $studies = Study::whereIn('id', $study_ids)->get(['id', 'name']);
+
+
+
+    foreach($studies as $study) {
+      $study->indices = StudyIndex::where('study_id', '=', $study->id)
+        ->where('updated_at', '>=', date('Y-m-d 00:00:00'))
+        ->where('mastery', '>=', 1)
+        ->orderBy('updated_at')
+        ->get(['title']);
+    }
+
+    return view("debug.diary", [
+      'studies' => $studies,
+    ]);
   }
 }
 
