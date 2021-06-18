@@ -5,7 +5,7 @@
 
 @section('main')
   <section>
-    <h1>Study</h1>
+    <h1>Notes</h1>
 
     <a href="/notes/create">新規作成</a>
 

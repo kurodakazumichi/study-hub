@@ -25,7 +25,15 @@ class NoteController extends Controller
       'notes'      => $notes,
       'search'    => $search,
       'categories' => Category::orderBy('order_no')->pluck('name', 'id'),
-      'varieties'  => Variety::orderBy('order_no')->pluck('name', 'id'),      
+      'varieties'  => Variety::orderBy('order_no')->pluck('name', 'id'),
+    ]);
+  }
+
+  public function create(Request $request) 
+  {
+    return view('note.create', [
+      'categories' => Category::orderBy('order_no')->pluck('name', 'id'),
+      'varieties'  => Variety::orderBy('order_no')->pluck('name', 'id'),
     ]);
   }
 }

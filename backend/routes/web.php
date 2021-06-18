@@ -44,7 +44,7 @@ Route::prefix('studies/{study_id}/problems')->group(function() {
 
 Route::prefix('/notes')->group(function() {
   Route::get('/', [NoteController::class, 'index']);
-  Route::get('/create', [NoteController::class, 'store']);
+  Route::get('/create', [NoteController::class, 'create']);
   Route::get('/{id}/edit', [NoteController::class, 'edit']);
 });
 
