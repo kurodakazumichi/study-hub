@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">    
     <link rel="stylesheet" href="/css/default.css">    
 
+    @section('cdn')
+    @show
+
     <!-- ページ専用JS -->
     <script src="/js/@yield('js', 'empty.js')"></script>
   </head>

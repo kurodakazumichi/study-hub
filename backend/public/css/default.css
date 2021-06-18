@@ -13,3 +13,8 @@ tbody tr td {
   padding:4px;
   background-color: white;
 }
+
+code {
+  /* highlight.js が指定してたfontをとりあえずそのまま指定してみた。 */
+  font-family: Consolas, Monaco, monospace;
+}
