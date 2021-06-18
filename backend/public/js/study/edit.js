@@ -12,6 +12,7 @@ function SetupEditForm()
       category_id: form.find('[name=category_id]').val(),
       variety_id : form.find('[name=variety_id]').val(),
       link       : form.find('[name=link]').val(),
+      note_id    : form.find('[name=note_id]').val(),
     };
 
     console.log(data);
