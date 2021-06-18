@@ -35,7 +35,8 @@
     mastery:<x-forms.drop-box 
       id="" name="mastery" :options="App\Consts\StudyIndexConsts::MASTERIES"
     /><br>
-    コメント：<input type="text" name="comment">
+    コメント：<input type="text" name="comment"><br>
+    リンク：<input type="text" name="link" size="50"><br>
     <input type="button" value="更新" id="edit-button">
   </form>
 </div>
@@ -53,6 +54,7 @@
     <th>タイトル</th>
     <th colspan="2">Mastery</th>
     <th>コメント</th>
+    <th>リンク</th>
     <th>操作</th>
   </thead>
   <tbody>
@@ -88,6 +90,11 @@
           <div style="background-color:blue; border-radius:3px; width:{{ $index->mastery * 10 }}px;">&nbsp</div>
         </td>
         <td>{{ $index->comment }}</td>
+        <td>
+          @if (!empty($index->link))
+            <a href="{{$index->link}}" target="_blank">関連</a>
+          @endif
+        </td>
         <td>
           <button data-id="{{ $index->id }}" class="edit-button">編集</button>
           @if ($index->mastery < 10)

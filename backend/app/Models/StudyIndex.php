@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class StudyIndex extends Model
 {
   use HasFactory;
-  protected $fillable = ['study_id', 'mastery', 'major', 'minor', 'micro', 'title', 'comment'];
+  protected $fillable = ['study_id', 'mastery', 'major', 'minor', 'micro', 'title', 'comment', 'link'];
   
   public static $rules = [
     'study_id' => ['required', 'exists:studies,id'],
@@ -18,6 +18,7 @@ class StudyIndex extends Model
     'micro'    => ['integer', 'min:0', 'max:10'],
     'title'    => ['required', 'max:255'],
     'comment'  => ['max:255'],
+    'link'     => ['max:255'],
   ];
 
   public function study() {

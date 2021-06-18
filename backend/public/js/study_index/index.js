@@ -100,6 +100,7 @@ class EditForm
     this.index = this.form.find('[name=index]');
     this.mastery = this.form.find('[name=mastery]');
     this.comment = this.form.find('[name=comment]');
+    this.link    = this.form.find('[name=link]');
 
     this.hide();
     $('#edit-button').on('click', this.update.bind(this));
@@ -126,6 +127,7 @@ class EditForm
       this.title.val(res.data.title);
       this.mastery.val(res.data.mastery);
       this.comment.val(res.data.comment);
+      this.link.val(res.data.link);      
     });
   }
 
@@ -174,6 +176,7 @@ class EditForm
       mastery: this.mastery.val(),
       title: this.title.val(),
       comment: this.comment.val(),
+      link: this.link.val(),      
     }
 
     return data;
