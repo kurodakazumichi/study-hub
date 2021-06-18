@@ -36,4 +36,14 @@ class NoteController extends Controller
       'varieties'  => Variety::orderBy('order_no')->pluck('name', 'id'),
     ]);
   }
+
+  public function edit(Request $request, $id) 
+  {
+    $note = Note::findOrFail($id);
+    return view('note.edit', [
+      'note'       => $note,
+      'categories' => Category::orderBy('order_no')->pluck('name', 'id'),
+      'varieties'  => Variety::orderBy('order_no')->pluck('name', 'id'),
+    ]);
+  }  
 }
