@@ -81,7 +81,11 @@ class StudyIndexController extends Controller
       $params = [];
       for($i = 1; $i < count($datas); ++$i) {
 
-        $params[$i] = ['study_id' => $id];
+        $params[$i] = [
+          'study_id'   => $id,
+          'created_at' => date('Y-m-d H:i:s'),
+          'updated_at' => date('Y-m-d H:i:s'),
+        ];
 
         foreach($headers as $index => $key) {
           $tmp = explode(',', $datas[$i]);
