@@ -37,7 +37,7 @@ class StudyController extends Controller
     //-------------------------------------------------------------------------
     // Studyデータを取得
     $studies = DB::table('studies as s')
-      ->join('study_indices as i', 's.id', '=', 'i.study_id')
+      ->leftJoin('study_indices as i', 's.id', '=', 'i.study_id')
       ->select(
         's.id',
         's.name',
@@ -49,7 +49,7 @@ class StudyController extends Controller
         DB::raw('sum(i.mastery) as mastery')
       )
       ->where($where)
-      ->groupBy('i.study_id')
+      ->groupBy('s.id')
       ->orderBy('s.category_id')
       ->orderBy('s.variety_id')
       ->orderBy('s.order_no')
@@ -60,6 +60,12 @@ class StudyController extends Controller
       $count    = $study->index_count;
       $finished = $study->finished_count;
       $mastery  = $study->mastery; 
+
+      if ($count === 0) {
+        $study->progress = 0;
+        $study->mastery = 0;
+        continue;
+      }
 
       // 進捗率
       $study->progress = round($finished / $count, 3) * 100;
