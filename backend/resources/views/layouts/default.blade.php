@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>@yield('title')</title>
+    <title>@yield('title') - {{ config('app.name') }}</title>
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- jQuery UI -->
@@ -14,7 +14,14 @@
     <script src="/js/@yield('js', 'empty.js')"></script>
   </head>
   <body>
+    @if( config('app.env') !== "production")
+    <div id="app-env" style="background-color:#444; font-size:8px; padding:2px; color:white;">
+      {{ config('app.env') }}
+    </div>
+    @endif
+
     <header>
+      <a href="/">{{ config('app.name') }}</a>
       <a href="/categories">category</a>
       <a href="/varieties">variety</a>
       <a href="/studies">study</a>
