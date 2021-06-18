@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Study extends Model
 {
   use HasFactory;
-  protected $fillable = ['category_id', 'variety_id', 'name', 'order_no'];
+  protected $fillable = ['category_id', 'variety_id', 'name', 'order_no', 'link'];
   public static $rules = [
     'category_id' => ['required', 'exists:categories,id'],
     'variety_id'  => ['required', 'exists:varieties,id'],
     'name'        => 'required',
-    'order_no'    => 'required|integer|min:0'
+    'order_no'    => 'required|integer|min:0',
+    'link'        => 'max:255',
   ];
 
   public function category() {

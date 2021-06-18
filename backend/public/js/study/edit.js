@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // Studyの編集フォームをセットアップ
 //-----------------------------------------------------------------------------
-function SetupCreateForm() 
+function SetupEditForm() 
 {
   const createCategoryAsync = () => {
     const form = $("#edit-form");
@@ -11,6 +11,7 @@ function SetupCreateForm()
       name       : form.find("[name=name]").val(),
       category_id: form.find('[name=category_id]').val(),
       variety_id : form.find('[name=variety_id]').val(),
+      link       : form.find('[name=link]').val(),
     };
 
     console.log(data);
@@ -44,5 +45,5 @@ function SetupCreateForm()
 
 // 初期処理
 $(() => {
-  SetupCreateForm();
+  SetupEditForm();
 });

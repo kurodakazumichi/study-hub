@@ -43,6 +43,7 @@
             <th>名前</th>
             <th colspan="2">進捗率</th>
             <th colspan="2">習得率</th>
+            <th>リンク</th>
             <th>操作</th>
           </tr>
         </thead>
@@ -61,6 +62,11 @@
               <td>{{ $study->mastery }}%</td>
               <td>
                 <div style="background-color:blue; border-radius:5px; width:{{ $study->mastery }}px">&nbsp;</div>
+              </td>
+              <td>
+                @if (!is_null($study->link))
+                  <a href="{{ $study->link }}" target="_blank">関連</a>
+                @endif
               </td>
               <td>
                 <a href="/studies/{{ $study->id }}/edit">編集</a>
