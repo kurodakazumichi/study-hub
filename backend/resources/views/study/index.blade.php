@@ -41,8 +41,8 @@
             <th>ID.</th>
             <th>分類</th>
             <th>名前</th>
-            <th>作成日</th>
-            <th>更新日</th>
+            <th colspan="2">進捗率</th>
+            <th colspan="2">習得率</th>
             <th>操作</th>
           </tr>
         </thead>
@@ -50,10 +50,18 @@
           @foreach($studies as $study)
             <tr id="{{ $study->id }}">
               <td>{{ $study->id }}</td>
-              <td>{{ $study->category->name }}:{{ $study->variety->name }}</td>
+              <td>{{ $categories[$study->category_id] }}:{{ $varieties[$study->variety_id] }}</td>
               <td>{{ $study->name }}</td>
-              <td>{{ $study->created_at->format('Y年m月d日') }}</td>
-              <td>{{ $study->updated_at->format('Y年m月d日') }}</td>
+              <td>
+                {{ $study->progress }}%
+              </td>
+              <td>
+                <div style="background-color:blue; border-radius:5px; width:{{ $study->progress }}px">&nbsp;</div>
+              </td>
+              <td>{{ $study->mastery }}%</td>
+              <td>
+                <div style="background-color:blue; border-radius:5px; width:{{ $study->mastery }}px">&nbsp;</div>
+              </td>
               <td>
                 <a href="/studies/{{ $study->id }}/edit">編集</a>
                 <a href="/studies/{{ $study->id }}/indices">目次</a>

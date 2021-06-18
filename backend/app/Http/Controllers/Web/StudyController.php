@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Study;
 use App\Models\Category;
 use App\Models\Variety;
+use Illuminate\Support\Facades\DB;
 class StudyController extends Controller
 {
   /**
@@ -26,20 +27,46 @@ class StudyController extends Controller
     $where = [];
 
     if(!empty($search['category_id'])) {
-      $where['category_id'] = $request->category_id;
+      $where['s.category_id'] = $request->category_id;
     }
 
     if (!empty($search['variety_id'])) {
-      $where['variety_id'] = $request->variety_id;
+      $where['s.variety_id'] = $request->variety_id;
     }
 
     //-------------------------------------------------------------------------
     // Studyデータを取得
-    $studies = Study::with(['category', 'variety'])
+    $studies = DB::table('studies as s')
+      ->join('study_indices as i', 's.id', '=', 'i.study_id')
+      ->select(
+        's.id',
+        's.name',
+        's.category_id',
+        's.variety_id',
+        DB::raw('count(i.id) as index_count'),
+        DB::raw('sum(CASE WHEN i.mastery != 0 THEN 1 ELSE 0 END) as finished_count'),
+        DB::raw('sum(i.mastery) as mastery')
+      )
       ->where($where)
-      ->orderBy('order_no')
+      ->groupBy('i.study_id')
+      ->orderBy('s.category_id')
+      ->orderBy('s.variety_id')
+      ->orderBy('s.order_no')
       ->get();
     
+    foreach($studies as $key => $study) {
+
+      $count    = $study->index_count;
+      $finished = $study->finished_count;
+      $mastery  = $study->mastery; 
+
+      // 進捗率
+      $study->progress = round($finished / $count, 3) * 100;
+
+      // 習得率
+      $study->mastery = round($mastery / ($count * 10), 3) * 100;
+    }
+
     //-------------------------------------------------------------------------
     // View設定  
     $data = [
