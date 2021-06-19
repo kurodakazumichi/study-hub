@@ -13,6 +13,10 @@
     @section('cdn')
     @show
 
+    <!-- core.js -->
+    <script src="/js/study_hub.js"></script>
+
+
     <!-- ページ専用JS -->
     <script src="/js/@yield('js', 'empty.js')"></script>
   </head>

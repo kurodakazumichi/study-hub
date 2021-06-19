@@ -32,4 +32,5 @@
   <input name="name" type="text" value="">
   <input id="create" type="button" value="作成">
 </form>
+<div id="errors">errors</div>
 @endsection

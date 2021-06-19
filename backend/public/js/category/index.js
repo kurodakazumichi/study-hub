@@ -1,3 +1,28 @@
+{
+  class Errors 
+  {
+    /**
+     * コンストラクタ
+     * @param {string} id
+     */
+    constructor(id) {
+      this.root = $(id);
+    }
+
+    /**
+     * エラーメッセージを更新
+     * @param {string[]} errors 
+     */
+    update(errors) 
+    {
+      this.root.html('');
+
+      errors.map((error) => {
+        this.root.append(`<p>${error}</p>`);
+      });
+    }
+  }
+
 //-----------------------------------------------------------------------------
 // カテゴリーテーブルのソート処理をセットアップ
 //-----------------------------------------------------------------------------
@@ -88,11 +113,28 @@ function SetupCategoryNameEdit()
 
 // 初期処理
 $(() => {
+  const { api } = StudyHub;
   SetupSortable();
   SetupCreateForm();
   SetupCategoryNameEdit();
 
+  const elm = {
+    errors: new Errors('#errors'),
+  };
+
   $('.delete').on('click', (e) => {
     const id = $(e.target).data('id');
+    
+    api.category.delete({
+      id,
+      done: (data) => {
+
+        console.log(data, status, text); 
+      },
+      fail: (data) => { 
+        elm.errors.update(data.errors);
+      },
+    })
   })
 });
+}

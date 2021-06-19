@@ -80,7 +80,7 @@ class CategoryController extends Controller
 
       // 関連データがある場合は削除できない。
       if ($this->categoryHasRelated($id)) {
-        return response422("「{$category->name}」は他で使われているため削除できません。");
+        return response422(["「{$category->name}」は他で使われているため削除できません。"]);
       }
 
       try {
