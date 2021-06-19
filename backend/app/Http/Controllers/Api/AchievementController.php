@@ -4,18 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\Achievement;
 class AchievementController extends Controller
 {
-  /**
-    * Display a listing of the resource.
-    *
-    * @return \Illuminate\Http\Response
-    */
-  public function index()
-  {
-  }
-
   /**
     * Store a newly created resource in storage.
     *
@@ -24,7 +15,14 @@ class AchievementController extends Controller
     */
   public function store(Request $request)
   {
-
+    $achievement = new Achievement();
+  
+    try{
+      $achievement->fill($request)->save();
+      return response201('Achievement', $achievement);
+    } catch(Exception $e) {
+      return response500($e->getMessage());
+    }
   }
 
   /**
@@ -35,7 +33,8 @@ class AchievementController extends Controller
     */
   public function show($id)
   {
-
+    $achievement = Achievement::findOrFail($id);
+    return response200($achievement);
   }
 
   /**
@@ -47,7 +46,14 @@ class AchievementController extends Controller
     */
   public function update(Request $request, $id)
   {
-
+    $achievement = Achievement::findOrFail($id);
+  
+    try{
+      $achievement->fill($request)->save();
+      return response200();
+    } catch(Exception $e) {
+      return response500($e->getMessage());
+    }
   }
 
   /**

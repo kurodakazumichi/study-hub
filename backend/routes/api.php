@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\StudyController;
 use App\Http\Controllers\Api\StudyIndexController;
 use App\Http\Controllers\Api\StudyProblemController;
 use App\Http\Controllers\Api\NoteController;
+use App\Http\Controllers\Api\AchievementController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -47,4 +48,10 @@ Route::prefix('/studies/{study_id}/problems')->group(function() {
 Route::prefix('/notes')->group(function() {
   Route::post('/', [NoteController::class, 'store'])->name('notes.store');
   Route::put('/{note_id}', [NoteController::class, 'update'])->name('notes.update');
+});
+
+Route::prefix('/achievements')->group(function() {
+  Route::post('/'         , [AchievementController::class, 'store'])->name('achievements.store');
+  Route::get('/{achievement_id}', [AchievementController::class, 'show'])->name('achievements.show');
+  Route::put('/{achievement_id}', [AchievementController::class, 'update'])->name('achievements.update');  
 });
