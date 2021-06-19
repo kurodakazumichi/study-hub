@@ -8,6 +8,7 @@ use App\Http\Controllers\Web\DebugController;
 use App\Http\Controllers\Web\StudyIndexController;
 use App\Http\Controllers\Web\StudyProblemController;
 use App\Http\Controllers\Web\NoteController;
+use App\Http\Controllers\Web\AchievementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,10 @@ Route::prefix('studies/{study_id}/indices')->group(function() {
 
 Route::prefix('studies/{study_id}/problems')->group(function() {
   Route::get('/', [StudyProblemController::class, 'index']);
+});
+
+Route::prefix('achievements')->group(function() {
+  Route::get('/', [AchievementController::class, 'index']);
 });
 
 Route::prefix('/notes')->group(function() {

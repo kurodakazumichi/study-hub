@@ -21,6 +21,7 @@ class CreateAchievementsTable extends Migration
       $table->string('condition');
       $table->tinyInteger('difficulty');
       $table->integer('note_id')->nullable();
+      $table->integer('order_no')->default(0);
       $table->timestamp('achievement_at')->nullable();
       $table->timestamps();
     });

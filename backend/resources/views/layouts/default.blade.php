@@ -29,6 +29,7 @@
       <a href="/varieties">variety</a>
       <a href="/studies">study</a>
       <a href="/notes">note</a>
+      <a href="/achievements">achievements</a>
     </header>
     @section('main')
     @show

@@ -54,4 +54,6 @@ Route::prefix('/achievements')->group(function() {
   Route::post('/'         , [AchievementController::class, 'store'])->name('achievements.store');
   Route::get('/{achievement_id}', [AchievementController::class, 'show'])->name('achievements.show');
   Route::put('/{achievement_id}', [AchievementController::class, 'update'])->name('achievements.update');  
+  Route::put('/{achievement_id}/open', [AchievementController::class, 'open'])->name('achievements.open');  
+  Route::put('/{achievement_id}/close', [AchievementController::class, 'close'])->name('achievements.close');  
 });
