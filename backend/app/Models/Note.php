@@ -23,4 +23,8 @@ class Note extends Model
   public function variety() {
     return $this->belongsTo(Variety::class);
   }
+
+  public static function hasCategory($id) {
+    return Note::where('category_id', $id)->exists();
+  }    
 }

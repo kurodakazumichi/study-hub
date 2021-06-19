@@ -91,4 +91,8 @@ $(() => {
   SetupSortable();
   SetupCreateForm();
   SetupCategoryNameEdit();
+
+  $('.delete').on('click', (e) => {
+    const id = $(e.target).data('id');
+  })
 });

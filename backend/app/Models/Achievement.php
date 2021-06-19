@@ -29,5 +29,9 @@ class Achievement extends Model
 
   public function note() {
     return $this->belongsTo(Note::class);
+  }
+
+  public static function hasCategory($id) {
+    return Achievement::where('category_id', $id)->exists();
   }  
 }

@@ -11,6 +11,7 @@
       <tr>
         <th>ID.</th>
         <th>名称</th>
+        <th>操作</th>
       </tr>
     </thead>
     <tbody id="sortdata">
@@ -18,6 +19,9 @@
       <tr data-id="{{ $category->id }}" data-order-no="{{ $category->order_no }}">
         <td>{{ $category->id }}</td>
         <td><input class="category-name" data-id="{{ $category->id }}" type="text" value="{{ $category->name }}"></td>
+        <td>
+          <button data-id="{{ $category->id }}" class="delete">削除</button>
+        </td>
       </tr>
       @endforeach
     </tbody>

@@ -17,7 +17,7 @@ function response201($name, $data) {
 
 function response404($name) {
   return response()->json([
-    'message' => $name . " not found."
+    'message' => $name . " not found.",
   ], Response::HTTP_NOT_FOUND);
 }
 
@@ -27,9 +27,9 @@ function response422($errors) {
   ], Response::HTTP_UNPROCESSABLE_ENTITY);
 }
 
-function response500($msg, $data = []) {
+function response500($msg) {
+
   return response()->json([
-    'message' => $msg,
-    'data'    => $data,
+    'errors'  => [$msg],
   ], Response::HTTP_INTERNAL_SERVER_ERROR);
 }

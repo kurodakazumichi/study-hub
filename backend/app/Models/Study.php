@@ -35,4 +35,8 @@ class Study extends Model
     return (is_null($no))? 0 : $no + 1;
   }
 
+  public static function hasCategory($id) {
+    return Study::where('category_id', $id)->exists();
+  }  
+
 }

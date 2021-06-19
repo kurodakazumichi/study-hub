@@ -2,27 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Study;
+use App\Models\Note;
+use App\Models\Achievement;
 use Illuminate\Support\Facades\DB;
+use Exception;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-      $categories = Category::all();
-      return response()->json([
-        'message' => 'ok',
-        'data'    => $categories
-      ], 200);
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -47,27 +37,6 @@ class CategoryController extends Controller
         'message' => 'Category created successfully.',
         'data'    => $category
       ], 201);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-      $category = Category::find($id);
-      if ($category) {
-        return response()->json([
-          'message' => 'ok',
-          'data'    => $category
-        ], 200);
-      } else {
-        return response()->json([
-          'message' => 'Category not found',
-        ], 404);
-      }
     }
 
     /**
@@ -103,17 +72,31 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-      $category = Category::find($id)->delete();
-      if ($category) {
-        return response()->json([
-          'message' => 'Category deleted successfully',
-        ], 200);
-      } else {
-        return response()->json([
-          'message' => 'Book not found'
-        ], 404);
+      // idに該当するカテゴリを取得
+      $category = Category::find($id);
+      
+      // 見つからなければ404
+      if (is_null($category)) return response404('Category');
+
+      // 関連データがある場合は削除できない。
+      if ($this->categoryHasRelated($id)) {
+        return response422("「{$category->name}」は他で使われているため削除できません。");
+      }
+
+      try {
+        $category->delete();
+        return response200();
+      } catch(Exception $e) {
+        return response500($e->getMessage());
       }
     }
+
+    private function categoryHasRelated($id) {
+      if (Study::hasCategory($id)) return true;
+      if (Note::hasCategory($id)) return true;
+      if (Achievement::hasCategory($id)) return true;
+      return false;
+    }    
 
     /**
      * カテゴリの並び順を更新。

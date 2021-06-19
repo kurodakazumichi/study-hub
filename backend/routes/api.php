@@ -22,11 +22,17 @@ use App\Http\Controllers\Api\AchievementController;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+  return $request->user();
 });
 
-Route::apiResource('/categories', CategoryController::class);
-Route::put('/categories/{id}/order', [CategoryController::class, 'order'])->name('categories.order');
+/** Category ルーティング */
+Route::prefix('/categories')->group(function() {
+  Route::post  ('/'          , [CategoryController::class, 'store'])->name('categories.store');
+  Route::put   ('/{id}'      , [CategoryController::class, 'update'])->name('categories.update');
+  Route::delete('/{id}'      , [CategoryController::class, 'destroy'])->name('categories.destroy');
+  Route::put   ('/{id}/order', [CategoryController::class, 'order'])->name('categories.order');
+});
+
 Route::apiResource('/varieties', VarietyController::class);
 Route::put('/varieties/{id}/order', [VarietyController::class, 'order'])->name('varieties.order');
 Route::apiResource('/studies', StudyController::class);
