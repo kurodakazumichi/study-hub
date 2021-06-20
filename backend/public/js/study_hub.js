@@ -57,26 +57,32 @@ const StudyHub = {};
   {
     // 新規作成
     create: (params) => {
-      api.ajax(
-        {
-          url : `/api/categories`,
-          type: 'post',
-          data: params.data,
-          dataType: 'json'
-        },
-        params
-      )
+      api.ajax({
+        url : `/api/categories`,
+        type: 'post',
+        data: params.data,
+        dataType: 'json'
+      }, params);
+    },
+
+    // 編集
+    update: (id, params) => {
+      console.log(params);
+      api.ajax({
+        url : `/api/categories/${id}`,
+        type: 'put',
+        data: params.data,
+        dataType: 'json'
+      }, params);
     },
 
     // 削除
-    delete: (params) => {
-      api.ajax(
-        {
-          url : `/api/categories/${params.id}`,
-          type: 'delete',
-        },
-        params
-      );
+    delete: (id, params) => {
+      api.ajax({
+        url : `/api/categories/${id}`,
+        type: 'delete',
+        dataType: 'json',
+      }, params);
     }
   }
 

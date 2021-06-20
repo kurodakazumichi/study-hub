@@ -102,20 +102,19 @@ function SetupCreateForm()
 //-----------------------------------------------------------------------------
 function SetupCategoryNameEdit() 
 {
-  $('.category-name').on('change', (e) => {
+  const { api } = StudyHub;
 
-    const target = $(e.target);
-    console.log(target.val());
-    console.log(target.data('id'));
+  $('.category-name').on('change', (e) => 
+  {
 
-    $.ajax({
-      url:`/api/categories/${target.data('id')}`,
-      type: 'put',
-      data : { name : target.val() },
-      dataType : 'json'
-    })
-    .done((res) => {})
-    .fail((res) => {});
+    const id   = $(e.target).data('id');
+    const name = $(e.target).val();
+    
+    api.category.update(id, {
+      data: { name },
+      done: (data) => { console.log(data); },
+      fail: (data) => { console.log(data); }
+    });
   });
 }
 
@@ -139,8 +138,7 @@ $(() => {
     
     const id = $(e.target).data('id');
     
-    api.category.delete({
-      id,
+    api.category.delete(id, {
       done: () => {
         location.reload();
       },
