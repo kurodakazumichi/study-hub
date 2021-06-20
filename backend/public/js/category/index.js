@@ -135,17 +135,25 @@ $(() => {
   };
 
   $('.delete').on('click', (e) => {
+    if (!confirm('削除しますか？')) return;
+    
     const id = $(e.target).data('id');
     
     api.category.delete({
       id,
-      done: (data) => {
-
-        console.log(data, status, text); 
+      done: () => {
+        location.reload();
       },
-      fail: (data) => { 
-        elm.errors.update(data.errors);
+      r422: (data) => {
+        for(let key in data.errors) {
+          page.elm.errors.addError(data.errors[key]);
+        }
       },
+      fail: (data) => 
+      {
+        alert("通信エラー");
+        console.log(data);
+      }
     })
   })
 });

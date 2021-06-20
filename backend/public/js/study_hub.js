@@ -27,21 +27,22 @@ const StudyHub = {};
         }
 
         // fallback
-        if (funcs['fail']){
-          funcs['fail'](data, status, statusText);
-        }
+        funcs['fail'] && funcs['fail'](data, status, statusText);
       }
 
       $.ajax(options)
-        .done((res, test, xhr) => 
+        .done((res, statusText, xhr) => 
         {
           // validationエラーになった時、何故か422ではなく、常にstatus 200が返ってくる。
           // 200の時に、レスポンスには errors という項目は含まれないが、もし含まれていた場合はエラー扱いとし
           // failを422 扱いで呼び出すようにしてとりあえず逃げる。
-          if (typeof (res.errors) !== undefined) {
+          if (typeof (res.errors) !== "undefined") {
             callFailFunction(funcs, res, 422, "Unprocessable Entity by app");
-          } else {
-            done(res, xhr.status, xhr.statusText); 
+            return;
+          }
+
+          if (funcs.done) {
+            funcs.done(res, xhr.status, xhr.statusText); 
           }
         })
         .fail((res) => {
