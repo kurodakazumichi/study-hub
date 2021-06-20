@@ -83,7 +83,17 @@ const StudyHub = {};
         type: 'delete',
         dataType: 'json',
       }, params);
-    }
+    },
+
+    // 並び替え
+    sort: (params) => {
+      api.ajax({
+        url     : `api/categories/sort`,
+        type    : 'put',
+        data    : params.data,
+        dateType: 'json'
+      }, params);
+    },
   }
 
   StudyHub.api = api; // 割り当て

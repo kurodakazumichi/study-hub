@@ -66,56 +66,25 @@ class CategoryController extends Controller
   /**
    * カテゴリの並び順を更新。
    */
-  public function order(Request $request, $id) {
+  public function sort(Request $request) {
 
-    $from = Category::find($id);
+    $from = Category::find($request->from_id);
 
     // カテゴリがなかったら終了
     if(is_null($from)) {
       return response404('The specified category');
     }
 
-    $to = Category::where('order_no', $request->order_no)->first();
+    $to = Category::find($request->to_id);
 
     // 移動先のカテゴリがなかったら終了
     if (is_null($to)) {
       return response404('Destination category');
     }
 
-    // カテゴリを移動するSQL
-    $sql1 = <<< SQL
-      UPDATE categories as c
-      SET c.order_no = :to_order_no
-      WHERE c.id = :from_id
-    SQL;
-
-    // 全体的にずらすSQL
-    $sql2 = <<< SQL
-      UPDATE categories as c SET 
-        c.order_no = c.order_no + (:value)
-      WHERE 
-        c.id != :ignore_id
-        AND c.order_no >= :min_order_no
-        AND c.order_no <= :max_order_no
-    SQL;
-
-    DB::beginTransaction();
-
     try 
     {
-      DB::update($sql1, [
-        'to_order_no' => $to->order_no,
-        'from_id'     => $id
-      ]);
-
-      DB::update($sql2, [
-        'value'        => ($from->order_no < $to->order_no)? -1 : +1,
-        'ignore_id'    => $id,
-        'min_order_no' => min($from->order_no, $to->order_no),
-        'max_order_no' => max($from->order_no, $to->order_no)
-      ]);
-
-      DB::commit();
+      Category::sort($from, $to);
 
       return response()->json([
         'message' => 'category sorted successfully.'
@@ -125,5 +94,5 @@ class CategoryController extends Controller
       DB::rollBack();
       response500($e->getMessage());
     }
-  }
+  }  
 }

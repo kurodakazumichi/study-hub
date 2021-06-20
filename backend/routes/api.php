@@ -28,9 +28,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 /** Category ルーティング */
 Route::prefix('/categories')->group(function() {
   Route::post  ('/'          , [CategoryController::class, 'store'])->name('categories.store');
+  Route::put   ('/sort', [CategoryController::class, 'sort'])->name('categories.sort');
   Route::put   ('/{id}'      , [CategoryController::class, 'update'])->name('categories.update');
   Route::delete('/{id}'      , [CategoryController::class, 'destroy'])->name('categories.destroy');
-  Route::put   ('/{id}/order', [CategoryController::class, 'order'])->name('categories.order');
 });
 
 Route::apiResource('/varieties', VarietyController::class);

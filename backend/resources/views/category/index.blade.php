@@ -16,7 +16,7 @@
     </thead>
     <tbody id="sortdata">
       @foreach($categories as $category)
-      <tr data-id="{{ $category->id }}" data-order-no="{{ $category->order_no }}">
+      <tr id="{{ $category->id }}" data-order-no="{{ $category->order_no }}">
         <td>{{ $category->id }}</td>
         <td><input class="category-name" data-id="{{ $category->id }}" type="text" value="{{ $category->name }}"></td>
         <td class="hp_txtCentered">
