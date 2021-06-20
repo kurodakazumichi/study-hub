@@ -1,0 +1,62 @@
+/******************************************************************************
+ * default.layout.css
+ *****************************************************************************/
+ a {
+   text-decoration: none;
+ }
+
+ a:hover {
+   text-decoration: underline;
+ }
+
+.ly-header {
+  background-color:#333;
+}
+
+.ly-main {
+  padding:1em;
+}
+
+.nav > ul {
+  display: flex;
+  
+}
+
+.nav > ul > li {
+
+}
+
+.nav > ul > li > a {
+  color: white;
+  padding:0 1em;
+  line-height: 2em;
+  display: inline-block;
+}
+
+.nav > ul > li > a:hover {
+  background-color:indigo;
+}
+
+table {
+  border: 1px solid #666;
+  border-collapse: collapse;
+}
+
+thead tr th {
+  border:1px solid #666;
+  background-color: #999;
+  color:white;
+  font-weight: bold;
+  padding:1em;
+}
+
+tbody tr td {
+  border:1px solid #666;
+  padding:4px;
+  background-color: white;
+}
+
+code {
+  /* highlight.js が指定してたfontをとりあえずそのまま指定してみた。 */
+  font-family: Consolas, Monaco, monospace;
+}

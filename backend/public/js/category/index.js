@@ -104,16 +104,31 @@ function SetupCategoryNameEdit()
 {
   const { api } = StudyHub;
 
-  $('.category-name').on('change', (e) => 
-  {
+  $('.category-name').on('blur', (e) => {
 
-    const id   = $(e.target).data('id');
-    const name = $(e.target).val();
+    const input = $(e.target);
+    const id   = input.data('id');
+    const name = input.val();
+
+    // 空文字の場合はフォーカスを外さない
+    if (name === "") { 
+      input.focus(); 
+      return; 
+    }
     
     api.category.update(id, {
       data: { name },
       done: (data) => { console.log(data); },
-      fail: (data) => { console.log(data); }
+      r422: (data) => {
+        for(let key in data.errors) {
+          page.elm.errors.addError(data.errors[key]);
+        }
+      },
+      fail: (data) => 
+      {
+        alert("通信エラー");
+        console.log(data);
+      }
     });
   });
 }
