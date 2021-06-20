@@ -17,23 +17,27 @@
   padding:1em;
 }
 
-.nav > ul {
+.global-nav {
+  background-color: #333;
+}
+
+.global-nav__menu {
   display: flex;
   
 }
 
-.nav > ul > li {
-
+.global-nav__item {
+  margin:0;
 }
 
-.nav > ul > li > a {
+.global-nav__link {
   color: white;
   padding:0 1em;
   line-height: 2em;
   display: inline-block;
 }
 
-.nav > ul > li > a:hover {
+.global-nav__link:hover {
   background-color:indigo;
 }
 
