@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Models\Study;
 use App\Models\Note;
 use App\Models\Achievement;
+use App\Http\Requests\Category\CategoryStore;
+
 use Illuminate\Support\Facades\DB;
 use Exception;
 
@@ -19,7 +21,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryStore $request)
     {
       // 表示順の最大値を取得する
       $order_no = Category::max('order_no');
@@ -27,10 +29,9 @@ class CategoryController extends Controller
 
       // カテゴリの新規作成
       $category = new Category();
-      $category->fill([
-        'name'     => $request->get('name'),
-        'order_no' =>  $order_no,
-      ])->save();
+      $category->name     = $request->name;
+      $category->order_no = $order_no;
+      $category->save();
 
       // レスポンス
       return response()->json([

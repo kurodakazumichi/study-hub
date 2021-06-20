@@ -18,8 +18,12 @@
       this.root.html('');
 
       errors.map((error) => {
-        this.root.append(`<p>${error}</p>`);
+        this.addError(error);
       });
+    }
+
+    addError(error) {
+      this.root.append(`<p>${error}</p>`);
     }
   }
 
@@ -64,29 +68,33 @@ function SetupSortable()
 //-----------------------------------------------------------------------------
 function SetupCreateForm() 
 {
-  const createCategoryAsync = () => {
-    const form = $("#create-form");
-    const data = {
-      name: form.find("[name=name]").val()
-    };
+  const { api } = StudyHub;
 
-    console.log(data);
+  const form = $('#create-form');
 
-    $.ajax({
-      url     : '/api/categories', 
-      type    : 'post',
-      data    : data,
-      dataType: 'json',
-    })
-    .done((res) => {
-      location.reload();
-    })
-    .fail(() => {
-      alert("登録失敗。")
-    });    
-  }
+  // submitボタンを押したとき
+  form.find('[name=submit]').on('click', (e) => {
 
-  $('#create').on('click', createCategoryAsync);
+    api.category.create({
+      data: {
+        name : form.find('[name=name]').val(),
+      },
+      done: () => 
+      {
+        location.reload();
+      },
+      r422: (data) => {
+        for(let key in data.errors) {
+          page.elm.errors.addError(data.errors[key]);
+        }
+      },
+      fail: (data) => 
+      {
+        alert("通信エラー");
+        console.log(data);
+      }
+    });
+  });
 }
 
 //-----------------------------------------------------------------------------
@@ -120,6 +128,10 @@ $(() => {
 
   const elm = {
     errors: new Errors('#errors'),
+  };
+
+  window.page = {
+    elm
   };
 
   $('.delete').on('click', (e) => {

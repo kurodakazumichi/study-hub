@@ -8,9 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
   use HasFactory;
-  protected $fillable = ['name', 'order_no'];
-  public static $rules = [
-    'name' => 'required',
-    'order_no' => 'required|integer|min:0'
-  ];
+  protected $fillable = ['name'];
 }

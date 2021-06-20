@@ -25,12 +25,18 @@
       </tr>
       @endforeach
     </tbody>
+    <tbody>
+      <tr id="create-form">
+        <td>&nbsp;</td>
+        <td>
+          <input name="name" type="text" value="">
+        </td>
+        <td>
+          <button name="submit">作成</button>
+        </td>
+      </tr>    
+    </tbody>
   </table>
 
-<form id="create-form">
-  <label for="name">カテゴリ名</label>
-  <input name="name" type="text" value="">
-  <input id="create" type="button" value="作成">
-</form>
 <div id="errors">errors</div>
 @endsection
