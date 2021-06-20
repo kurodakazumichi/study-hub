@@ -13,7 +13,7 @@
   {{ $categories[$note->category_id] }}:{{ $varieties[$note->variety_id] }}
   {{ $note->created_at->format('Y/m/d') }}:{{ $note->updated_at->format('Y/m/d') }}
   <hr>
-  <div id="contents">{{ $note->body }}</div>
+  <section id="contents" class="note">{{ $note->body }}</section>
   <a href="/notes/{{ $note->id}}/edit">編集</a>
 </article>
 @endsection

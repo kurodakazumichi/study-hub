@@ -1,7 +1,12 @@
 /******************************************************************************
  * default.layout.css
  *****************************************************************************/
+ body {
+   font-size: 14px;
+ }
+
  a {
+   color:lightseagreen;
    text-decoration: none;
  }
 
@@ -60,7 +65,84 @@ tbody tr td {
   background-color: white;
 }
 
-code {
+
+
+/******************************************************************************
+ * note block
+ *****************************************************************************/
+.note {
+  max-width: 1000px;
+  margin: 0 auto;
+  font-size: 18px;
+}
+
+.note p, .note ul{
+  margin-bottom: 20px;
+}
+
+.note > h1 {
+  font-size:20px;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.note > h2 {
+  font-size:16px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.note > h3 {
+  font-size:16px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.note > p {
+  margin-bottom: 1em;
+  line-height: 1.5em;
+}
+
+.note strong {
+  color:#007AB7;
+  font-weight: bold;
+}
+
+.note em {
+  color:olivedrab;
+}
+
+.note p code {
+  font-family: Consolas, Monaco, monospace;
+  background-color: #ddd;
+  color:mediumvioletred;
+  border-radius: 3px;
+  padding:0 0.2em;
+  margin-right: 0.2em;
+}
+
+.note code.hljs {
   /* highlight.js が指定してたfontをとりあえずそのまま指定してみた。 */
   font-family: Consolas, Monaco, monospace;
+  border:1px solid #000;
+  margin-bottom: 20px;
+  line-height: 1.3em;
+  font-size: 16px;
+}
+
+.note mjx-container {
+  border:1px solid #000;
+  padding: 1em 0;
+}
+
+.note ul li {
+  line-height: 1.5em;
+  list-style-type: disc;
+  margin-left:1.3em;
+  margin-bottom: 0.3em;
+}
+
+.note ul p {
+  margin:0;
 }
