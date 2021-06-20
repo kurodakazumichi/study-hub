@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">    
     <link rel="stylesheet" href="/css/default.layout.css">    
 
+    <!-- font-awesome -->
+    <script src="https://kit.fontawesome.com/ca043f4c22.js" crossorigin="anonymous"></script>
+
     @section('cdn')
     @show
 
@@ -31,14 +34,16 @@
         <a href="/debug" style="color:white;">{{ config('app.env') }}</a>
       </div>
       @endif
-      <nav class="nav">
-        <ul>
-          <li><a href="/">{{ config('app.name') }}</a></li>
-          <li><a href="/categories">Category</a></li>
-          <li><a href="/varieties">Variety</a></li>
-          <li><a href="/studies">study</a></li>
-          <li><a href="/notes">Note</a></li>
-          <li><a href="/achievements">Achievement</a></li>
+      <nav class="global-nav">
+        <ul class="global-nav__menu">
+          <li class="global-nav__item">
+            <a class="global-nav__link" href="/"><i class="fas fa-book"></i>&nbsp;{{ config('app.name') }}</a>
+          </li>
+          <li class="global-nav__item"><a class="global-nav__link" href="/categories">Category</a></li>
+          <li class="global-nav__item"><a class="global-nav__link" href="/varieties">Variety</a></li>
+          <li class="global-nav__item"><a class="global-nav__link" href="/studies">study</a></li>
+          <li class="global-nav__item"><a class="global-nav__link" href="/notes">Note</a></li>
+          <li class="global-nav__item"><a class="global-nav__link" href="/achievements">Achievement</a></li>
         </ul>
       </nav>
     </header>

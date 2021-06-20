@@ -75,9 +75,17 @@
                 @endif
               </td>
               <td>
-                <a href="/studies/{{ $study->id }}/edit">編集</a>
-                <a href="/studies/{{ $study->id }}/indices">目次</a>
-                <a href="/studies/{{ $study->id }}/problems">問題</a>
+                <a href="/studies/{{ $study->id }}/edit">
+                <i class="fas fa-pen"></i><span>編集</span>
+                </a>
+                <a href="/studies/{{ $study->id }}/indices">
+                  <i class="fas fa-list-ul"></i>
+                  <span>目次</span>
+                </a>
+                <a href="/studies/{{ $study->id }}/problems">
+                  <i class="fas fa-check-circle"></i>
+                  <span>問題</span>                
+                </a>
               </td>
             </tr>          
           @endforeach
