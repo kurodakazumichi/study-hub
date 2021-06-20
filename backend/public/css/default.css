@@ -1,0 +1,270 @@
+/******************************************************************************
+ * default.css
+ *****************************************************************************/
+
+ /*============================================================================
+  * Base Group
+  *==========================================================================*/
+ body {
+   color: #222;
+   line-height: 1.5;
+   font-family: sans-serif;
+ }
+
+ a {
+   color:lightseagreen;
+   text-decoration: none;
+ }
+
+ a:hover {
+   text-decoration: underline;
+ }
+
+ img {
+   max-width: 100%;
+   vertical-align: top;
+ }
+
+/*============================================================================
+ * Layout Group
+ *==========================================================================*/ 
+.ly_header {
+  padding-top: 20px;
+  background-color: #006F62;
+  border-bottom: 1px solid #ddd;
+}
+
+.ly_header_inner {
+  max-width: 1230px;
+  padding:0 15px;
+  margin:0 auto;
+}
+
+.ly_footer {
+  padding: 20px 0;
+  background-color: #006F62;
+}
+
+.ly_footer_inner {
+  max-width: 1230px;
+  padding:0 15px;
+  margin:0 auto;
+}
+
+.ly_cont {
+  max-width: 1230px;
+  padding: 60px 15px;
+  margin: 0 auto;
+}
+
+/*============================================================================
+ * Block Module Group
+ *==========================================================================*/
+ .global-nav {
+  background-color: #006F62;
+}
+
+.global-nav__menu {
+  display: flex;
+  
+}
+
+.global-nav__item {
+  margin:0;
+}
+
+.global-nav__link {
+  color: white;
+  padding:0 1em;
+  line-height: 2em;
+  display: inline-block;
+}
+
+.global-nav__link:hover {
+  background-color:#009F8C;
+}
+
+.note {
+  font-size: 20px;
+}
+
+.note p, .note ul{
+  margin-bottom: 20px;
+}
+
+.note > h1 {
+  font-size:20px;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.note > h2 {
+  font-size:16px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.note > h3 {
+  font-size:16px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.note > p {
+  margin-bottom: 1em;
+  line-height: 1.5em;
+}
+
+.note strong {
+  color:#007AB7;
+  font-weight: bold;
+}
+
+.note em {
+  color:olivedrab;
+}
+
+.note p code {
+  font-family: Consolas, Monaco, monospace;
+  background-color: #ddd;
+  color:mediumvioletred;
+  border-radius: 3px;
+  padding:0 0.2em;
+  margin-right: 0.2em;
+}
+
+.note code.hljs {
+  /* highlight.js が指定してたfontをとりあえずそのまま指定してみた。 */
+  font-family: Consolas, Monaco, monospace;
+  border:1px solid #000;
+  margin-bottom: 20px;
+  line-height: 1.3em;
+  font-size: 16px;
+}
+
+.note mjx-container {
+  border-radius: 1em;
+  padding: 1em 0;
+  background-color: #D9F4F1;
+}
+
+.note ul li {
+  line-height: 1.5em;
+  list-style-type: disc;
+  margin-left:1.3em;
+  margin-bottom: 0.3em;
+}
+
+.note ul p {
+  margin:0;
+}
+
+/*============================================================================
+ * Block Element Group
+ *==========================================================================*/
+.el_h1 {
+  font-weight: bold;
+  font-size: 96px;
+  letter-spacing: -1.5;
+}
+
+.el_h2 {
+  font-weight: bold;
+  font-size: 60px;
+  letter-spacing: -0.5;
+}
+
+.el_h3 {
+  font-weight: bold;
+  font-size: 48px;
+  letter-spacing: 0;
+}
+
+.el_h4 {
+  font-weight: bold;
+  font-size: 34px;
+  letter-spacing: 0.25;
+}
+
+.el_h5 {
+  font-weight: bold;
+  font-size: 24px;
+  letter-spacing: 0;
+}
+
+.el_h6 {
+  font-weight:bold;
+  font-size: 20px;
+  letter-spacing: 0.15;
+}
+
+.el_btn {
+  display: inline-block;
+  border-radius: 5px;
+  max-width: 100%;
+  padding: 0.3em 0.5em;
+  background-color: #f8f9fa;
+  border: 2px solid #333;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
+  color: #333;
+  font-size: .85rem;
+  text-align: center;
+  text-decoration: none;
+  transition: .25s;
+}
+
+.el_btn:focus,
+.el_btn:hover {
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+}
+
+.el_btn__save {
+  border-color: #009F8C;
+  color: #009F8C;
+}
+
+.el_btn.el_btn__save:focus,
+.el_btn.el_btn__save:hover
+{
+  background-color: #009F8C;
+}
+
+.el_footerCopyright {
+  color: white;
+}
+
+/*============================================================================
+ * Helper Group
+ *==========================================================================*/
+.hp_btGray {
+  border-top: 1px solid #777 !important;
+}
+
+.hp_txtCentered {
+  text-align: center;
+}
+
+/*============================================================================
+ * 後で消すやつ
+ *==========================================================================*/
+  table {
+    border: 1px solid #666;
+    border-collapse: collapse;
+  }
+  
+  thead tr th {
+    border:1px solid #666;
+    background-color: #999;
+    color:white;
+    font-weight: bold;
+    padding:1em;
+  }
+  
+  tbody tr td {
+    border:1px solid #666;
+    padding:4px;
+    background-color: white;
+  }

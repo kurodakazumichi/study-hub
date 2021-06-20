@@ -4,7 +4,7 @@
 @section('js', 'category/index.js')
 
 @section('main')
-  <h1>カテゴリ一覧</h1>
+  <h1 class="el_h5">カテゴリ一覧</h1>
 
   <table>
     <thead>
@@ -19,8 +19,8 @@
       <tr data-id="{{ $category->id }}" data-order-no="{{ $category->order_no }}">
         <td>{{ $category->id }}</td>
         <td><input class="category-name" data-id="{{ $category->id }}" type="text" value="{{ $category->name }}"></td>
-        <td>
-          <button data-id="{{ $category->id }}" class="delete">削除</button>
+        <td class="hp_txtCentered">
+          <a href="#" data-id="{{ $category->id }}" class="el_btn delete">削除</a>
         </td>
       </tr>
       @endforeach
@@ -31,8 +31,8 @@
         <td>
           <input name="name" type="text" value="">
         </td>
-        <td>
-          <button name="submit">作成</button>
+        <td class="hp_txtCentered">
+          <a name="submit" href="#" data-id="{{ $category->id }}" class="el_btn el_btn__save">作成</a>
         </td>
       </tr>    
     </tbody>
