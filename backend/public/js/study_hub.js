@@ -15,38 +15,23 @@ const StudyHub = {};
      */
     ajax: (options, funcs) => {
 
-      // 通信失敗時のコールバックを呼び出すための関数
-      const callFailFunction = (funcs, data, status, statusText) => 
+      const callFunc = (funcs, method, data, status, statusText) => 
       {
-        // ステータスコードに対応したコールバックがあればそれを呼ぶ(r500, r422)など
-        const name = `r${status}`;
-
-        if (funcs[name]) {
-          funcs[name](data, status, statusText);
-          return;  
+        if (funcs[method]) {
+          funcs[method](data, status, statusText); return;
         }
-
-        // fallback
-        funcs['fail'] && funcs['fail'](data, status, statusText);
+        
+        if (status < 200 || 299 < status && funcs['fail']) {
+          funcs['fail'](data, status, statusText);
+        }
       }
 
       $.ajax(options)
-        .done((res, statusText, xhr) => 
-        {
-          // validationエラーになった時、何故か422ではなく、常にstatus 200が返ってくる。
-          // 200の時に、レスポンスには errors という項目は含まれないが、もし含まれていた場合はエラー扱いとし
-          // failを422 扱いで呼び出すようにしてとりあえず逃げる。
-          if (typeof (res.errors) !== "undefined") {
-            callFailFunction(funcs, res, 422, "Unprocessable Entity by app");
-            return;
-          }
-
-          if (funcs.done) {
-            funcs.done(res, xhr.status, xhr.statusText); 
-          }
+        .done((res, _, xhr) => {
+          callFunc(funcs, 'done', res, xhr.status, xhr.statusText);
         })
         .fail((res) => {
-          callFailFunction(funcs, res.responseJSON, res.status, res.statusText);
+          callFunc(funcs, `r${res.status}`, res.responseJSON, res.status, res.statusText);
         });
     }    
   };
