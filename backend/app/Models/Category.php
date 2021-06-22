@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -47,18 +48,24 @@ class Category extends Model
 
     DB::beginTransaction();
 
-    DB::update($sql1, [
-      'to_order_no' => $to->order_no,
-      'from_id'     => $from->id
-    ]);
+    try {
+      DB::update($sql1, [
+        'to_order_no' => $to->order_no,
+        'from_id'     => $from->id
+      ]);
 
-    DB::update($sql2, [
-      'value'        => ($from->order_no < $to->order_no)? -1 : +1,
-      'ignore_id'    => $from->id,
-      'min_order_no' => min($from->order_no, $to->order_no),
-      'max_order_no' => max($from->order_no, $to->order_no)
-    ]);
+      DB::update($sql2, [
+        'value'        => ($from->order_no < $to->order_no)? -1 : +1,
+        'ignore_id'    => $from->id,
+        'min_order_no' => min($from->order_no, $to->order_no),
+        'max_order_no' => max($from->order_no, $to->order_no)
+      ]);
 
-    DB::commit();
+      DB::commit();
+      return true;
+    } catch (Exception $e) {
+      DB::rollBack();
+      return false;
+    }
   }
 }

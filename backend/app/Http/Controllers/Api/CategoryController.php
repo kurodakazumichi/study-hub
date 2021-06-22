@@ -82,17 +82,12 @@ class CategoryController extends Controller
       return response404('Destination category');
     }
 
-    try 
-    {
-      Category::sort($from, $to);
-
+    if (DB::sort($from, $to)) {
       return response()->json([
         'message' => 'category sorted successfully.'
       ], 200);
-
-    } catch(\Exception $e) {
-      DB::rollBack();
-      response500($e->getMessage());
+    } else {
+      response500("failed category sort.");
     }
   }  
 }
