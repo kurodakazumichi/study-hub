@@ -1,5 +1,4 @@
-
-<?php  // resources/lang/ja/validation.php
+<?php
 
 return [
 
@@ -111,4 +110,4 @@ return [
       'variety_id' => 'バラエティ',
     ],
 
-];
+  ];
