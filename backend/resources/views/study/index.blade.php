@@ -48,10 +48,10 @@
         <thead class="vertical-table__header">
           <tr class="vertical-table__header-row">
             <th>ID.</th>
-            <th>分類</th>
+            <th colspan="2">分類</th>
             <th>名前</th>
-            <th colspan="2">進捗率</th>
-            <th colspan="2">習得率</th>
+            <th>進捗率</th>
+            <th>習得率</th>
             <th>リンク</th>
             <th>操作</th>
           </tr>
@@ -60,7 +60,12 @@
           @foreach($studies as $study)
             <tr id="{{ $study->id }}">
               <td>{{ $study->id }}</td>
-              <td>{{ $categories[$study->category_id] }}:{{ $varieties[$study->variety_id] }}</td>
+              <td>
+                <span class="badge">{{ $categories[$study->category_id] }}</span>
+              </td>
+              <td>
+                <span class="badge">{{ $varieties[$study->variety_id] }}</span>
+              </td>
               <td>
                 @if (empty($study->note_id))
                   {{ $study->name }}
@@ -69,32 +74,38 @@
                 @endif
               </td>
               <td>
-                {{ $study->progress }}%
+                <div class="progress" style="width:75px">
+                  <div class="progress__bar" style="width:{{ $study->progress }}%">&nbsp;</div>
+                  <div class="progress__text">{{ $study->progress }}%</div>
+                </div>                
               </td>
               <td>
-                <div style="background-color:blue; border-radius:5px; width:{{ $study->progress }}px">&nbsp;</div>
+                <div class="progress" style="width:75px">
+                  <div class="progress__bar" style="width:{{ $study->mastery }}%">&nbsp;</div>
+                  <div class="progress__text">{{ $study->mastery }}%</div>
+                </div>                   
               </td>
-              <td>{{ $study->mastery }}%</td>
               <td>
-                <div style="background-color:blue; border-radius:5px; width:{{ $study->mastery }}px">&nbsp;</div>
-              </td>
-              <td>
+                <a 
+                  class="before-icon before-icon--list"
+                  href="/studies/{{ $study->id }}/indices">目次</a>&nbsp;
+
+                <a
+                  class="before-icon before-icon--question"
+                  href="/studies/{{ $study->id }}/problems">問題</a>&nbsp;       
+                       
                 @if (!is_null($study->link))
-                  <a href="{{ $study->link }}" target="_blank">関連</a>
+                  <a 
+                    class="before-icon before-icon--link" 
+                    href="{{ $study->link }}" target="_blank">関連</a>
                 @endif
               </td>
               <td>
-                <a href="/studies/{{ $study->id }}/edit">
-                <i class="fas fa-pen"></i><span>編集</span>
-                </a>
-                <a href="/studies/{{ $study->id }}/indices">
-                  <i class="fas fa-list-ul"></i>
-                  <span>目次</span>
-                </a>
-                <a href="/studies/{{ $study->id }}/problems">
-                  <i class="fas fa-check-circle"></i>
-                  <span>問題</span>                
-                </a>
+                <a 
+                  class="before-icon before-icon--edit" 
+                  href="/studies/{{ $study->id }}/edit">編集</a>&nbsp;
+
+
               </td>
             </tr>          
           @endforeach

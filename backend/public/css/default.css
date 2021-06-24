@@ -9,7 +9,7 @@
   --base-color: rgb(247, 248, 247);
   --main-color1: #007F70;
   --main-color1-light: #32978B;
-  --accent-color1: rgb(238, 61, 61);
+  --accent-color1: #D7A72D;
   --accent-color2: #f1de00;
 }
 
@@ -125,43 +125,81 @@
 }
 
 /*----------------------------------------------------------------------------
- * Vertical Table
+ * Progress
  *--------------------------------------------------------------------------*/
-.vertical-table {
-  font-size: 14px;
-  border-top: 1px solid #ddd;
-  border-left:1px solid #ddd;
-  table-layout: fixed;
-}
-
-.vertical-table .vertical-table__header-row {
-  background-color: #999;
-  color:white;
-}
-
-.vertical-table .vertical-table__header th {
-  padding:15px;
-  border-right: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  font-weight: bold;
-  vertical-align: middle;
-}
-
-.vertical-table .vertical-table__header th:last-child {
-  border-right: none;
-  border-bottom: none;
-}
-
-.vertical-table .vertical-table__body td {
-  padding:5px 10px;
+.progress {
+  position:relative;
   border:1px solid #ddd;
-  background-color: white;
+  background-color: #eee;
+}
+
+.progress .progress__bar {
+  background-color:#95DFD6;
+}
+
+.progress .progress__text {
+  position: absolute;
+  top:50%;
+  width:100%;
+  text-align: center;
+  font-size:.75em;
+  transform: translateY(-50%)
+}
+
+/*----------------------------------------------------------------------------
+ * Badge
+ *--------------------------------------------------------------------------*/
+.badge {
+  display: inline-block;
+  padding: .2em .3em;
+  background-color: #cff7f3;
+  font-size: 0.75em;
+  border: 2px solid transparent;
+}
+
+.badge.badge--sub {
+  background-color: var(--accent-color2);;
+  color: #000;
+}
+
+/*----------------------------------------------------------------------------
+ * Before Icon
+ *--------------------------------------------------------------------------*/
+.before-icon::before {
+  display: inline-block;
+  margin-right: .2em;
+  color: #999;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 400;
+}
+
+.before-icon.before-icon--link::before {
+  content: '\f0c1';
+  font-weight: 900;
+}
+
+.before-icon.before-icon--edit::before {
+  content: '\f044';
+}
+
+.before-icon.before-icon--list::before {
+  content: '\f03a';
+  font-weight: 900;
+}
+
+.before-icon.before-icon--question::before {
+  content: '\f128';
+  font-weight: 900;
+}
+
+.before-icon.before-icon--note::before {
+  content: '\f328';
 }
 
 /*----------------------------------------------------------------------------
  * Button
  *--------------------------------------------------------------------------*/
-.btn {
+ .btn {
   display: inline-block;
   border-radius: 5px;
   max-width: 100%;
@@ -193,6 +231,40 @@
 .btn.btn--save:hover{
   background-color: var(--main-color1);
   color: #fff;
+}
+
+/*----------------------------------------------------------------------------
+ * Vertical Table
+ *--------------------------------------------------------------------------*/
+.vertical-table {
+  font-size: 14px;
+  border-top: 1px solid #ddd;
+  border-left:1px solid #ddd;
+  table-layout: fixed;
+}
+
+.vertical-table .vertical-table__header-row {
+  background-color: #999;
+  color:white;
+}
+
+.vertical-table .vertical-table__header th {
+  padding:15px;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+.vertical-table .vertical-table__header th:last-child {
+  border-right: none;
+  border-bottom: none;
+}
+
+.vertical-table .vertical-table__body td {
+  padding:5px 10px;
+  border:1px solid #ddd;
+  background-color: white;
 }
 
 /*----------------------------------------------------------------------------
@@ -472,39 +544,6 @@
   content: '\f00e';
 }
 
-.before-icon::before {
-  display: inline-block;
-  margin-right: .3em;
-  color: var(--accent-color1);
-  font-family: 'Font Awesome 5 Free';
-  font-weight: 400;
-}
-
-.before-icon.before-icon--pdf::before {
-  content: '\f1c1';
-}
-
-.before-icon.before-icon--excel::before {
-  content: '\f1c3';
-}
-
-.before-icon.before-icon--point::before {
-  content: '\f1c4';
-}
-
-.before-icon.before-icon--square::before {
-  content: '\f14a';
-}
-
-.before-icon.before-icon--chevron-left::before {
-  content: '';
-  width: .375em;
-  height: .375em;
-  border-bottom: .125em solid var(--accent-color1);
-  border-left: .125em solid var(--accent-color1);
-  transform: rotate(45deg) translateY(-30%);
-}
-
 .after-icon::after {
   display: inline-block;
   margin-left: .3em;
@@ -522,32 +561,6 @@
   transform: rotate(45deg) translateY(-30%);
 }
 
-.label {
-  display: inline-block;
-  padding: .2em .3em;
-  background-color: var(--accent-color1);
-  color: #fff;
-  font-size: 0.75em;
-  font-weight: bold;
-  border: 2px solid transparent;
-}
-
-.label.label--warning {
-  background-color: var(--accent-color2);;
-  color: #000;
-}
-
-.label.label--link {
-  text-decoration: none;
-  transition: .25s;
-}
-
-.label.label--link:hover,
-.label.label--link:hover {
-  background-color: #fff;
-  border-color: currentColor;
-  color: var(--accent-color1);
-}
 
 .rounded-label {
   display: inline-block;

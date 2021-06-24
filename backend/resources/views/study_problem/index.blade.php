@@ -14,9 +14,9 @@
 }
 
 </style>
-<h1>{{ $study->name }}</h1>
+<h1 class="heading-lv1">{{ $study->name }}</h1>
 
-<h2>検索フォーム</h2>
+<h2 class="heading-lv2">検索フォーム</h2>
 <form action="/studies/{{ $study->id }}/problems" method="get">
   <x-forms.drop-box 
     name="kind"
@@ -32,7 +32,7 @@
   <input type="submit" value="検索">
 </form>
 
-<h2>新規フォーム</h2>
+<h2 class="heading-lv2">新規フォーム</h2>
 <form id="create-form">
   <input type="hidden" name="study_id" value="{{ $study->id }}">
   <x-forms.drop-box 
@@ -46,7 +46,7 @@
 </form>
 
 <div id="edit-container">
-  <h2>編集フォーム</h2>
+  <h2 class="heading-lv2">編集フォーム</h2>
   <form id="edit-form">
     <input type="hidden" name="id">
     <input type="hidden" name="study_id" value="{{ $study->id }}">
@@ -64,17 +64,19 @@
   </form>
 </div>
 
-<h2>目次</h2>
-<table>
-  <thead>
-    <th>Index</th>
-    <th>タイトル</th>
-    <th colspan="2">Mastery</th>
-    <th>コメント</th>
-    <th>リンク</th>
-    <th>操作</th>
+<h2 class="heading-lv2">目次</h2>
+<table class="vertical-table">
+  <thead class="vertical-table__header">
+    <tr class="vertical-table__header-row">
+      <th>No</th>
+      <th>タイトル</th>
+      <th>Mastery</th>
+      <th>コメント</th>
+      <th>ノート</th>
+      <th>操作</th>
+    </tr>
   </thead>
-  <tbody>
+  <tbody  class="vertical-table__body">
     @foreach($problems as $problem)
       <tr>
         <td>
@@ -102,15 +104,17 @@
           
         </td>
         <td>
-          {{ \App\Consts\StudyProblemConsts::MASTERIES[$problem->mastery] }}
-        </td>
-        <td>
-          <div style="background-color:blue; border-radius:3px; width:{{ $problem->mastery * 10 }}px;">&nbsp</div>
+          <div class="progress" style="width:75px">
+            <div class="progress__bar" style="width:{{ $problem->mastery * 10 }}%">&nbsp;</div>
+            <div class="progress__text">{{ \App\Consts\StudyProblemConsts::MASTERIES[$problem->mastery] }}</div>
+          </div>
         </td>
         <td>{{ $problem->comment }}</td>
-        <td>
+        <td class="txt-centered">
           @if (!empty($problem->note_id))
-            <a href="/notes/{{$problem->note_id}}/show">ノート</a>
+            <a 
+              class="before-icon before-icon--note"
+              href="/notes/{{$problem->note_id}}/show"></a>
           @endif
         </td>
         <td>

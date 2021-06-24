@@ -14,9 +14,9 @@
 }
 
 </style>
-<h1>{{ $study->name }}</h1>
+<h1 class="heading-lv1">{{ $study->name }}</h1>
 
-<h2>新規フォーム</h2>
+<h2 class="heading-lv2">新規フォーム</h2>
 <form id="create-form">
   <input type="hidden" name="index_id">
   <input type="hidden" name="study_id" value="{{ $study->id }}">
@@ -27,7 +27,7 @@
 </form>
 
 <div id="edit-container">
-  <h2>編集フォーム</h2>
+  <h2 class="heading-lv2">編集フォーム</h2>
   <form id="edit-form">
     <input type="hidden" name="id">
     Index:<input type="text" name="index"><br>
@@ -43,23 +43,25 @@
   </form>
 </div>
 
-<h2>CSV一括登録</h2>
+<h2 class="heading-lv2">CSV一括登録</h2>
 <form id="batch-form">
   <input type="hidden" name="id" value="{{ $study->id }}">
   <input type="file" name="file" value="ファイル送信" id="batch-file-button">
 </form>
 
-<h2>目次</h2>
-<table>
-  <thead>
-    <th>Index</th>
-    <th>タイトル</th>
-    <th colspan="2">Mastery</th>
-    <th>コメント</th>
-    <th>リンク</th>
-    <th>操作</th>
+<h2 class="heading-lv2">目次</h2>
+<table class="vertical-table">
+  <thead class="vertical-table__header">
+    <tr class="vertical-table__header-row">
+      <th>Index</th>
+      <th>タイトル</th>
+      <th>Mastery</th>
+      <th>コメント</th>
+      <th>リンク</th>
+      <th>操作</th>
+    </tr>
   </thead>
-  <tbody>
+  <tbody class="vertical-table__body">
     @foreach($indices as $index)
       <tr>
         <td>
@@ -86,15 +88,17 @@
 
         </td>
         <td>
-          {{ \App\Consts\StudyIndexConsts::MASTERIES[$index->mastery] }}
-        </td>
-        <td>
-          <div style="background-color:blue; border-radius:3px; width:{{ $index->mastery * 10 }}px;">&nbsp</div>
+          <div class="progress" style="width:75px">
+            <div class="progress__bar" style="width:{{ $index->mastery * 10 }}%">&nbsp;</div>
+            <div class="progress__text">{{ \App\Consts\StudyIndexConsts::MASTERIES[$index->mastery] }}</div>
+          </div>          
         </td>
         <td>{{ $index->comment }}</td>
-        <td>
+        <td class="txt-centered">
           @if (!empty($index->note_id))
-            <a href="/notes/{{ $index->note_id }}/show">ノート</a>
+            <a
+              class="before-icon before-icon--note" 
+              href="/notes/{{ $index->note_id }}/show"></a>
           @endif        
           @if (!empty($index->link))
             <a href="{{$index->link}}" target="_blank">関連</a>
