@@ -88,6 +88,51 @@ function SetupNameEdit()
 
 // 初期処理
 $(() => {
+
+  const { api, components } = StudyHub;
+
+  const page = {
+    notice: components.notice('#_notice')
+  }
+
+  //--------------------------------------------------------------------------
+  // 新規作成
+  class Create 
+  {
+    constructor(id) {
+      this.root = $(id);
+      this.init();
+    }
+
+    init() {
+      this.root.find('[name=submit]').on('click', this.onSubmit.bind(this));
+    }
+
+    onSubmit() {
+
+      api.variety.create({
+        data: this.data,
+        done: () => { location.reload(); },
+        r422: (data) => {
+          page.notice.setItem(data.errors.name).danger();
+        },
+        fail: (data) => {
+          page.notice.setItem(data.message).danger();
+        }
+      })
+
+      return false;
+    }
+
+    get data() {
+      return {
+        name : this.root.find('[name=name]').val(),
+      }
+    }
+  }
+
+  new Create("#_create-form");
+
   SetupSortable();
   SetupCreateForm();
   SetupNameEdit();

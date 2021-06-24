@@ -91,6 +91,50 @@ const StudyHub = {};
     },
   }
 
+  //---------------------------------------------------------------------------
+  // Variety API
+  api.variety = 
+  {
+    // 新規作成
+    create: (params) => {
+      api.ajax({
+        url : `/api/varieties`,
+        type: 'post',
+        data: params.data,
+        dataType: 'json'
+      }, params);
+    },
+
+    // 編集
+    update: (id, params) => {
+      api.ajax({
+        url : `/api/varieties/${id}`,
+        type: 'put',
+        data: params.data,
+        dataType: 'json'
+      }, params);
+    },
+
+    // 削除
+    delete: (id, params) => {
+      api.ajax({
+        url : `/api/varieties/${id}`,
+        type: 'delete',
+        dataType: 'json',
+      }, params);
+    },
+
+    // 並び替え
+    sort: (params) => {
+      api.ajax({
+        url     : `api/varieties/sort`,
+        type    : 'put',
+        data    : params.data,
+        dateType: 'json'
+      }, params);
+    },
+  }  
+
   StudyHub.api = api; // 割り当て
 }
 

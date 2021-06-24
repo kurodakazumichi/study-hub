@@ -70,5 +70,8 @@
     <div id="_loader" class="overlay" style="display:none">
       <div class="loader">Loading...</div>
     </div>
+    <div id="_notice" style="display:none; position:fixed; top:0em; width:100%;">
+      <ul class="alerts"></ul>
+    </div>    
   </body>
 </html>
