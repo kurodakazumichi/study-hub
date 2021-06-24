@@ -48,11 +48,11 @@
         <thead class="vertical-table__header">
           <tr class="vertical-table__header-row">
             <th>ID.</th>
-            <th colspan="2">分類</th>
+            <th>分類</th>
             <th>名前</th>
             <th>進捗率</th>
             <th>習得率</th>
-            <th>リンク</th>
+            <th style="width:75.95px">リンク</th>
             <th>操作</th>
           </tr>
         </thead>
@@ -61,10 +61,8 @@
             <tr id="{{ $study->id }}">
               <td>{{ $study->id }}</td>
               <td>
-                <span class="badge">{{ $categories[$study->category_id] }}</span>
-              </td>
-              <td>
-                <span class="badge">{{ $varieties[$study->variety_id] }}</span>
+                <span class="badge mb-3">{{ $categories[$study->category_id] }}</span><br>
+                <span class="badge badge--sub">{{ $varieties[$study->variety_id] }}</span>
               </td>
               <td>
                 @if (empty($study->note_id))
@@ -86,26 +84,22 @@
                 </div>                   
               </td>
               <td>
-                <a 
-                  class="before-icon before-icon--list"
-                  href="/studies/{{ $study->id }}/indices">目次</a>&nbsp;
+                <a title="目次" class="mr-3" href="/studies/{{ $study->id }}/indices">
+                  <i class="fas fa-list"></i>
+                </a>
 
-                <a
-                  class="before-icon before-icon--question"
-                  href="/studies/{{ $study->id }}/problems">問題</a>&nbsp;       
-                       
+                <a title="問題" class="mr-3" href="/studies/{{ $study->id }}/problems">
+                  <i class="fas fa-question"></i>
+                </a>
+
                 @if (!is_null($study->link))
-                  <a 
-                    class="before-icon before-icon--link" 
-                    href="{{ $study->link }}" target="_blank">関連</a>
+                  <a title="関連リンク" href="{{ $study->link }}" target="_blank">
+                    <i class="fas fa-link"></i>
+                  </a>
                 @endif
               </td>
-              <td>
-                <a 
-                  class="before-icon before-icon--edit" 
-                  href="/studies/{{ $study->id }}/edit">編集</a>&nbsp;
-
-
+              <td  class="txt-centered">
+                <a title="編集" href="/studies/{{ $study->id }}/edit"><i class="fas fa-edit"></i></a>
               </td>
             </tr>          
           @endforeach
