@@ -7,6 +7,11 @@ const StudyHub = {};
 // api section
 //-----------------------------------------------------------------------------
 {
+  const loader = {
+    show: () => { $('#_loader').show(); },
+    hide: () => { $('#_loader').hide(); },
+  };
+
   api = {
     /**
      * 
@@ -18,7 +23,9 @@ const StudyHub = {};
       const callFunc = (funcs, method, data, status, statusText) => 
       {
         if (funcs[method]) {
-          funcs[method](data, status, statusText); return;
+          console.log(funcs[method]);
+          funcs[method](data, status, statusText); 
+          return;
         }
         
         if (status < 200 || 299 < status && funcs['fail']) {
@@ -26,11 +33,15 @@ const StudyHub = {};
         }
       }
 
+      loader.show();
+
       $.ajax(options)
         .done((res, _, xhr) => {
+          loader.hide();
           callFunc(funcs, 'done', res, xhr.status, xhr.statusText);
         })
         .fail((res) => {
+          loader.hide();
           callFunc(funcs, `r${res.status}`, res.responseJSON, res.status, res.statusText);
         });
     }    
@@ -52,7 +63,6 @@ const StudyHub = {};
 
     // 編集
     update: (id, params) => {
-      console.log(params);
       api.ajax({
         url : `/api/categories/${id}`,
         type: 'put',
@@ -82,4 +92,81 @@ const StudyHub = {};
   }
 
   StudyHub.api = api; // 割り当て
+}
+
+//-----------------------------------------------------------------------------
+// components section
+//-----------------------------------------------------------------------------
+{
+  //---------------------------------------------------------------------------
+  // Notice Component
+  class Notice 
+  {
+    constructor(id) 
+    {
+      this.root = $(id);
+      this.alerts = $(this.root.find(".alerts")[0]);
+      this._init();
+    }
+
+    show() {
+      this.root.show();
+      return this;
+    }
+
+    hide() {
+      this.root.hide();
+      return this;
+    }
+
+    clear() {
+      this.alerts.html('');
+      return this;
+    }
+
+    addItem(item) {
+      this.alerts.append(`<p class="alerts__item">${item}</p>`);
+      return this;
+    }
+
+    addItems(items) {
+      items.map((item) => { this.addItem(item); });
+      return this;
+    }
+
+    setItem(item) {
+      this.clear().addItem(item);
+      return this;
+    }
+
+    setItems(items) {
+      this.clear().addItems(items);
+      return this;
+    }    
+
+    danger() {
+      this.alerts.attr('class', 'alerts alerts--danger');
+      this.show();
+      return this;
+    }
+
+    success() {
+      this.alerts.attr('class', 'alerts alerts--success');
+      this.show();
+      return this;
+    }
+
+    _init() {
+      this.root.on('click', this._onClick.bind(this));
+    }
+
+    _onClick(e) {
+      this.hide();
+    }    
+  };
+
+  // Factory
+  StudyHub.components = {
+    notice: (id) => { return new Notice(id); }
+  }
 }

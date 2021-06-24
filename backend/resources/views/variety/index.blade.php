@@ -4,7 +4,7 @@
 @section('js', 'variety/index.js')
 
 @section('main')
-  <h1>バラエティ一覧</h1>
+  <h1 class="heading-lv1">バラエティ一覧</h1>
 
   <table>
     <thead>

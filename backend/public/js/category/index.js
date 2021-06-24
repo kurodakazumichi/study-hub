@@ -1,174 +1,153 @@
-{
-  class Errors 
+$(() => {
+  
+  const { api, components } = StudyHub;
+
+  const page = {
+    notice: components.notice('#_notice')
+  }
+
+  //--------------------------------------------------------------------------
+  // 新規作成
+  class Create 
   {
-    /**
-     * コンストラクタ
-     * @param {string} id
-     */
     constructor(id) {
       this.root = $(id);
+      this.init();
     }
 
-    /**
-     * エラーメッセージを更新
-     * @param {string[]} errors 
-     */
-    update(errors) 
-    {
-      this.root.html('');
-
-      errors.map((error) => {
-        this.addError(error);
-      });
+    init() {
+      this.root.find('[name=submit]').on('click', this.onSubmit.bind(this));
     }
 
-    addError(error) {
-      this.root.append(`<p>${error}</p>`);
+    onSubmit() {
+
+      api.category.create({
+        data: this.data,
+        done: () => { location.reload(); },
+        r422: (data) => {
+          page.notice.setItem(data.errors.name).danger();
+        },
+        fail: (data) => {
+          page.notice.setItems(data.errors).danger();
+        }
+      })
+
+      return false;
+    }
+
+    get data() {
+      return {
+        name : this.root.find('[name=name]').val(),
+      }
     }
   }
 
-//-----------------------------------------------------------------------------
-// カテゴリーテーブルのソート処理をセットアップ
-//-----------------------------------------------------------------------------
-function SetupSortable() 
-{
-  const { api } = StudyHub;
+  //--------------------------------------------------------------------------
+  // 編集
+  class Update {
+    constructor(selector) {
+      $(selector).on('blur', this.onBlur.bind(this));
+    }
 
-  // ドラッグ開始時のstudy-idの並び
-  let startingIDs = [];    
+    onBlur(e) {
+      const input = $(e.target);
+      const id   = input.data('id');
+      const name = input.val();
+  
+      // 空文字の場合はフォーカスを外さない
+      if (name === "") { 
+        input.focus(); 
+        return; 
+      }
+      
+      api.category.update(id, {
+        data: { name },
+        done: (data) => { 
+          page.notice.setItem(data.message).success();
+        },
+        r422: (data) => {
+          page.notice.setItem(data.errors.name).danger();
+        },
+        fail: (data) => {
+          page.notice.setItems(data.errors).danger();
+        }
+      });
+    }
+  }  
 
-  $('#sortdata').sortable(
-  {
-    activate: (event, ui) => {
-      startingIDs = $("#sortdata").sortable("toArray");
-    },
-    // ドラッグ&ドロップ完了時
-    update: (event, ui) => 
+  //--------------------------------------------------------------------------
+  // 削除
+  class Destory {
+    constructor(selector) {
+      $(selector).on('click', this.onClick.bind(this));
+    }
+    
+    onClick(e) 
     {
-      // 完了時のstudy_idの並び
-      const updatingIDs = $("#sortdata").sortable("toArray");
+      if (!confirm('削除しますか？')) return;
+
+      const id = $(e.target).data('id');
+
+      api.category.delete(id, {
+        done: ()     => { location.reload(); },
+        fail: (data) => { page.notice.setItems(data.errors).danger(); }
+      });
+      return false;      
+    }
+  }
+
+  //--------------------------------------------------------------------------
+  // 並び替え
+  class Sort 
+  {
+    constructor(id) 
+    {
+      this.startingIDs = []; // ソート開始時のIDの並び
+      this.root = $(id);
+      this._init();
+    }
+
+    _init() {
+      this.root.sortable({
+        activate: this.onActivate.bind(this),
+        update  : this.onUpdate.bind(this),
+      });
+    }
+
+    // ドラック開始時にIDの並びを保存
+    onActivate(e, ui) {
+      this.startingIDs = this.currentIDs;
+    }
+
+    // ドラック完了時にAPIコール
+    onUpdate(e, ui) 
+    {
+      const updatedIDs = this.currentIDs;
 
       // 移動先の位置を探す
-      const index = updatingIDs.findIndex((id) => ui.item[0].id == id)
+      const index = updatedIDs.findIndex((id) => ui.item[0].id == id);
 
-      // 移動させるstudyと、移動先のstudyのidを準備
+      // 移動するIDと、移動先のID
       const from_id = ui.item[0].id;
-      const to_id   = startingIDs[index];
+      const to_id   = this.startingIDs[index];
 
       api.category.sort({
         data: { from_id, to_id },
-        done : (() => { alert('成功'); }),
-        fail : (() => { alert('成功'); }),
+        done : (() => { page.notice.setItem('成功').success(); }),
+        fail : (() => { page.notice.setItem('失敗').danger(); }),
       });
     }
-  });
-}
 
-//-----------------------------------------------------------------------------
-// カテゴリの新規登録フォームをセットアップ
-//-----------------------------------------------------------------------------
-function SetupCreateForm() 
-{
-  const { api } = StudyHub;
-
-  const form = $('#create-form');
-
-  // submitボタンを押したとき
-  form.find('[name=submit]').on('click', (e) => {
-
-    api.category.create({
-      data: {
-        name : form.find('[name=name]').val(),
-      },
-      done: () => 
-      {
-        location.reload();
-      },
-      r422: (data) => {
-        for(let key in data.errors) {
-          page.elm.errors.addError(data.errors[key]);
-        }
-      },
-      fail: (data) => 
-      {
-        alert("通信エラー");
-        console.log(data);
-      }
-    });
-  });
-}
-
-//-----------------------------------------------------------------------------
-// カテゴリ名の更新フォームをセットアップ
-//-----------------------------------------------------------------------------
-function SetupCategoryNameEdit() 
-{
-  const { api } = StudyHub;
-
-  $('.category-name').on('blur', (e) => {
-
-    const input = $(e.target);
-    const id   = input.data('id');
-    const name = input.val();
-
-    // 空文字の場合はフォーカスを外さない
-    if (name === "") { 
-      input.focus(); 
-      return; 
+    // 現状の並びのID配列を取得
+    get currentIDs() {
+      return this.root.sortable("toArray");
     }
-    
-    api.category.update(id, {
-      data: { name },
-      done: (data) => { console.log(data); },
-      r422: (data) => {
-        for(let key in data.errors) {
-          page.elm.errors.addError(data.errors[key]);
-        }
-      },
-      fail: (data) => 
-      {
-        alert("通信エラー");
-        console.log(data);
-      }
-    });
-  });
-}
 
-// 初期処理
-$(() => {
-  const { api } = StudyHub;
-  SetupSortable();
-  SetupCreateForm();
-  SetupCategoryNameEdit();
+  }  
 
-  const elm = {
-    errors: new Errors('#errors'),
-  };
+  new Create("#_create-form");
+  new Update("#_sortable .name")
+  new Destory(".btn._delete");
+  new Sort("#_sortable");
 
-  window.page = {
-    elm
-  };
-
-  $('.delete').on('click', (e) => {
-    if (!confirm('削除しますか？')) return;
-    
-    const id = $(e.target).data('id');
-    
-    api.category.delete(id, {
-      done: () => {
-        location.reload();
-      },
-      r422: (data) => {
-        for(let key in data.errors) {
-          page.elm.errors.addError(data.errors[key]);
-        }
-      },
-      fail: (data) => 
-      {
-        alert("通信エラー");
-        console.log(data);
-      }
-    })
-  })
 });
-}

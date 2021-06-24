@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Http\Requests\Category\CategoryStore;
-use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -82,7 +81,7 @@ class CategoryController extends Controller
       return response404('Destination category');
     }
 
-    if (DB::sort($from, $to)) {
+    if (Category::sort($from, $to)) {
       return response()->json([
         'message' => 'category sorted successfully.'
       ], 200);

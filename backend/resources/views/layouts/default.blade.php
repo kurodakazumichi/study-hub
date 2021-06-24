@@ -21,13 +21,13 @@
     @show
 
     <!-- css for application -->
-    <link rel="stylesheet" href="/css/default.css">    
+    <link rel="stylesheet" href="/css/default.css?{{ date('YmdHid') }}">    
 
     <!-- study_hub.js -->
-    <script src="/js/study_hub.js"></script>
+    <script src="/js/study_hub.js?{{ date('YmdHid') }}"></script>
 
     <!-- ページ専用JS -->
-    <script src="/js/@yield('js', 'empty.js')"></script>
+    <script src="/js/@yield('js', 'empty.js')?{{ date('YmdHid') }}"></script>
   </head>
   <body>
     @if( config('app.env') !== "production")
@@ -35,8 +35,8 @@
         <a href="/debug" style="color:white;">{{ config('app.env') }}</a>
       </div>
     @endif
-    <header class="ly_header">
-      <div class="ly_header_inner">
+    <header class="ly-header">
+      <div class="ly-header__inner">
         <nav class="global-nav">
           <ul class="global-nav__menu">
             <li class="global-nav__item">
@@ -54,24 +54,21 @@
 
     <main>
       <article>
-        <section class="ly_cont">
+        <section class="ly-contents">
           @section('main')
           @show
         </section>
       </article>
     </main>
     <footer>
-      <div class="ly_footer">
-        <div class="ly_footer_inner">
-
-        </div>
-      </div>
-      <div class="ly_footer hp_btGray">
-        <div class="ly_footer_inner hp_txtCentered">
-          <small class="el_footerCopyright">© Nekonecode 2021</small>
+      <div class="ly-footer">
+        <div class="ly-footer__inner txt-centered">
+          <small class="col-white">© Nekonecode 2021</small>
         </div>
       </div>      
-
     </footer>
+    <div id="_loader" class="overlay" style="display:none">
+      <div class="loader">Loading...</div>
+    </div>
   </body>
 </html>
