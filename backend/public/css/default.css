@@ -24,7 +24,7 @@
  }
 
  a {
-   color:var(--main-color11);
+   color:var(--main-color1-light);
    text-decoration: none;
  }
 
@@ -111,6 +111,17 @@
   text-align: center;
   border-bottom: 5px solid var(--main-color1);
   margin-bottom: 30px;
+}
+
+.heading-lv2 {
+  font-size: 1.5rem;
+}
+
+/*----------------------------------------------------------------------------
+ * Section
+ *--------------------------------------------------------------------------*/
+.section {
+  margin-bottom: 20px;
 }
 
 /*----------------------------------------------------------------------------

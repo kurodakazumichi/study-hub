@@ -4,40 +4,49 @@
 @section('js', 'study/index.js')
 
 @section('main')
-  <section>
-    <h1>Study</h1>
+    <h1 class="heading-lv1">Study</h1>
 
-    <section>
-      <h2>検索フォーム</h2>
+    <section class="section">
+      <h2 class="heading-lv2">検索フォーム</h2>
       <form action="/studies" method="get">
-        <label for="search-category_id">カテゴリ</label>
-        <x-forms.drop-box 
-          id="search-category_id" 
-          name="category_id" 
-          hasEmpty="true" 
-          :options="$categories"
-          :selected="$search['category_id']"
-        />
-        
-        <label for="search-variety_id">バラエティ</label>
-        <x-forms.drop-box 
-          id="search-variety_id" 
-          name="variety_id" 
-          hasEmpty="true" 
-          :options="$varieties"
-          :selected="$search['variety_id']"
-        />
-
-        <input type="submit" value="検索">
-        <input type="button" value="リセット" onclick="location.href='/studies'; return false;" >
+        <table>
+          <tbody>
+            <tr>
+              <th><label for="search-category_id">カテゴリ</label></th>
+              <td>
+                <x-forms.drop-box 
+                  id="search-category_id" 
+                  name="category_id" 
+                  hasEmpty="true" 
+                  :options="$categories"
+                  :selected="$search['category_id']"
+                />
+              </td>
+              <th><label for="search-variety_id">バラエティ</label></th>
+              <td>
+                <x-forms.drop-box 
+                  id="search-variety_id" 
+                  name="variety_id" 
+                  hasEmpty="true" 
+                  :options="$varieties"
+                  :selected="$search['variety_id']"
+                />
+              </td>
+              <td>
+                <input class="btn" type="submit" value="検索">
+                <input class="btn" type="button" value="リセット" onclick="location.href='/studies'; return false;" >
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </form>
     </section>
 
-    <section>
-      <h2>一覧</h2>
-      <table>
-        <thead>
-          <tr>
+    <section class="section">
+      <h2 class="heading-lv2">一覧</h2>
+      <table class="vertical-table">
+        <thead class="vertical-table__header">
+          <tr class="vertical-table__header-row">
             <th>ID.</th>
             <th>分類</th>
             <th>名前</th>
@@ -47,7 +56,7 @@
             <th>操作</th>
           </tr>
         </thead>
-        <tbody id="sortdata">
+        <tbody id="sortdata" class="vertical-table__body">
           @foreach($studies as $study)
             <tr id="{{ $study->id }}">
               <td>{{ $study->id }}</td>
@@ -94,8 +103,8 @@
       </table>  
     </section>
 
-    <section>
-      <h2>新規登録フォーム</h2>
+    <section class="section">
+      <h2 class="heading-lv2">新規登録フォーム</h2>
       <ul id="errors"></ul>
       <form id="create-form">
         <label for="create-category_id">カテゴリ</label>
@@ -114,8 +123,8 @@
         />
         <label for="name">名称</label>
         <input name="name" type="text" value="">
-        <input id="create" type="button" value="作成">
+        <input class="btn btn--save" id="create" type="button" value="作成">
       </form>    
     </section>
-  </section>
+
 @endsection

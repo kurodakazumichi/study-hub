@@ -4,13 +4,13 @@
 @section('js', 'note/index.js')
 
 @section('main')
-  <section>
-    <h1>Notes</h1>
+  <section class="section">
+    <h1 class="heading-lv1">Notes</h1>
 
     <a href="/notes/create">新規作成</a>
 
-    <section>
-      <h2>検索フォーム</h2>
+    <section class="section">
+      <h2 class="heading-lv2">検索フォーム</h2>
       <form action="/studies" method="get">
         <label for="search-category_id">カテゴリ</label>
         <x-forms.drop-box 
@@ -35,18 +35,18 @@
       </form>
     </section>
 
-    <section>
-      <h2>一覧</h2>
-      <table>
-        <thead>
-          <tr>
+    <section class="section">
+      <h2 class="heading-lv2">一覧</h2>
+      <table class="vertical-table">
+        <thead class="vertical-table__header">
+          <tr class="vertical-table__header-row">
             <th>ID.</th>
             <th>分類</th>
             <th>タイトル</th>
             <th>操作</th>
           </tr>
         </thead>
-        <tbody id="sortdata">
+        <tbody id="sortdata" class="vertical-table__body">
           @foreach($notes as $note)
             <tr>
               <td>{{ $note->id }}</td>
