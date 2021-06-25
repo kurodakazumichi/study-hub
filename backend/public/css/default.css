@@ -566,7 +566,7 @@
   display: block;
   width: .4em;
   height: .4em;
-  background-color: var(--accent-color1);
+  background-color: var(--main-color1);
   border-radius: 50%;
 }
 
@@ -593,7 +593,7 @@
   position: absolute;
   top: 0;
   left:0;
-  color: var(--accent-color1);
+  color: var(--main-color1);
   font-weight: bold;
   counter-increment: note-list;
 }
@@ -630,6 +630,10 @@
 
 .mb-10 {
   margin-bottom: 10px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
 }
 
 .mr-3 {
