@@ -6,93 +6,42 @@
 @section('main')
   
   <h1 class="heading-lv1">Achievement</h1>
-@php /*
+
   <section class="section">
-    <h2 class="heading-lv2">検索フォーム</h2>
-    <form action="/studies" method="get">
-      <label for="search-category_id">カテゴリ</label>
-      <x-forms.drop-box 
-        id="search-category_id" 
-        name="category_id" 
-        hasEmpty="true" 
-        :options="$categories"
-        :selected="$search['category_id']"
-      />
-      
-      <label for="search-variety_id">バラエティ</label>
-      <x-forms.drop-box 
-        id="search-variety_id" 
-        name="variety_id" 
-        hasEmpty="true" 
-        :options="$varieties"
-        :selected="$search['variety_id']"
-      />
+    <div id="_tab">
+      <ul>
+        <li><a href="#_tab-search">検索</a></li>
+        <li><a href="#_tab-form">フォーム</a></li>
+      </ul>
+      {{---------------------------------------- 検索フォーム ----------------------------------------}}
+      <div id="_tab-search">
+        <form action="/studies" method="get">
+          <label for="search-category_id">カテゴリ</label>
+          <x-forms.drop-box 
+            id="search-category_id" 
+            name="category_id" 
+            hasEmpty="true" 
+            :options="$categories"
+            :selected="$search['category_id']"
+          />
+          
+          <label for="search-variety_id">バラエティ</label>
+          <x-forms.drop-box 
+            id="search-variety_id" 
+            name="variety_id" 
+            hasEmpty="true" 
+            :options="$varieties"
+            :selected="$search['variety_id']"
+          />
 
-      <input type="submit" value="検索">
-      <input type="button" value="リセット" onclick="location.href='/studies'; return false;" >
-    </form>
-  </section>
-*/
-@endphp
-  <section class="section">
-    <h2 class="heading-lv2">一覧</h2>
-    <table class="vertical-table">
-      <thead class="vertical-table__header">
-        <tr class="vertical-table__header-row">
-          <th>ID.</th>
-          <th>分類</th>
-          <th>タイトル</th>
-          <th>解放条件</th>
-          <th>難易度</th>
-          <th>解放日</th>
-          <th>&nbsp;</th>
-        </tr>
-      </thead>
-      <tbody id="sortdata" class="vertical-table__body">
-        @foreach($achievements as $achievement)
-          <tr>
-            <td>{{ $achievement->id }}</td>
-            <td>
-              {{ $categories[$achievement->category_id]}}:{{ $varieties[$achievement->variety_id ]}}
-            </td>
-            <td>
-              @if (empty($achievement->note_id))
-                {{ $achievement->title }}
-              @else
-                <a href="/notes/{{ $achievement->note_id }}/show">{{ $achievement->title }}</a>
-              @endif
-            </td>
-            <td>{{ $achievement->condition }}</td>
-            <td>
-              @for($i = 0; $i < 5; $i++)
-                @if ($i < $achievement->difficulty)
-                  <span style="color:orange">★</span>
-                @else
-                  <span style="color:gray">★</span>
-                @endif
-              @endfor
-            </td>
-            <td>
-              @isset($achievement->achievement_at)
-                {{ (new DateTime($achievement->achievement_at))->format("Y.m.d") }}
-              @endisset
-            </td>
-            <td>
-              <button data-id="{{ $achievement->id }}" class="edit-button">編集</button>
-              @if (empty($achievement->achievement_at))
-                <button data-id="{{ $achievement->id }}" class="open-button">解放</button>
-              @else
-                <button data-id="{{ $achievement->id }}" class="close-button">取消</button>
-              @endif
-            </td>
-          </tr>          
-        @endforeach
+          <input type="submit" value="検索">
+          <input type="button" value="リセット" onclick="location.href='/studies'; return false;" >
+        </form>
+      </div>
 
-      </tbody>
-    </table>  
-  </section>
-
-  <section>
+      {{---------------------------------------- 入力フォーム ----------------------------------------}}
+      <div id="_tab-form">
+      <section>
     <h2 class="heading-lv2">新規登録フォーム</h2>
     <ul id="errors"></ul>
     <form id="create-form">
@@ -162,5 +111,73 @@
       <input id="edit" type="button" value="編集">
     </form>    
   </section>    
+      </div>
+    </div>
+  </section>
+
+    
+
+
+
+
+  <section class="section">
+    <h2 class="heading-lv2">一覧</h2>
+
+    @foreach($achievements as $achievement)
+
+      <div class="achievement @empty($achievement->achievement_at) achievement--disabled @endempty">
+        <div class="achievement__icon">
+          <span class="trophy trophy--level{{ $achievement->difficulty }}"></span>
+        </div>
+        <div class="achievement__group">
+          <span class="badge mb-3">{{ $categories[$achievement->category_id]}}</span><br>
+          <span class="badge badge--sub">{{ $varieties[$achievement->variety_id ]}}</span>
+        </div>
+        <div class="achievement__contents">
+          <h2 class="achievement__title">
+            <span>#{{ $achievement->id}}.</span>
+            @if (empty($achievement->note_id))
+              {{ $achievement->title }}
+            @else
+              <a href="/notes/{{ $achievement->note_id }}/show">{{ $achievement->title }}</a>
+            @endif            
+          </h2>
+          <p>
+            {{ $achievement->condition }}
+          </p>
+        </div>
+        <div class="achievement__info">
+          <div>
+            @isset($achievement->achievement_at)
+              {{ (new DateTime($achievement->achievement_at))->format("Y.m.d") }}
+            @else
+              --
+            @endisset
+          </div>
+          <div>
+            @for($i = 0; $i < 5; $i++)
+              @if ($i < $achievement->difficulty)
+                <i class="fas fa-star" style="color:orange"></i>
+              @else
+                <i class="fas fa-star" style="color:gray"></i>
+              @endif
+            @endfor
+          </div>          
+        </div>
+        <div class="achievement__ctrl">
+          <button data-id="{{ $achievement->id }}" class="edit-button">編集</button>
+          @if (empty($achievement->achievement_at))
+            <button data-id="{{ $achievement->id }}" class="open-button">解放</button>
+          @else
+            <button data-id="{{ $achievement->id }}" class="close-button">取消</button>
+          @endif
+        </div>
+      </div>
+
+    @endforeach
+
+  </section>
+
+
   
 @endsection

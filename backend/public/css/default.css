@@ -321,6 +321,91 @@
 }
 
 /*----------------------------------------------------------------------------
+ * Trophy
+ *--------------------------------------------------------------------------*/
+.trophy {
+  display: inline-block;
+  background: #999;
+  -webkit-background-clip: text;  
+  color: transparent;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  font-size:40px;
+}
+
+.trophy::before {
+  content: '\f091'
+}
+
+.trophy.trophy--level2 {
+  background: -webkit-linear-gradient(-45deg, #f3e2c7 0%,#c19e67 50%,#b68d4c 51%,#e9d4b3 100%);
+  -webkit-background-clip: text;
+}
+
+.trophy.trophy--level3 {
+  background: -webkit-linear-gradient(-45deg, #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%);
+  -webkit-background-clip: text;
+}
+.trophy.trophy--level4 {
+  background: -webkit-linear-gradient(-45deg, #fff9c0 0%,#f1da36 100%);
+  -webkit-background-clip: text;
+}
+
+.trophy.trophy--level5 {
+  background: radial-gradient(ellipse at center, #f6f8f9 0%,#e5ebee 50%,#d7dee3 51%,#f5f7f9 100%);
+  -webkit-background-clip: text;
+}
+
+/*----------------------------------------------------------------------------
+ * Achievement
+ *--------------------------------------------------------------------------*/
+.achievement {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  box-shadow: 3px 3px 5px #ddd;
+  justify-content: space-between;
+  padding: .3em 1em;
+  margin-bottom: 1em;
+}
+
+.achievement.achievement--disabled {
+  background-color: #eee;
+}
+
+.achievement .achievement__icon {
+  flex-basis: 40px;
+  margin-right: 1em;
+}
+
+.achievement .achievement__group {
+  flex-basis:100px;
+  font-size: 12px;
+}
+
+.achievement .achievement__contents {
+  flex-grow: 1;
+}
+
+.achievement .achievement__info {
+  width: 100px;
+  font-size: 12px;
+  text-align: center;
+  margin-right: 1em;
+  white-space: nowrap;
+}
+
+.achievement .achievement__title {
+  font-weight: bold;
+}
+
+.achievement .achievement__ctrl {
+  flex-basis: 100px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/*----------------------------------------------------------------------------
  * Loader
  *--------------------------------------------------------------------------*/
  .loader {
