@@ -234,6 +234,32 @@
 }
 
 /*----------------------------------------------------------------------------
+ * Table
+ *--------------------------------------------------------------------------*/
+.table {
+  font-size:14px;
+  border-top: 1px solid #ddd;
+  border-left:1px solid #ddd;
+  table-layout: fixed;  
+}
+
+.table th {
+  padding:10px 15px;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  font-weight: bold;
+  vertical-align: middle;
+  background-color: #eee;
+}
+
+.table td {
+  padding:3px 15px;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  vertical-align: middle;
+}
+
+/*----------------------------------------------------------------------------
  * Vertical Table
  *--------------------------------------------------------------------------*/
 .vertical-table {
@@ -266,6 +292,32 @@
   border:1px solid #ddd;
   background-color: white;
   vertical-align: middle;
+}
+
+/*----------------------------------------------------------------------------
+ * Alert
+ *--------------------------------------------------------------------------*/
+ .alerts {
+  position: relative;
+  padding: .75rem 1.25rem;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+}
+
+.alerts .alerts__item {
+  line-height: 1.5em;
+}
+
+.alerts.alerts--success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.alerts.alerts--danger {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
 }
 
 /*----------------------------------------------------------------------------
@@ -340,32 +392,6 @@
   87.5% {
     box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
   }
-}
-
-/*----------------------------------------------------------------------------
- * Alert
- *--------------------------------------------------------------------------*/
-.alerts {
-  position: relative;
-  padding: .75rem 1.25rem;
-  border-bottom: 3px solid transparent;
-  cursor: pointer;
-}
-
-.alerts .alerts__item {
-  line-height: 1.5em;
-}
-
-.alerts.alerts--success {
-  color: #155724;
-  background-color: #d4edda;
-  border-color: #c3e6cb;
-}
-
-.alerts.alerts--danger {
-  background-color: #f8d7da;
-  border-color: #f5c6cb;
-  color: #721c24;
 }
 
 /*----------------------------------------------------------------------------
@@ -494,6 +520,9 @@
   text-align: center;
 }
 
+.txt-righted {
+  text-align: right;
+}
 .col-white {
   color: white;
 }
@@ -514,8 +543,50 @@
   margin-bottom: 3px;
 }
 
+.mb-10 {
+  margin-bottom: 10px;
+}
+
 .mr-3 {
   margin-right: 3px;
+}
+
+.w-100 {
+  width:100%;
+}
+
+/*----------------------------------------------------------------------------
+ * Tab by jQuery UI
+ *--------------------------------------------------------------------------*/
+.ui-tabs {
+  padding: 0;
+  border-width: 0;
+  font-size: 15px;
+}
+.ui-tabs .ui-widget-header {
+  border:0px;
+  border-radius: 0px;
+  border-bottom: 3px solid var(--main-color1);
+  background: var(--base-color);
+}
+
+.ui-tabs.ui-widget.ui-widget-content {
+  border:0;
+}
+
+.ui-tabs .ui-tabs-panel {
+  border:1px solid #ddd;
+  border-top:none;
+}
+
+.ui-tabs .ui-tabs-nav li {
+  background:#eee;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active {
+  margin-bottom: -3px;
+  padding-bottom: 3px;
+  background: #fff;
 }
 
 /*============================================================================

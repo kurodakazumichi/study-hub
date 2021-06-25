@@ -6,41 +6,113 @@
 @section('main')
     <h1 class="heading-lv1">Study</h1>
 
-    <section class="section">
-      <h2 class="heading-lv2">検索フォーム</h2>
-      <form action="/studies" method="get">
-        <table>
-          <tbody>
-            <tr>
-              <th><label for="search-category_id">カテゴリ</label></th>
-              <td>
-                <x-forms.drop-box 
-                  id="search-category_id" 
-                  name="category_id" 
-                  hasEmpty="true" 
-                  :options="$categories"
-                  :selected="$search['category_id']"
-                />
-              </td>
-              <th><label for="search-variety_id">バラエティ</label></th>
-              <td>
-                <x-forms.drop-box 
-                  id="search-variety_id" 
-                  name="variety_id" 
-                  hasEmpty="true" 
-                  :options="$varieties"
-                  :selected="$search['variety_id']"
-                />
-              </td>
-              <td>
-                <input class="btn" type="submit" value="検索">
-                <input class="btn" type="button" value="リセット" onclick="location.href='/studies'; return false;" >
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
-    </section>
+    <div class="section">
+      <div id="_tab">
+        <ul>
+          <li><a href="#_tab-search">検索</a></li>
+          <li><a href="#_tab-form">フォーム</a></li>
+        </ul>
+
+        {{---------------------------------------- 検索フォーム ----------------------------------------}}
+        <div id="_tab-search">
+          <form action="/studies" method="get">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th><label for="search-category_id">カテゴリ</label></th>
+                  <td>
+                    <x-forms.drop-box 
+                      id="search-category_id" 
+                      name="category_id" 
+                      hasEmpty="true" 
+                      :options="$categories"
+                      :selected="$search['category_id']"
+                    />
+                  </td>
+                  <th><label for="search-variety_id">バラエティ</label></th>
+                  <td>
+                    <x-forms.drop-box 
+                      id="search-variety_id" 
+                      name="variety_id" 
+                      hasEmpty="true" 
+                      :options="$varieties"
+                      :selected="$search['variety_id']"
+                    />
+                  </td>
+                  <td>
+                    <input class="btn" type="submit" value="検索">
+                    <input class="btn" type="button" value="リセット" onclick="location.href='/studies'; return false;" >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+        </div>
+
+        {{---------------------------------------- 入力フォーム ----------------------------------------}}
+        <div id="_tab-form">
+          <table class="table mb-10">
+            <tbody>
+              <tr>
+                <th style="width:100px;">ID</th>
+                <td>
+                  <input type="hidden" name="id">
+                  <span class="_text-id">新規</span>
+                </td>
+
+                <th>カテゴリ</th>
+                <td>
+                  <x-forms.drop-box 
+                    name="category_id" 
+                    hasEmpty="true" 
+                    :options="$categories"
+                  />
+                </td>
+
+                <th>バラエティ</th>
+                <td>
+                  <x-forms.drop-box 
+                    name="variety_id" 
+                    hasEmpty="true" 
+                    :options="$varieties"
+                  />
+                </td>
+                
+                <th>表示優先度</th>
+                <td>
+                  <input type="text" name="order_no" size="2">
+                </td>
+
+                <th>ノートID</th>
+                <td>
+                  <input type="text" name="note_id"size="2">
+                  <a class="before-icon before-icon--note _lnk-note" href="#">ノートを作る</a>
+                </td>                               
+              </tr>
+
+              <tr>
+                <th>タイトル</th>
+                <td colspan="9">
+                  <input class="w-100" name="name" type="text" value="">
+                </td>
+              </tr>
+
+              <tr>
+                <th>リンク</th>
+                <td colspan="9">
+                  <input class="w-100" type="text" name="link">
+                </td>
+              </tr>
+              
+            </tbody>
+          </table>
+          
+          <div class="txt-righted">
+            <a class="btn btn--save _btn-save" href="#">保存</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <section class="section">
       <h2 class="heading-lv2">一覧</h2>
@@ -56,7 +128,7 @@
             <th>操作</th>
           </tr>
         </thead>
-        <tbody id="sortdata" class="vertical-table__body">
+        <tbody class="vertical-table__body">
           @foreach($studies as $study)
             <tr id="{{ $study->id }}">
               <td>{{ $study->id }}</td>
@@ -106,30 +178,6 @@
 
         </tbody>
       </table>  
-    </section>
-
-    <section class="section">
-      <h2 class="heading-lv2">新規登録フォーム</h2>
-      <ul id="errors"></ul>
-      <form id="create-form">
-        <label for="create-category_id">カテゴリ</label>
-        <x-forms.drop-box 
-          id="create-category_id" 
-          name="category_id" 
-          hasEmpty="true" 
-          :options="$categories"
-        />
-        <label for="createvariety_id">バラエティ</label>
-        <x-forms.drop-box 
-          id="create-variety_id" 
-          name="variety_id" 
-          hasEmpty="true" 
-          :options="$varieties"
-        />
-        <label for="name">名称</label>
-        <input name="name" type="text" value="">
-        <input class="btn btn--save" id="create" type="button" value="作成">
-      </form>    
     </section>
 
 @endsection

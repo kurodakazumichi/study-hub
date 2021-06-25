@@ -133,7 +133,22 @@ const StudyHub = {};
         dateType: 'json'
       }, params);
     },
-  }  
+  }
+
+  //---------------------------------------------------------------------------
+  // Study API
+  api.study = 
+  {
+    // 新規作成
+    create: (params) => {
+      api.ajax({
+        url : '/api/studies',
+        type: 'post',
+        data: params.data,
+        dataType: 'json'
+      }, params);
+    }
+  }
 
   StudyHub.api = api; // 割り当て
 }
@@ -169,6 +184,7 @@ const StudyHub = {};
     }
 
     addItem(item) {
+      if (!item) return;
       this.alerts.append(`<p class="alerts__item">${item}</p>`);
       return this;
     }
