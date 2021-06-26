@@ -483,35 +483,22 @@
  * Note(Markdown表示用)
  *--------------------------------------------------------------------------*/
 .note {
-  font-size: 20px;
+  font-size: 16px;
 }
 
-.note p, .note ul{
-  margin-bottom: 20px;
-}
-
-.note > h1 {
-  font-size:20px;
+.note > h1, .note > h2 {
+  font-size: 1.5rem;
+  border-bottom: 5px solid var(--main-color1);
+  margin-top: 100px;
+  margin-bottom: 30px;
   font-weight: bold;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 20px;
-}
-
-.note > h2 {
-  font-size:16px;
-  font-weight: bold;
-  margin-bottom: 20px;
 }
 
 .note > h3 {
-  font-size:16px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.note > p {
-  margin-bottom: 1em;
-  line-height: 1.5em;
+  font-size: 1.4rem;
+  border-left: 5px solid #007F70;
+  padding-left:.3em;
+  margin: 50px 0 30px 0;
 }
 
 .note strong {
@@ -536,7 +523,7 @@
   /* highlight.js が指定してたfontをとりあえずそのまま指定してみた。 */
   font-family: Consolas, Monaco, monospace;
   border:1px solid #000;
-  margin-bottom: 20px;
+  margin: 20px 0;
   line-height: 1.3em;
   font-size: 16px;
 }
