@@ -148,7 +148,21 @@ const StudyHub = {};
         dataType: 'json'
       }, params);
     }
-  }
+  };
+
+  //---------------------------------------------------------------------------
+  // Note API
+  api.note = 
+  {
+    // 新規作成
+    createForStudyIndex: (id, params) => {
+      api.ajax({
+        url : `/api/notes/study_index/${id}`,
+        type: 'post',
+        dataType: 'json'
+      }, params);
+    },
+  };  
 
   StudyHub.api = api; // 割り当て
 }

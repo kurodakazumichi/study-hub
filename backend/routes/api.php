@@ -53,6 +53,7 @@ Route::prefix('/studies/{study_id}/problems')->group(function() {
 
 Route::prefix('/notes')->group(function() {
   Route::post('/', [NoteController::class, 'store'])->name('notes.store');
+  Route::post('/study_index/{id}', [NoteController::class, 'store_for_study_index'])->name('notes.store.study.index');
   Route::put('/{note_id}', [NoteController::class, 'update'])->name('notes.update');
 });
 

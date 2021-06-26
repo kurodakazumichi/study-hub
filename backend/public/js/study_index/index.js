@@ -251,10 +251,33 @@ function SetupMasteryUpdate() {
     });
 }
 
+//-----------------------------------------------------------------------------
+// MakeNote
+//-----------------------------------------------------------------------------
+function SetupMakeNote() {
+  $('._make-note').on('click', (e) => 
+  {
+    if (!confirm("ノートを作成しますか？")) return;
+
+    const indexId = $(e.target).data('id');
+
+    StudyHub.api.note.createForStudyIndex(indexId, {
+      done : (res) => {
+        location.href = `/notes/${res.data.id}/edit`;
+      },
+      fail : (res) => {
+        console.log(res);
+      }
+    })
+
+  });
+}
+
 // 初期処理
 $(() => {
   SetupBatch();
   SetupCreateForm();
   SetupEditButton();
   SetupMasteryUpdate();
+  SetupMakeNote();
 });

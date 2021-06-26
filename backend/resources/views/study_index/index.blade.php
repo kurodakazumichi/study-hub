@@ -109,7 +109,12 @@
             <a
               class="before-icon before-icon--note" 
               href="/notes/{{ $index->note_id }}/show"></a>
-          @endif        
+          @else
+            <a 
+              href="#"
+              data-id="{{ $index->id }}"
+              class="before-icon before-icon--plus-circle _make-note"></a>
+          @endif
           @if (!empty($index->link))
             <a href="{{$index->link}}" target="_blank">関連</a>
           @endif
