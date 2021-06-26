@@ -17,7 +17,7 @@ function SeupCreateForm()
       dataType: 'json'
     })
     .done((res) => {
-      console.log(res);
+      location.href = `/notes/${res.data.id}/edit`;
     })
     .fail((res) => {
       console.log(res);
