@@ -7,7 +7,7 @@ $(() => {
   const md = data.val();
   
   const option = {
-    breaks: true,
+    breaks: false,
   }
 
   // markdownを表示

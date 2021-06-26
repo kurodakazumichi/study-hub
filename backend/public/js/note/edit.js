@@ -38,7 +38,7 @@ $(() => {
       const data = $('#edit-form [name=body]').val();
       const view = $('#_view');
       const option = {
-        breaks: true,
+        breaks: false,
       }
     
       // markdownを表示

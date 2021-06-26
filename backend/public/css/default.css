@@ -483,22 +483,38 @@
  * Note(Markdown表示用)
  *--------------------------------------------------------------------------*/
 .note {
+  width: 790px;
+  margin: 100px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 10px;  
   font-size: 16px;
 }
 
 .note > h1, .note > h2 {
   font-size: 1.5rem;
-  border-bottom: 5px solid var(--main-color1);
-  margin-top: 100px;
-  margin-bottom: 30px;
+  border-bottom: 1px solid var(--main-color1-light);
+  margin-top: 2.2em;
+  margin-bottom: 2.4rem;
   font-weight: bold;
 }
 
+.note > h1:first-child, .note > h2:first-child {
+  margin-top:0;
+}
+
 .note > h3 {
-  font-size: 1.4rem;
-  border-left: 5px solid #007F70;
-  padding-left:.3em;
-  margin: 50px 0 30px 0;
+  font-size: 1.3rem;
+  border-left: 3px solid var(--main-color1-light);
+  padding:2px 0 0 .3em;
+  margin-top: 2.2em;
+  margin-bottom: 2.4rem;
+  font-weight: bold;
+}
+
+.note p {
+  line-height: 1.7em;
+  margin-bottom: 1em;
 }
 
 .note strong {
@@ -507,7 +523,13 @@
 }
 
 .note em {
-  color:olivedrab;
+  font-size: .75em;
+  font-style: normal;
+  color:#555;
+}
+
+.note em::before {
+  content:'※ ';
 }
 
 .note p code {
@@ -516,22 +538,27 @@
   color:mediumvioletred;
   border-radius: 3px;
   padding:0 0.2em;
-  margin-right: 0.2em;
+  margin: 0 0.2em;
 }
 
 .note code.hljs {
   /* highlight.js が指定してたfontをとりあえずそのまま指定してみた。 */
   font-family: Consolas, Monaco, monospace;
   border:1px solid #000;
-  margin: 20px 0;
+  margin: 1.2em auto;
   line-height: 1.3em;
   font-size: 16px;
 }
 
 .note mjx-container {
-  border-radius: 1em;
+  border-radius: 5px;
   padding: 1em 0;
   background-color: #eaf7f5;
+  margin: 1.2em auto !important;
+}
+
+.note ul {
+  margin-bottom: 1em;
 }
 
 .note ul > *:last-child {
@@ -557,10 +584,6 @@
   border-radius: 50%;
 }
 
-.note ul li p {
-  margin:0;
-}
-
 .note ol {
   counter-reset: note-list;
 }
@@ -583,6 +606,10 @@
   color: var(--main-color1);
   font-weight: bold;
   counter-increment: note-list;
+}
+
+.note > iframe {
+  margin-bottom: 2.4em;
 }
 
 /*============================================================================
