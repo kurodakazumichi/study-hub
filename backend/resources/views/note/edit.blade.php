@@ -10,7 +10,7 @@
 
 @section('main')
 
-  <h1 class="heading-lv1">Note Edit</h1>
+  <h1 class="heading-lv1"><a class="col-white" href="/notes/{{$note->id}}/show">{{ $note->title }}</a></h1>
 
   <div id="_tab">
     <ul>
