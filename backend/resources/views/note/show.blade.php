@@ -4,7 +4,7 @@
 @section('js', 'note/show.js')
 
 @section('cdn')
-  @include('shared.cdn.markdown', ['placefolder_id' => '#contents'])
+  @include('shared.cdn.markdown')
 @endsection
 
 @section('main')
