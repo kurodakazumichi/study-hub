@@ -599,6 +599,10 @@
   color: white;
 }
 
+.dsp-none {
+  display: none;
+}
+
 .overlay {
   position: fixed;
   width:100%;

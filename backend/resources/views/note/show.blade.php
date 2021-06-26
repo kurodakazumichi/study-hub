@@ -23,6 +23,8 @@
     </div>    
   </div>
 
-  <section id="contents" class="note">{!! $note->body !!}</section>
+  <section id="_view" class="note"></section>
+
+  <textarea id="_data" class="dsp-none">{!! $note->body !!}</textarea>
 
 @endsection

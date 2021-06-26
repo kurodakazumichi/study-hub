@@ -1,16 +1,17 @@
 $(() => {
-  // markdownの入っているコンテンツを取得
-  const contents = $('#contents');
+  // 要素取得
+  const data = $('#_data');
+  const view = $('#_view');
 
-  // markedのパラメータ
-  const md = contents.html();
+  // markedの内容を取得
+  const md = data.val();
   
   const option = {
     breaks: true,
   }
 
-  // markdownの変換
-  contents.html(marked(md, option));
+  // markdownを表示
+  view.html(marked(md, option));
 
   // シンタックスハイライト
   hljs.highlightAll();
