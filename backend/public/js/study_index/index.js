@@ -211,22 +211,44 @@ function SetupEditButton() {
 // Masteru Update
 //-----------------------------------------------------------------------------
 function SetupMasteryUpdate() {
-  $('.edit-mastery').on('click', (e) => {
-    const target = $(e.target);
-    const indexId = target.data('id');
-    const studyId = target.data('study_id');
-    const mastery = target.data('mastery');
+  const mastery = $('#_mastery-view');
+  const calcMastery = (e) => {
+    return Math.ceil(10 * (e.offsetX / (e.target.offsetWidth+2)));
+  }
+  const calcOffset = (e) => {
+    return {top: e.clientY + scrollY - 30, left: e.clientX - 12};
+  }
 
-    $.ajax({
-      url     : `/api/studies/${studyId}/indices/${indexId}`, 
-      type    : 'put',
-      data    : {mastery},
-      dataType: 'json',
+  $('.progress')
+    .on('mouseover', (e) => {
+      mastery.show();
+      mastery.offset(calcOffset(e));
+      mastery.html(calcMastery(e));
     })
-    .done((res) => {
-      location.reload();
-    });    
-  });
+    .on('mousemove', (e) => {
+      mastery.offset(calcOffset(e));
+      mastery.html(calcMastery(e));
+    })
+    .on('mouseout', (e) => {
+      mastery.hide();
+    })
+    .on('click', (e) => {
+      const target = $(e.target);
+      const indexId = target.data('id');
+      const studyId = target.data('study_id');
+      const mastery = calcMastery(e);
+
+      $.ajax({
+        url     : `/api/studies/${studyId}/indices/${indexId}`, 
+        type    : 'put',
+        data    : {mastery},
+        dataType: 'json',
+      })
+      .done((res) => {
+        location.reload();
+      });
+      return false;
+    });
 }
 
 // 初期処理

@@ -13,6 +13,17 @@
   width: 100%;
 }
 
+#_mastery-view {
+  position:absolute;
+  width:24px;  
+  font-size:12px; 
+  background:#FFE600; 
+  text-align:center; 
+  padding:.05em .2em;
+  border:1px solid #ddd;
+  border-radius: 3px;
+}
+
 </style>
 <h1 class="heading-lv1">{{ $study->name }}</h1>
 
@@ -39,7 +50,6 @@
     リンク：<input type="text" name="link" size="50"><br>
     ノートID：<input type="text" name="note_id" size="2"><br>
     <input type="button" value="更新" id="edit-button">
-    
   </form>
 </div>
 
@@ -57,7 +67,7 @@
       <th>タイトル</th>
       <th>Mastery</th>
       <th>コメント</th>
-      <th>リンク</th>
+      <th>ノート</th>
       <th>操作</th>
     </tr>
   </thead>
@@ -88,9 +98,9 @@
 
         </td>
         <td>
-          <div class="progress" style="width:75px">
-            <div class="progress__bar" style="width:{{ $index->mastery * 10 }}%">&nbsp;</div>
-            <div class="progress__text">{{ \App\Consts\StudyIndexConsts::MASTERIES[$index->mastery] }}</div>
+          <div class="progress cur-pointer" style="width:75px" data-id="{{ $index->id }}" data-study_id="{{ $study->id }}">
+            <div class="progress__bar" style="width:{{ $index->mastery * 10 }}%; pointer-events:none;">&nbsp;</div>
+            <div class="progress__text" style="pointer-events:none;">{{ \App\Consts\StudyIndexConsts::MASTERIES[$index->mastery] }}</div>
           </div>          
         </td>
         <td>{{ $index->comment }}</td>
@@ -106,15 +116,11 @@
         </td>
         <td>
           <button data-id="{{ $index->id }}" class="edit-button">編集</button>
-          @if ($index->mastery < 10)
-            <button data-id="{{ $index->id }}" data-study_id="{{ $study->id }}" data-mastery="{{ $index->mastery + 1 }}" class="edit-mastery">＋</button>
-          @endif
-          @if (0 < $index->mastery)
-            <button data-id="{{ $index->id }}" data-study_id="{{ $study->id }}" data-mastery="{{ $index->mastery - 1 }}" class="edit-mastery">－</button>
-          @endif
         </td>
       </tr>
     @endforeach
   </tbody>
 </table>
+
+<div id="_mastery-view"></div>
 @endsection
