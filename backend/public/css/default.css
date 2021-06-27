@@ -511,7 +511,7 @@
 .note > h3 {
   font-size: 1.3rem;
   border-left: 3px solid var(--main-color1-light);
-  padding:2px 0 0 .3em;
+  padding:0 0 0 .3em;
   margin-top: 2.2em;
   margin-bottom: 2.4rem;
   font-weight: bold;
