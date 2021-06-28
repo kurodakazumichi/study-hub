@@ -204,6 +204,7 @@ function SetupEditButton() {
   const form = new EditForm();
   $(".edit-button").on('click', (e) => {
     form.init($(e.target).data('id'));
+    return false;
   });
 }
 

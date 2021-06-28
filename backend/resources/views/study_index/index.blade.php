@@ -63,12 +63,12 @@
 <table class="vertical-table">
   <thead class="vertical-table__header">
     <tr class="vertical-table__header-row">
-      <th>Index</th>
+      <th style="width:82px">Index</th>
       <th>タイトル</th>
-      <th>Mastery</th>
-      <th>コメント</th>
-      <th>ノート</th>
-      <th>操作</th>
+      <th style="width:400px;">コメント</th>
+      <th style="width:96px;">Mastery</th>      
+      <th style="width:42.88px">&nbsp;</th>
+      <th style="width:42.88px">&nbsp;</th>
     </tr>
   </thead>
   <tbody class="vertical-table__body">
@@ -96,14 +96,19 @@
             <span style="font-size:12px;">{{ $index->title }}</span>
           @endif
 
+          @if (!empty($index->link))
+            <a href="{{$index->link}}" target="_blank">
+              <i class="fas fa-link"></i>
+            </a>
+          @endif          
         </td>
+        <td><span style="font-size:.75em;">{{ $index->comment }}</span></td>
         <td>
           <div class="progress cur-pointer" style="width:75px" data-id="{{ $index->id }}" data-study_id="{{ $study->id }}">
             <div class="progress__bar" style="width:{{ $index->mastery * 10 }}%; pointer-events:none;">&nbsp;</div>
             <div class="progress__text" style="pointer-events:none;">{{ \App\Consts\StudyIndexConsts::MASTERIES[$index->mastery] }}</div>
           </div>          
         </td>
-        <td>{{ $index->comment }}</td>
         <td class="txt-centered">
           @if (!empty($index->note_id))
             <a
@@ -115,12 +120,11 @@
               data-id="{{ $index->id }}"
               class="before-icon before-icon--plus-circle _make-note"></a>
           @endif
-          @if (!empty($index->link))
-            <a href="{{$index->link}}" target="_blank">関連</a>
-          @endif
         </td>
-        <td>
-          <button data-id="{{ $index->id }}" class="edit-button">編集</button>
+        <td class="txt-centered">
+          <a href="#" class="edit-button">
+            <i data-id="{{ $index->id }}" class="fas fa-edit"></i>
+          </a>
         </td>
       </tr>
     @endforeach
