@@ -33,14 +33,32 @@ class StudyProblem extends Model
       ->select(
         't.kind',
         DB::raw('count(t.id) as count'),
-        DB::raw('sum(mastery) as a'),
-        DB::raw('count(id) * 10 as b'),
+        DB::raw('sum(CASE WHEN t.mastery != 0 THEN 1 ELSE 0 END) as done_count'),
         DB::raw('(sum(mastery) / (count(id) * 10)) as mastery')
       )
       ->where(['t.study_id' => $study_id])
       ->groupBy('t.kind')
       ->orderBy('t.kind')
       ->get();
+
+      foreach($stats as $key => $stat) {
+
+        $count   = $stat->count;
+        $done    = $stat->done_count;
+        $mastery = $stat->mastery; 
+  
+        if ($count === 0) {
+          $stat->progress = 0;
+          $stat->mastery = 0;
+          continue;
+        }
+  
+        // 進捗率
+        $stat->progress = round($done / $count, 3) * 100;
+  
+        // 習得率
+        $stat->mastery = round($mastery, 3) * 100;
+      }
 
     return $stats;
   }

@@ -31,7 +31,8 @@ mjx-container {
       <tr class="vertical-table__header-row">
         <th style="width:100px;">種別</th>
         <th style="width:60px;">件数</th>
-        <th>Mastery</th>
+        <th>進捗率</th>
+        <th>習得率</th>
       </tr>
     </thead>
     <tbody  class="vertical-table__body">
@@ -45,8 +46,14 @@ mjx-container {
         </td>
         <td>
           <div class="progress">
-            <div class="progress__bar" style="width:{{ $stat->mastery * 100 }}%">&nbsp;</div>
-            <div class="progress__text">{{ $stat->mastery * 100 }}%</div>
+            <div class="progress__bar" style="width:{{ $stat->progress }}%">&nbsp;</div>
+            <div class="progress__text">{{ $stat->progress }}%</div>
+          </div>
+        </td>     
+        <td>
+          <div class="progress">
+            <div class="progress__bar" style="width:{{ $stat->mastery }}%">&nbsp;</div>
+            <div class="progress__text">{{ $stat->mastery }}%</div>
           </div>  
         </td>
       </tr>
