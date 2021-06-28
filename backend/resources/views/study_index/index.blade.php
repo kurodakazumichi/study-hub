@@ -47,7 +47,9 @@
     mastery:<x-forms.drop-box 
       id="" name="mastery" :options="App\Consts\StudyIndexConsts::MASTERIES"
     /><br>
-    コメント：<input type="text" name="comment"><br>
+    コメント：<br>
+    <textarea name="comment" id="" cols="100" rows="4"></textarea><br>
+    
     リンク：<input type="text" name="link" size="50"><br>
     ノートID：<input type="text" name="note_id" size="2"><br>
     <input type="button" value="更新" id="edit-button">
@@ -103,7 +105,11 @@
             </a>
           @endif          
         </td>
-        <td><span style="font-size:.75em;">{{ $index->comment }}</span></td>
+        <td>
+          <span style="font-size:.75em;">
+            {!! nl2br($index->comment) !!}
+          </span>
+        </td>
         <td>
           <div class="progress cur-pointer" style="width:75px" data-id="{{ $index->id }}" data-study_id="{{ $study->id }}">
             <div class="progress__bar" style="width:{{ $index->mastery * 10 }}%; pointer-events:none;">&nbsp;</div>
