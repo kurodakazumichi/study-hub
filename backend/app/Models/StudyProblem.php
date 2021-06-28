@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class StudyProblem extends Model
 {
@@ -24,5 +25,23 @@ class StudyProblem extends Model
 
   public function study() {
     return $this->belongsTo(Study::class);
-  }  
+  }
+
+  public static function stats($study_id) 
+  {
+    $stats = DB::table('study_problems as t')
+      ->select(
+        't.kind',
+        DB::raw('count(t.id) as count'),
+        DB::raw('sum(mastery) as a'),
+        DB::raw('count(id) * 10 as b'),
+        DB::raw('(sum(mastery) / (count(id) * 10)) as mastery')
+      )
+      ->where(['t.study_id' => $study_id])
+      ->groupBy('t.kind')
+      ->orderBy('t.kind')
+      ->get();
+
+    return $stats;
+  }
 }

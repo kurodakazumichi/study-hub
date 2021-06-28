@@ -41,9 +41,12 @@ class StudyProblemController extends Controller
       ->orderBy('micro')
       ->get();
 
+    $stats = StudyProblem::stats($id);
+
     return view('study_problem.index', [
       'study'    => $study,
       'problems' => $problems,
+      'stats'    => $stats,
       'search'   => $search
     ]);
   }

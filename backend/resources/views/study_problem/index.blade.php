@@ -16,34 +16,70 @@
 </style>
 <h1 class="heading-lv1">{{ $study->name }}</h1>
 
-<h2 class="heading-lv2">検索フォーム</h2>
-<form action="/studies/{{ $study->id }}/problems" method="get">
-  <x-forms.drop-box 
-    name="kind"
-    :options="\App\Consts\StudyProblemConsts::KINDS"
-    :hasEmpty="true"
-    :selected="$search['kind']"
-  />
-  <x-forms.drop-box 
-    id="" name="mastery" :options="App\Consts\StudyProblemConsts::MASTERIES"
-    :hasEmpty="true"
-    :selected="$search['mastery']"
-  />以下
-  <input type="submit" value="検索">
-</form>
+<section class="section">
+  <h2 class="heading-lv2">Stats</h2>
+  <table class="vertical-table">
+    <thead class="vertical-table__header">
+      <tr class="vertical-table__header-row">
+        <th style="width:100px;">種別</th>
+        <th style="width:60px;">件数</th>
+        <th>Mastery</th>
+      </tr>
+    </thead>
+    <tbody  class="vertical-table__body">
+      @foreach($stats as $stat)
+      <tr>
+        <td class="txt-centered">
+          {{ \App\Consts\StudyProblemConsts::KINDS[$stat->kind] }}
+        </td>
+        <td>
+          {{ $stat->count }}件
+        </td>
+        <td>
+          <div class="progress">
+            <div class="progress__bar" style="width:{{ $stat->mastery * 100 }}%">&nbsp;</div>
+            <div class="progress__text">{{ $stat->mastery * 100 }}%</div>
+          </div>  
+        </td>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
 
-<h2 class="heading-lv2">新規フォーム</h2>
-<form id="create-form">
-  <input type="hidden" name="study_id" value="{{ $study->id }}">
-  <x-forms.drop-box 
-    name="kind"
-    :options="\App\Consts\StudyProblemConsts::KINDS"
-  />
-  <label for="create-index">Index</label>
-  <input type="text" name="index" size="1" value="">
-  <input type="text" name="title" size="64" value="">
-  <input type="button" value="作成" id="create-button">
-</form>
+</section>
+
+
+<section class="section">
+  <h2 class="heading-lv2">検索フォーム</h2>
+  <form action="/studies/{{ $study->id }}/problems" method="get">
+    <x-forms.drop-box 
+      name="kind"
+      :options="\App\Consts\StudyProblemConsts::KINDS"
+      :hasEmpty="true"
+      :selected="$search['kind']"
+    />
+    <x-forms.drop-box 
+      id="" name="mastery" :options="App\Consts\StudyProblemConsts::MASTERIES"
+      :hasEmpty="true"
+      :selected="$search['mastery']"
+    />以下
+    <input type="submit" value="検索">
+  </form>
+
+  <h2 class="heading-lv2">新規フォーム</h2>
+  <form id="create-form">
+    <input type="hidden" name="study_id" value="{{ $study->id }}">
+    <x-forms.drop-box 
+      name="kind"
+      :options="\App\Consts\StudyProblemConsts::KINDS"
+    />
+    <label for="create-index">Index</label>
+    <input type="text" name="index" size="1" value="">
+    <input type="text" name="title" size="64" value="">
+    <input type="button" value="作成" id="create-button">
+  </form>
+
+</section>
 
 <div id="edit-container">
   <h2 class="heading-lv2">編集フォーム</h2>
@@ -63,6 +99,8 @@
     <input type="button" value="更新" id="edit-button">
   </form>
 </div>
+
+
 
 <h2 class="heading-lv2">目次</h2>
 <table class="vertical-table">
