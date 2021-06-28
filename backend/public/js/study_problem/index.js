@@ -182,6 +182,8 @@ function SetupMasteryUpdate() {
       location.reload();
     });    
   });
+
+  return false;
 }
 
 // 初期処理

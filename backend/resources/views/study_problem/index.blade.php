@@ -68,19 +68,22 @@
 <table class="vertical-table">
   <thead class="vertical-table__header">
     <tr class="vertical-table__header-row">
-      <th>No</th>
+      <th>種別</th>
+      <th style="width:60px;">No</th>
       <th>タイトル</th>
-      <th>Mastery</th>
-      <th>コメント</th>
-      <th>ノート</th>
-      <th>操作</th>
+      <th style="width:400px">コメント</th>
+      <th style="width:96px;">Mastery</th>
+      <th style="width:60px;">&nbsp;</th>
+      <th style="width:42.88px">&nbsp;</th>
+      <th style="width:42.88px">&nbsp;</th>
     </tr>
   </thead>
   <tbody  class="vertical-table__body">
     @foreach($problems as $problem)
       <tr>
+        <td class="txt-centered">{{ \App\Consts\StudyProblemConsts::KINDS[$problem->kind] }}</td>
         <td>
-          {{ \App\Consts\StudyProblemConsts::KINDS[$problem->kind] }}
+          
           @if(is_null($problem->minor) && is_null($problem->micro))
             {{$problem->major}}
           @endif
@@ -103,13 +106,27 @@
           @endif        
           
         </td>
+        <td><span style="font-size:.75em;">{{ $problem->comment }}</span></td>
         <td>
           <div class="progress" style="width:75px">
             <div class="progress__bar" style="width:{{ $problem->mastery * 10 }}%">&nbsp;</div>
             <div class="progress__text">{{ \App\Consts\StudyProblemConsts::MASTERIES[$problem->mastery] }}</div>
-          </div>
+          </div>          
         </td>
-        <td>{{ $problem->comment }}</td>
+
+        <td class="txt-centered">
+          @if ($problem->mastery < 10)
+            <i 
+              data-id="{{ $problem->id }}" data-study_id="{{ $study->id }}" data-mastery="{{ $problem->mastery + 1 }}"
+              class="fas fa-plus-circle cur-pointer edit-mastery" style="color:#6BBED5;"></i>
+          @endif
+          @if (0 < $problem->mastery)
+            <i 
+              data-id="{{ $problem->id }}" data-study_id="{{ $study->id }}" data-mastery="{{ $problem->mastery - 1 }}"
+              class="fas fa-minus-circle cur-pointer edit-mastery" style="color:#E38692;"></i>          
+          @endif             
+        </td>
+        
         <td class="txt-centered">
           @if (!empty($problem->note_id))
             <a 
@@ -117,14 +134,10 @@
               href="/notes/{{$problem->note_id}}/show"></a>
           @endif
         </td>
-        <td>
-          <button data-id="{{ $problem->id }}" class="edit-button">編集</button>
-          @if ($problem->mastery < 10)
-            <button data-id="{{ $problem->id }}" data-study_id="{{ $study->id }}" data-mastery="{{ $problem->mastery + 1 }}" class="edit-mastery">＋</button>
-          @endif
-          @if (0 < $problem->mastery)
-            <button data-id="{{ $problem->id }}" data-study_id="{{ $study->id }}" data-mastery="{{ $problem->mastery - 1 }}" class="edit-mastery">－</button>
-          @endif               
+        <td class="txt-centered">
+          <a href="#">
+            <i data-id="{{ $problem->id }}" class="fas fa-edit edit-button"></i>
+          </a>
         </td>
       </tr>
     @endforeach
