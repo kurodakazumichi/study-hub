@@ -119,29 +119,35 @@
       <table class="vertical-table">
         <thead class="vertical-table__header">
           <tr class="vertical-table__header-row">
-            <th>ID.</th>
+            <th style="width: 40px;">ID.</th>
             <th>分類</th>
             <th>名前</th>
-            <th>進捗率</th>
-            <th>習得率</th>
-            <th style="width:75.95px">リンク</th>
-            <th>操作</th>
+            <th style="width:96px;">進捗率</th>
+            <th style="width:96px;">習得率</th>
+            <th style="width:75.95px">&nbsp;</th>
+            <th style="width:42.55px">&nbsp;</th>
           </tr>
         </thead>
         <tbody class="vertical-table__body">
           @foreach($studies as $study)
             <tr id="{{ $study->id }}">
-              <td>{{ $study->id }}</td>
+              <td class="txt-centered">{{ $study->id }}</td>
               <td>
                 <span class="badge mb-3">{{ $categories[$study->category_id] }}</span><br>
                 <span class="badge badge--sub">{{ $varieties[$study->variety_id] }}</span>
               </td>
               <td>
-                @if (empty($study->note_id))
-                  {{ $study->name }}
-                @else
-                  <a href="/notes/{{ $study->note_id }}/show">{{ $study->name }}</a>  
-                @endif
+                {{ $study->name }}
+                @if (!is_null($study->link))
+                  <a title="関連リンク" href="{{ $study->link }}" target="_blank">
+                    <i class="fas fa-link"></i>
+                  </a>
+                @endif                
+                @if (!empty($study->note_id))
+                  <a title="ノート" class="mr-3" href="/notes/{{ $study->note_id }}/show">
+                  <i class="far fa-clipboard"></i>
+                  </a>
+                @endif                
               </td>
               <td>
                 <div class="progress" style="width:75px">
@@ -155,20 +161,14 @@
                   <div class="progress__text">{{ $study->mastery }}%</div>
                 </div>                   
               </td>
-              <td>
+              <td class="txt-centered">
                 <a title="目次" class="mr-3" href="/studies/{{ $study->id }}/indices">
                   <i class="fas fa-list"></i>
                 </a>
 
                 <a title="問題" class="mr-3" href="/studies/{{ $study->id }}/problems">
                   <i class="fas fa-question"></i>
-                </a>
-
-                @if (!is_null($study->link))
-                  <a title="関連リンク" href="{{ $study->link }}" target="_blank">
-                    <i class="fas fa-link"></i>
-                  </a>
-                @endif
+                </a>              
               </td>
               <td  class="txt-centered">
                 <a title="編集" href="/studies/{{ $study->id }}/edit"><i class="fas fa-edit"></i></a>
