@@ -123,7 +123,7 @@ mjx-container {
 <table class="vertical-table">
   <thead class="vertical-table__header">
     <tr class="vertical-table__header-row">
-      <th>種別</th>
+      <th style="width:60px;">種別</th>
       <th style="width:60px;">No</th>
       <th>タイトル</th>
       <th style="width:400px">コメント</th>
