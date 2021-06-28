@@ -14,6 +14,7 @@ class StudyProblemController extends Controller
     $search = [
       'kind'   => "",
       'mastery'=> "",
+      'random' => "",
     ];
 
     if (!is_null($request->kind)) {
@@ -22,6 +23,9 @@ class StudyProblemController extends Controller
     if (!is_null($request->mastery)) {
       $search['mastery'] = $request->mastery;
     }
+    if (!is_null($request->random)) {
+      $search["random"] = "on";
+    }    
 
     $study = Study::findOrFail($id);
     $problems = StudyProblem::where('study_id', $id);
@@ -42,6 +46,13 @@ class StudyProblemController extends Controller
       ->get();
 
     $stats = StudyProblem::stats($id);
+
+    // ランダム指定の場合は、ランダムに1問だけ表示
+    if (!empty($search['random'])) {
+      $tmp = $problems->all();
+      shuffle($tmp);
+      $problems = [$tmp[0]];
+    }
 
     return view('study_problem.index', [
       'study'    => $study,

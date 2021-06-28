@@ -78,6 +78,8 @@ mjx-container {
       :hasEmpty="true"
       :selected="$search['mastery']"
     />以下
+
+    <input name="random" type="checkbox" @if($search['random']) checked @endif>:ランダム
     <input type="submit" value="検索">
   </form>
 
