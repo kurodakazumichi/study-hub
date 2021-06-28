@@ -160,6 +160,7 @@ function SetupEditButton() {
   $(".edit-button").on('click', (e) => {
     form.init($(e.target).data('id'));
   });
+  return false;
 }
 
 //-----------------------------------------------------------------------------

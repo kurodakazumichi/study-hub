@@ -3,6 +3,10 @@
 @section('title', $study->name)
 @section('js', 'study_problem/index.js')
 
+@section('cdn')
+  @include('shared.cdn.markdown')
+@endsection
+
 @section('main')
 <style>
 #edit-container {
@@ -11,6 +15,10 @@
   background-color: #dad8da;
   padding: 10px;
   width: 100%;
+}
+
+mjx-container {
+  font-size:.75em;
 }
 
 </style>
@@ -173,7 +181,7 @@
           @endif
         </td>
         <td class="txt-centered">
-          <a href="#">
+          <a href="#" onclick="return false;">
             <i data-id="{{ $problem->id }}" class="fas fa-edit edit-button"></i>
           </a>
         </td>
