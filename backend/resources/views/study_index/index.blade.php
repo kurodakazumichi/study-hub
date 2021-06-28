@@ -11,6 +11,7 @@
   background-color: #dad8da;
   padding: 10px;
   width: 100%;
+  z-index: 100;
 }
 
 #_mastery-view {
@@ -122,8 +123,8 @@
           @endif
         </td>
         <td class="txt-centered">
-          <a href="#" class="edit-button">
-            <i data-id="{{ $index->id }}" class="fas fa-edit"></i>
+          <a href="#">
+            <i data-id="{{ $index->id }}" class="fas fa-edit edit-button"></i>
           </a>
         </td>
       </tr>
