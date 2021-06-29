@@ -37,7 +37,16 @@
 
         <label for="note_id">ノートID</label>
         <input type="text" name="note_id" size="1" value="{{ $study->note_id }}"><br>        
+
+        <label for="eval">評価</label>
+        <x-forms.drop-box 
+          name="eval" 
+          :options="App\Consts\StudyConsts::EVALS"
+          :selected="$study->eval"
+        /><br>
+        <textarea name="comment" id="" cols="100" rows="10"></textarea><br>
         <input id="create" type="button" value="編集">
+
       </form>    
     </section>    
   </section>

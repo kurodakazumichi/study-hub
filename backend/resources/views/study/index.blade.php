@@ -122,6 +122,7 @@
             <th style="width: 40px;">ID.</th>
             <th>分類</th>
             <th>名前</th>
+            <th style="width:91px;">評価</th>
             <th style="width:96px;">進捗率</th>
             <th style="width:96px;">習得率</th>
             <th style="width:75.95px">&nbsp;</th>
@@ -150,6 +151,23 @@
                 @endif                
               </td>
               <td>
+                <div style="font-size:10px; color:#999;">
+                  {{ App\Consts\StudyConsts::EVALS[$study->eval]}}
+                  @if($study->comment)
+                    <i title="{{ $study->comment }}" class="fas fa-comment" style="color:darkturquoise"></i>
+                  @endif
+                </div>
+                <div style="font-size:10px;">
+                  @for($i = 0; $i < 5; $i++)
+                    @if ($i < $study->eval)
+                      <i class="fas fa-star" style="color:orange"></i>
+                    @else
+                      <i class="fas fa-star" style="color:gray"></i>
+                    @endif
+                  @endfor
+                </div> 
+              </td>
+              <td>
                 <div class="progress" style="width:75px">
                   <div class="progress__bar" style="width:{{ $study->progress }}%">&nbsp;</div>
                   <div class="progress__text">{{ $study->progress }}%</div>
@@ -168,7 +186,7 @@
 
                 <a title="問題" class="mr-3" href="/studies/{{ $study->id }}/problems">
                   <i class="fas fa-question"></i>
-                </a>              
+                </a>
               </td>
               <td  class="txt-centered">
                 <a title="編集" href="/studies/{{ $study->id }}/edit"><i class="fas fa-edit"></i></a>

@@ -13,6 +13,8 @@ function SetupEditForm()
       variety_id : form.find('[name=variety_id]').val(),
       link       : form.find('[name=link]').val(),
       note_id    : form.find('[name=note_id]').val(),
+      eval       : form.find('[name=eval]').val(),
+      comment    : form.find('[name=comment]').val()
     };
 
     console.log(data);
