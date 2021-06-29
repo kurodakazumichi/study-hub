@@ -90,10 +90,10 @@
         </td>
         <td>
           @if(is_null($index->minor) && is_null($index->micro))
-            <span style="font-size:16px; font-weight:bold;">{{ $index->title }}</span>
+            <span style="font-size:16px; font-weight:bold; color:#32978B;">{{ $index->title }}</span>
           @endif
           @if(!is_null($index->minor) && is_null($index->micro))
-            <span style="font-size:14px;">{{ $index->title }}</span>
+            <span style="font-size:14px; font-weight:bold">{{ $index->title }}</span>
           @endif          
           @if(!is_null($index->minor) && !is_null($index->micro))
             <span style="font-size:12px;">{{ $index->title }}</span>
