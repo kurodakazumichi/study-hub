@@ -38,6 +38,8 @@ class StudyController extends Controller
     // Studyデータを取得
     $studies = DB::table('studies as s')
       ->leftJoin('study_indices as i', 's.id', '=', 'i.study_id')
+      ->leftJoin('categories as c', 's.category_id', '=', 'c.id')
+      ->leftJoin('varieties as v', 's.variety_id', '=', 'v.id')
       ->select(
         's.id',
         's.name',
@@ -53,8 +55,8 @@ class StudyController extends Controller
       )
       ->where($where)
       ->groupBy('s.id')
-      ->orderBy('s.category_id')
-      ->orderBy('s.variety_id')
+      ->orderBy('c.order_no')
+      ->orderBy('v.order_no')
       ->orderBy('s.order_no')
       ->get();
     
