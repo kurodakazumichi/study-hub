@@ -15,7 +15,6 @@ class HomeController extends Controller
 
     $skills        = Study::getStats();
     $achievements = Achievement::getStats();
-    print_r($skills);
     
     return view('home.index', [
       'categories'   => Category::list(),
