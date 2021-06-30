@@ -303,10 +303,17 @@
   border-bottom: none;
 }
 
+.vertical-table .vertical-table__body tr {
+  background-color: white;
+}
+
+.vertical-table .vertical-table__body tr:hover {
+  background-color: #e9ffef;
+}
+
 .vertical-table .vertical-table__body td {
   padding:5px 10px;
   border:1px solid #ddd;
-  background-color: white;
   vertical-align: middle;
 }
 
