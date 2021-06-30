@@ -7,6 +7,7 @@ use App\Models\Study;
 use App\Models\StudyIndex;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StudyIndexController extends Controller
 {
@@ -19,8 +20,11 @@ class StudyIndexController extends Controller
       ->orderBy('micro')
       ->get();
 
+    $stats = StudyIndex::getStatsBy($id);
+
     return view('study_index.index', [
       'study'   => $study,
+      'stats'   => $stats,
       'indices' => $indices,
     ]);
   }

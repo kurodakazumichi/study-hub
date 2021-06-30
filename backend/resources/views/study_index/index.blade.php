@@ -28,15 +28,51 @@
 </style>
 <h1 class="heading-lv1">{{ $study->name }}</h1>
 
-<h2 class="heading-lv2">新規フォーム</h2>
-<form id="create-form">
-  <input type="hidden" name="index_id">
-  <input type="hidden" name="study_id" value="{{ $study->id }}">
-  <label for="create-index">Index</label>
-  <input type="text" name="index" size="1" value="">
-  <input type="text" name="title" size="64" value="">
-  <input type="button" value="作成" id="create-button">
-</form>
+<section class="section">
+  <h2 class="heading-lv2">Stats</h2>
+  <table class="vertical-table">
+    <thead class="vertical-table__header">
+      <tr class="vertical-table__header-row">
+        <th style="width:100px">件数</th>
+        <th>進捗率</th>
+        <th>習得率</th>
+      </tr>
+    </thead>
+    <tbody class="vertical-table__body">
+      <td class="txt-centered">{{ $stats->done_count }}/{{ $stats->count }}件</td>
+      <td>
+        <div class="progress cur-pointer" style="width:100%px">
+          <div class="progress__bar" style="width:{{ $stats->progress }}%;">&nbsp;</div>
+          <div class="progress__text">{{ $stats->progress }}%</div>
+        </div> 
+      </td>
+      <td>
+        <div class="progress cur-pointer" style="width:100%px">
+          <div class="progress__bar" style="width:{{ $stats->mastery }}%;">&nbsp;</div>
+          <div class="progress__text">{{ $stats->mastery }}%</div>
+        </div> 
+      </td>
+    </tbody>
+  </table>
+</section>
+
+<section class="section">
+  <h2 class="heading-lv2">新規フォーム</h2>
+  <form id="create-form">
+    <input type="hidden" name="index_id">
+    <input type="hidden" name="study_id" value="{{ $study->id }}">
+    <label for="create-index">Index</label>
+    <input type="text" name="index" size="1" value="">
+    <input type="text" name="title" size="64" value="">
+    <input type="button" value="作成" id="create-button">
+  </form>
+
+  <h2 class="heading-lv2">CSV一括登録</h2>
+  <form id="batch-form">
+    <input type="hidden" name="id" value="{{ $study->id }}">
+    <input type="file" name="file" value="ファイル送信" id="batch-file-button">
+  </form>  
+</section>
 
 <div id="edit-container">
   <h2 class="heading-lv2">編集フォーム</h2>
@@ -55,12 +91,6 @@
     <input type="button" value="更新" id="edit-button">
   </form>
 </div>
-
-<h2 class="heading-lv2">CSV一括登録</h2>
-<form id="batch-form">
-  <input type="hidden" name="id" value="{{ $study->id }}">
-  <input type="file" name="file" value="ファイル送信" id="batch-file-button">
-</form>
 
 <h2 class="heading-lv2">目次</h2>
 <table class="vertical-table">
