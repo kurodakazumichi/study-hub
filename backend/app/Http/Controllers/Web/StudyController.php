@@ -84,8 +84,8 @@ class StudyController extends Controller
     $data = [
       'search'     => $search,
       'studies'   => $studies,
-      'categories' => Category::orderBy('order_no')->pluck('name', 'id'),
-      'varieties'  => Variety::orderBy('order_no')->pluck('name', 'id'),
+      'categories' => Category::list(),
+      'varieties'  => Variety::list(),
     ];
 
     return view('study.index', $data);
