@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Achievement extends Model
 {
@@ -33,5 +34,24 @@ class Achievement extends Model
 
   public static function hasCategory($id) {
     return Achievement::where('category_id', $id)->exists();
-  }  
+  }
+
+  public static function getStats() 
+  {
+    $stats = Achievement::select(
+      'category_id',
+      DB::raw('count(id) as count'),
+      DB::raw('sum(CASE WHEN achievement_at is null THEN 0 ELSE 1 END) as cleared'),
+      DB::raw('sum(CASE WHEN achievement_at is null THEN 0 ELSE difficulty END) as score')      
+    )
+    ->groupBy('category_id')
+    ->orderBy('category_id')
+    ->get();
+
+    foreach($stats as $stat) {
+      $stat->progress = round($stat->cleard / $stat->count, 3) * 100;
+    }
+    
+    return $stats;
+  }
 }

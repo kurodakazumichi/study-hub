@@ -9,6 +9,7 @@ use App\Http\Controllers\Web\StudyIndexController;
 use App\Http\Controllers\Web\StudyProblemController;
 use App\Http\Controllers\Web\NoteController;
 use App\Http\Controllers\Web\AchievementController;
+use App\Http\Controllers\Web\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,8 @@ use App\Http\Controllers\Web\AchievementController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function() { return view('welcome'); });
+//Route::get('/', function() { return view('welcome'); });
+Route::get('/', [HomeController::class, 'index']);
 
 Route::prefix('/categories')->group(function() {
   Route::get('/', [CategoryController::class, 'index']);

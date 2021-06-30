@@ -20,6 +20,10 @@ class Category extends Model
     return false;
   }
 
+  public static function list() {
+    return Category::orderBy('order_no')->pluck('name', 'id');
+  }
+
   /**
     * カテゴリを並び替える
     * 

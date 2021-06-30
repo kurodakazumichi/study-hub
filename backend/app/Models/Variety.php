@@ -13,6 +13,10 @@ class Variety extends Model
     'name' => 'required',
     'order_no' => 'required|integer|min:0'
   ];
+
+  public static function list() {
+    return Variety::orderBy('order_no')->pluck('name', 'id');
+  }
   
   public static function maxOrderNo() {
     $no = Variety::max('order_no');
