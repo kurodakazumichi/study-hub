@@ -44,6 +44,6 @@ class StudyIndex extends Model
       $stat->mastery  = round($stat->mastery / ($stat->count * 10), 3) * 100;
     }
 
-    return $stats[0];
+    return $stats;
   }
 }

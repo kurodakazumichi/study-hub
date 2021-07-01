@@ -28,33 +28,39 @@
 </style>
 <h1 class="heading-lv1">{{ $study->name }}</h1>
 
-<section class="section">
-  <h2 class="heading-lv2">Stats</h2>
-  <table class="vertical-table">
-    <thead class="vertical-table__header">
-      <tr class="vertical-table__header-row">
-        <th style="width:100px">件数</th>
-        <th>進捗率</th>
-        <th>習得率</th>
-      </tr>
-    </thead>
-    <tbody class="vertical-table__body">
-      <td class="txt-centered">{{ $stats->done_count }}/{{ $stats->count }}件</td>
-      <td>
-        <div class="progress cur-pointer" style="width:100%px">
-          <div class="progress__bar" style="width:{{ $stats->progress }}%;">&nbsp;</div>
-          <div class="progress__text">{{ $stats->progress }}%</div>
-        </div> 
-      </td>
-      <td>
-        <div class="progress cur-pointer" style="width:100%px">
-          <div class="progress__bar" style="width:{{ $stats->mastery }}%;">&nbsp;</div>
-          <div class="progress__text">{{ $stats->mastery }}%</div>
-        </div> 
-      </td>
-    </tbody>
-  </table>
-</section>
+@if(count($stats) !== 0)
+  <section class="section">
+    <h2 class="heading-lv2">Stats</h2>
+    <table class="vertical-table">
+      <thead class="vertical-table__header">
+        <tr class="vertical-table__header-row">
+          <th style="width:100px">件数</th>
+          <th>進捗率</th>
+          <th>習得率</th>
+        </tr>
+      </thead>
+      <tbody class="vertical-table__body">
+        @foreach($stats as $stat)
+        <tr>
+          <td class="txt-centered">{{ $stat->done_count }}/{{ $stat->count }}件</td>
+          <td>
+            <div class="progress cur-pointer" style="width:100%px">
+              <div class="progress__bar" style="width:{{ $stat->progress }}%;">&nbsp;</div>
+              <div class="progress__text">{{ $stat->progress }}%</div>
+            </div> 
+          </td>
+          <td>
+            <div class="progress cur-pointer" style="width:100%px">
+              <div class="progress__bar" style="width:{{ $stat->mastery }}%;">&nbsp;</div>
+              <div class="progress__text">{{ $stat->mastery }}%</div>
+            </div> 
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </section>
+@endif
 
 <section class="section">
   <h2 class="heading-lv2">新規フォーム</h2>
