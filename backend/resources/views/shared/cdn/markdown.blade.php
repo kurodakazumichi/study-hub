@@ -15,7 +15,9 @@
 // Marked.jsのカスタマイズ
 function my_marked(view, markdownString) 
 {
-  // Override renderer function
+  // MarkedのRenderer作ってlinkの描画メソッドを上書き
+  // オプション指定すれば基底のRendererとマージされるってマニュアルに書いてあったけど
+  // マージじゃなくて完全に上書きされたので自分でnewする事にした。
   const renderer = new marked.Renderer();
 
   // リンクのURLがTwitterだったらTwitterの埋め込みタグにする
