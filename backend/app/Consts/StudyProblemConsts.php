@@ -26,5 +26,6 @@ class StudyProblemConsts
     2 => 'EXER',
     3 => '演習',
     4 => '章末',
+    5 => '問題',
   ];
 }
