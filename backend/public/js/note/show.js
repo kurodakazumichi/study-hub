@@ -6,13 +6,6 @@ $(() => {
   // markedの内容を取得
   const md = data.val();
   
-  const option = {
-    breaks: false,
-  }
-
   // markdownを表示
-  view.html(marked(md, option));
-
-  // シンタックスハイライト
-  hljs.highlightAll();
+  my_marked(view, md);
 });

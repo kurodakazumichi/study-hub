@@ -31,27 +31,15 @@ $(() => {
   SetupEditForm();
 
   $("#_tab").tabs({
-    activate : (event, ui) => {
+    activate : (_, ui) => {
 
       if (ui.newPanel.attr('id') !== "_tab-preview") return;
 
       const data = $('#edit-form [name=body]').val();
       const view = $('#_view');
-      const option = {
-        breaks: false,
-      }
-    
+
       // markdownを表示
-      view.html(marked(data, option));
-    
-      // シンタックスハイライト
-      hljs.highlightAll();
-
-      if (typeof MathJax.texReset === 'function') {
-        MathJax.texReset();
-        MathJax.typesetPromise();
-      }
-
+      my_marked(view, data);
     }
   });
 
