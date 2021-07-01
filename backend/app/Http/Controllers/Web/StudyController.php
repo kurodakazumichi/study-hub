@@ -49,6 +49,7 @@ class StudyController extends Controller
         's.note_id',
         's.eval',
         's.comment',
+        's.difficulty',
         DB::raw('count(i.id) as index_count'),
         DB::raw('sum(CASE WHEN i.mastery != 0 THEN 1 ELSE 0 END) as finished_count'),
         DB::raw('sum(i.mastery) as mastery')

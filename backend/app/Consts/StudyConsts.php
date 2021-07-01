@@ -14,4 +14,12 @@ class StudyConsts
     4  => '良書',
     5  => 'バイブル',
   ];
+
+  public const DIFFICULTIES = [
+    1 => 'Rookie',
+    2 => 'Easy',
+    3 => 'Basic',
+    4 => 'Maniac',
+    5 => 'Chaos'
+  ];
 }

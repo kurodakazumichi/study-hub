@@ -29,6 +29,13 @@
           :options="$varieties"
           :selected="$study->variety_id"
         />
+        <label for="edit-variety_id">難易度</label>
+        <x-forms.drop-box 
+          name="difficulty" 
+          :options="App\Consts\StudyConsts::DIFFICULTIES"
+          :selected="$study->difficulty"
+        />        
+        <br>
         <label for="name">名称</label>
         <input name="name" type="text" size="50" value="{{ $study->name }}"><br>
 
@@ -44,7 +51,7 @@
           :options="App\Consts\StudyConsts::EVALS"
           :selected="$study->eval"
         /><br>
-        <textarea name="comment" id="" cols="100" rows="10"></textarea><br>
+        <textarea name="comment" id="" cols="100" rows="10">{{ $study->comment }}</textarea><br>
         <input id="create" type="button" value="編集">
 
       </form>    

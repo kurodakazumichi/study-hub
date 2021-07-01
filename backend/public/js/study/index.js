@@ -40,6 +40,7 @@ $(() => {
         order_no   : input.orderNo.val(),
         link       : input.link.val(),
         note_id    : input.noteId.val(),
+        difficulty : input.difficulty.val()
       }
     }
 
@@ -51,6 +52,7 @@ $(() => {
       input.orderNo.val(v.order_no);
       input.link.val(v.link);
       input.noteId.val(v.note_id);
+      input.difficulty.val(v.difficulty);
     }
 
     update() {
@@ -75,6 +77,7 @@ $(() => {
         orderNo    : this.ui.root.find('[name=order_no]'),
         link       : this.ui.root.find('[name=link]'),
         noteId     : this.ui.root.find('[name=note_id]'),
+        difficulty : this.ui.root.find('[name=difficulty]')
       }
 
       this.ui.input = input;

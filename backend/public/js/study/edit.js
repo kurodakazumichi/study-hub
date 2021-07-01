@@ -14,7 +14,8 @@ function SetupEditForm()
       link       : form.find('[name=link]').val(),
       note_id    : form.find('[name=note_id]').val(),
       eval       : form.find('[name=eval]').val(),
-      comment    : form.find('[name=comment]').val()
+      comment    : form.find('[name=comment]').val(),
+      difficulty : form.find('[name=difficulty]').val()
     };
 
     console.log(data);

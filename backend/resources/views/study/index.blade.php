@@ -91,16 +91,23 @@
               </tr>
 
               <tr>
-                <th>タイトル</th>
-                <td colspan="9">
-                  <input class="w-100" name="name" type="text" value="">
+                <th>難易度</th>
+                <td>
+                  <x-forms.drop-box 
+                    name="difficulty" 
+                    :options="App\Consts\StudyConsts::DIFFICULTIES"
+                  />
                 </td>
+                <th>リンク</th>
+                <td colspan="7">
+                  <input class="w-100" type="text" name="link">
+                </td>                
               </tr>
 
               <tr>
-                <th>リンク</th>
+                <th>タイトル</th>
                 <td colspan="9">
-                  <input class="w-100" type="text" name="link">
+                  <input class="w-100" name="name" type="text" value="">
                 </td>
               </tr>
               
@@ -122,7 +129,7 @@
             <th style="width: 40px;">ID.</th>
             <th>分類</th>
             <th>名前</th>
-            <th style="width:91px;">評価</th>
+            <th style="width:110px;">評価</th>
             <th style="width:96px;">進捗率</th>
             <th style="width:96px;">習得率</th>
             <th style="width:75.95px">&nbsp;</th>
@@ -152,10 +159,14 @@
               </td>
               <td>
                 <div style="font-size:10px; color:#999;">
-                  {{ App\Consts\StudyConsts::EVALS[$study->eval]}}
+                  {{ App\Consts\StudyConsts::EVALS[$study->eval]}} 
                   @if($study->comment)
                     <i title="{{ $study->comment }}" class="fas fa-comment" style="color:darkturquoise"></i>
                   @endif
+                  
+                </div>
+                <div style="font-size:10px; color:#999;">
+                  ({{ App\Consts\StudyConsts::DIFFICULTIES[$study->difficulty] }})
                 </div>
                 <div style="font-size:10px;">
                   @for($i = 0; $i < 5; $i++)

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class Study extends Model
 {
   use HasFactory;
-  protected $fillable = ['category_id', 'variety_id', 'name', 'order_no', 'link', 'note_id', 'eval', 'comment'];
+  protected $fillable = ['category_id', 'variety_id', 'name', 'order_no', 'link', 'note_id', 'eval', 'comment', 'difficulty'];
   public static $rules = [
     'category_id' => ['required', 'exists:categories,id'],
     'variety_id'  => ['required', 'exists:varieties,id'],
@@ -43,37 +43,51 @@ class Study extends Model
   public static function getStats() {
     $sql = <<< SQL
       SELECT
-        s.category_id,
-        sum(i.score) as i_score,
-        sum(p.score) as p_score
-      FROM
-        studies as s
-      LEFT JOIN
-        (
+        t.category_id,
+        sum(t.i_score) as i_score,
+        sum(t.p_score) as p_score
+      FROM 
+      (
         SELECT
-          study_id,
-          sum(mastery) as score
-        FROM 
-          study_indices
-        GROUP BY
-          study_id
-        ) as i
-        ON i.study_id = s.id
-      LEFT JOIN
-        (
-        SELECT
-          study_id,
-          sum(mastery) as score
-        FROM
-          study_problems
-        GROUP BY
-          study_id
-        ) as p
-        ON p.study_id = s.id
+          s.id,
+          s.category_id,
+          s.difficulty,
+            sum(i.score) * s.difficulty as i_score,
+            sum(p.score) * s.difficulty as p_score
+          FROM
+            studies as s
+          LEFT JOIN
+            (
+            SELECT
+              study_id,
+              sum(mastery) as score
+            FROM 
+              study_indices
+            GROUP BY
+              study_id
+            ) as i
+            ON i.study_id = s.id
+          LEFT JOIN
+            (
+            SELECT
+              study_id,
+              sum(mastery) as score
+            FROM
+              study_problems
+            GROUP BY
+              study_id
+            ) as p
+            ON p.study_id = s.id
+          LEFT JOIN
+            categories as c
+            ON c.id = s.category_id
+          GROUP BY
+            s.id
+          ORDER BY
+            c.order_no
+        ) as t
       GROUP BY
-        s.category_id
-      ORDER BY
-        s.category_id
+        t.category_id
     SQL;
 
     $stats = DB::select($sql);
