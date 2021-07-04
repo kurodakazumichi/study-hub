@@ -2,7 +2,21 @@
 @section('title', 'status')
 
 @section('main')
+  <style>
+  .power {
+    background:white;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 100px;
+    letter-spacing: 0.2em;
+  }
+  </style>
   <h1 class="heading-lv1">Status</h1>
+
+  <section class="section">
+    <h2 class="heading-lv2">戦闘力</h2>
+    <div class="power">{{ $power }}</div>
+  </section>
 
   <section class="section">
     <h2 class="heading-lv2">Skill</h2>

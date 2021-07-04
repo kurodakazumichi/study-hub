@@ -15,11 +15,22 @@ class HomeController extends Controller
 
     $skills        = Study::getStats();
     $achievements = Achievement::getStats();
+
+    $power = 0;
+
+    foreach($skills as $skill) {
+      $power += $skill->score;
+    }
+
+    foreach($achievements as $achievement) {
+      $power += $achievement->score;
+    }
     
     return view('home.index', [
       'categories'   => Category::list(),
       'varieties'    => Variety::list(),
-      'skills'        => $skills,
+      'power'        => $power,
+      'skills'       => $skills,
       'achievements' => $achievements,
     ]);
   }
