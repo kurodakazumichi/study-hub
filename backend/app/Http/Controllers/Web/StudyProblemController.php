@@ -15,6 +15,8 @@ class StudyProblemController extends Controller
       'kind'   => "",
       'mastery'=> "",
       'random' => "",
+      'no_min' => "",
+      'no_max' => "",
     ];
 
     if (!is_null($request->kind)) {
@@ -25,7 +27,13 @@ class StudyProblemController extends Controller
     }
     if (!is_null($request->random)) {
       $search["random"] = "on";
-    }    
+    }
+    if (!is_null($request->no_min)) {
+      $search["no_min"] = $request->no_min;
+    }
+    if (!is_null($request->no_max)) {
+      $search["no_max"] = $request->no_max;
+    }
 
     $study = Study::findOrFail($id);
     $problems = StudyProblem::where('study_id', $id);
@@ -38,6 +46,14 @@ class StudyProblemController extends Controller
       $problems = $problems->where('mastery', '<=', $search['mastery']);
     }
 
+    if($search['no_min'] !== "") {
+      $problems = $problems->where('major', '>=', $search['no_min']);
+    }
+
+    if($search['no_max'] !== "") {
+      $problems = $problems->where('major', '<=', $search['no_max']);
+    }    
+
     $problems = $problems
       ->orderBy('kind')
       ->orderBy('major')
@@ -48,7 +64,7 @@ class StudyProblemController extends Controller
     $stats = StudyProblem::stats($id);
 
     // ランダム指定の場合は、ランダムに1問だけ表示
-    if (!empty($search['random'])) {
+    if ($problems->count() !== 0 && !empty($search['random'])) {
       $tmp = $problems->all();
       shuffle($tmp);
       $problems = [$tmp[0]];
