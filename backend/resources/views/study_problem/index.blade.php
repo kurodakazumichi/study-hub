@@ -90,6 +90,7 @@ mjx-container {
     <x-forms.drop-box 
       name="kind"
       :options="\App\Consts\StudyProblemConsts::KINDS"
+      :selected="$search['kind']"
     />
     <label for="create-index">Index</label>
     <input type="text" name="index" size="1" value="">
