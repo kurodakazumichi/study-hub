@@ -17,8 +17,14 @@ $(() => {
       data: data,
       dataType: 'json'
     })
-    .done((res) => { console.log(res); })
-    .fail((res) => { console.log(res); })
+    .done((res) => { 
+      alert("登録成功");
+      console.log(res); 
+    })
+    .fail((res) => { 
+      alert("登録失敗");
+      console.log(res); 
+    })
   });
 
 });
@@ -65,9 +71,11 @@ $(() => {
       dataType: 'json'
     })
     .done((res) => {
+      alert("登録成功");
       console.log(res);
     })
     .fail((res) => {
+      alert("登録失敗");
       console.log(res);
     });
   });
