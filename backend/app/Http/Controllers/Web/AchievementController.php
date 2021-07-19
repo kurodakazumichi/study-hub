@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Variety;
 use App\Models\Achievement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AchievementController extends Controller
 {
@@ -17,7 +18,31 @@ class AchievementController extends Controller
       'variety_id' => '',
     ];
 
-    $achievements = Achievement::all();
+    if (!is_null($request->category_id)){
+      $search['category_id'] = $request->category_id;
+    }
+    
+    if (!is_null($request->variety_id)){
+      $search['variety_id'] = $request->variety_id;
+    }
+
+    $where = [];
+
+    if (!empty($search['category_id'])) {
+      $where['a.category_id'] = $search['category_id'];
+    }
+
+    if (!empty($search['variety_id'])) {
+      $where['a.variety_id'] = $search['variety_id'];
+    }
+
+    $achievements = DB::table("achievements as a")
+      ->leftJoin('categories as c', 'a.category_id', '=', 'c.id')
+      ->leftJoin('varieties as v' , 'a.variety_id' , '=', 'v.id')
+      ->where($where)
+      ->orderBy('c.order_no')
+      ->orderBy('a.difficulty', 'desc')
+      ->get();
 
     return view('achievement.index', [
       'search'       => $search,

@@ -15,7 +15,7 @@
       </ul>
       {{---------------------------------------- 検索フォーム ----------------------------------------}}
       <div id="_tab-search">
-        <form action="/studies" method="get">
+        <form action="/achievements" method="get">
           <table class="table">
             <tbody>
               <tr>
@@ -40,7 +40,7 @@
                 </td>
                 <td>
                   <input class="btn" type="submit" value="検索">
-                  <input class="btn" type="button" value="リセット" onclick="location.href='/studies'; return false;" >
+                  <input class="btn" type="button" value="リセット" onclick="location.href='/achievements'; return false;" >
                 </td>
               </tr>
             </tbody>
