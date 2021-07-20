@@ -39,10 +39,20 @@ class AchievementController extends Controller
     $achievements = DB::table("achievements as a")
       ->leftJoin('categories as c', 'a.category_id', '=', 'c.id')
       ->leftJoin('varieties as v' , 'a.variety_id' , '=', 'v.id')
+      ->select([
+        'a.id',
+        'a.difficulty',
+        'a.category_id',
+        'a.variety_id',
+        'a.title',
+        'a.condition',
+      ])
       ->where($where)
       ->orderBy('c.order_no')
       ->orderBy('a.difficulty', 'desc')
       ->get();
+
+    print_r($achievements->all());
 
     return view('achievement.index', [
       'search'       => $search,
