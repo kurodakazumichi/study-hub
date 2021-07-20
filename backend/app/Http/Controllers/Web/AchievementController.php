@@ -52,8 +52,6 @@ class AchievementController extends Controller
       ->orderBy('a.difficulty', 'desc')
       ->get();
 
-    print_r($achievements->all());
-
     return view('achievement.index', [
       'search'       => $search,
       'achievements' => $achievements,
