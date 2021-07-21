@@ -46,7 +46,8 @@ class AchievementController extends Controller
         'a.variety_id',
         'a.title',
         'a.condition',
-        'a.achievement_at'
+        'a.achievement_at',
+        'a.note_id'
       ])
       ->where($where)
       ->orderBy('c.order_no')
