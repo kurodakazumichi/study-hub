@@ -386,14 +386,16 @@
   display: flex;
   align-items: center;
   border: 1px solid #ddd;
-  box-shadow: 3px 3px 5px #ddd;
+  box-shadow: 0px 0px 5px rgb(73, 249, 255);
+  background-color: #caf9ff;
   justify-content: space-between;
   padding: .3em 1em;
   margin-bottom: 1em;
 }
 
 .achievement.achievement--disabled {
-  background-color: #eee;
+  background-color: #ddd;
+  box-shadow: none;
 }
 
 .achievement .achievement__icon {
