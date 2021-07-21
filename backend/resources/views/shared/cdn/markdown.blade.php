@@ -37,7 +37,7 @@ function my_marked(view, markdownString)
       </blockquote>
       `
     } else {
-      let out = '<a href="' + escape(href) + '"';
+      let out = '<a href="' + href + '"';
       if (title) {
         out += ' title="' + title + '"';
       }
