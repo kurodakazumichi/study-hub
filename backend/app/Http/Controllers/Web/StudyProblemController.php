@@ -15,8 +15,10 @@ class StudyProblemController extends Controller
       'kind'   => "",
       'mastery'=> "",
       'random' => "",
-      'no_min' => "",
-      'no_max' => "",
+      'major_min' => "",
+      'minor_min' => "",
+      'major_max' => "",
+      'minor_max' => "",
     ];
 
     if (!is_null($request->kind)) {
@@ -28,11 +30,17 @@ class StudyProblemController extends Controller
     if (!is_null($request->random)) {
       $search["random"] = "on";
     }
-    if (!is_null($request->no_min)) {
-      $search["no_min"] = $request->no_min;
+    if (!is_null($request->major_min)) {
+      $search["major_min"] = $request->major_min;
     }
-    if (!is_null($request->no_max)) {
-      $search["no_max"] = $request->no_max;
+    if (!is_null($request->minor_min)) {
+      $search["minor_min"] = $request->minor_min;
+    }
+    if (!is_null($request->major_max)) {
+      $search["major_max"] = $request->major_max;
+    }
+    if (!is_null($request->minor_max)) {
+      $search["minor_max"] = $request->minor_max;
     }
 
     $study = Study::findOrFail($id);
@@ -46,14 +54,24 @@ class StudyProblemController extends Controller
       $problems = $problems->where('mastery', '<=', $search['mastery']);
     }
 
-    if($search['no_min'] !== "") {
-      $problems = $problems->where('major', '>=', $search['no_min']);
+    print_r($search);
+    if($search['major_min'] !== "") {
+      $problems = $problems->where('major', '>=', $search['major_min']);
     }
 
-    if($search['no_max'] !== "") {
-      $problems = $problems->where('major', '<=', $search['no_max']);
+    if($search['major_max'] !== "") {
+      $problems = $problems->where('major', '<=', $search['major_max']);
     }    
 
+    if($search['minor_min'] !== "") {
+      $problems = $problems->where('minor', '>=', $search['minor_min']);
+    }
+
+    if($search['minor_max'] !== "") {
+      $problems = $problems->where('minor', '<=', $search['minor_max']);
+    }    
+    
+    
     $problems = $problems
       ->orderBy('kind')
       ->orderBy('major')

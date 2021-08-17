@@ -21,6 +21,17 @@ mjx-container {
   font-size:.75em;
 }
 
+.input-no {
+  width:20px
+}
+
+.input-no::-webkit-inner-spin-button,
+.input-no::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    -moz-appearance:textfield;
+}
+
 </style>
 <h1 class="heading-lv1">{{ $study->name }}</h1>
 
@@ -81,9 +92,11 @@ mjx-container {
     />以下
 
     No:
-    <input type="number" name="no_min" style="width:50px" value="{{ $search['no_min']}}">
+    <input type="number" name="major_min" value="{{ $search['major_min']}}" class="input-no">.
+    <input type="number" name="minor_min" value="{{ $search['minor_min']}}" class="input-no">
     ～
-    <input type="number" name="no_max" style="width:50px" value="{{ $search['no_max']}}">
+    <input type="number" name="major_max" value="{{ $search['major_max']}}" class="input-no">.
+    <input type="number" name="minor_max" value="{{ $search['minor_max']}}" class="input-no">
 
     <input name="random" type="checkbox" @if($search['random']) checked @endif>:ランダム
     <input type="submit" value="検索">
