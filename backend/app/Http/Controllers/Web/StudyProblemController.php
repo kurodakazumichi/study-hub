@@ -54,7 +54,6 @@ class StudyProblemController extends Controller
       $problems = $problems->where('mastery', '<=', $search['mastery']);
     }
 
-    print_r($search);
     if($search['major_min'] !== "") {
       $problems = $problems->where('major', '>=', $search['major_min']);
     }
