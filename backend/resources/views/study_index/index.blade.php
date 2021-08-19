@@ -24,7 +24,16 @@
   border:1px solid #ddd;
   border-radius: 3px;
 }
+.input-no {
+  width:20px
+}
 
+.input-no::-webkit-inner-spin-button,
+.input-no::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    -moz-appearance:textfield;
+}
 </style>
 <h1 class="heading-lv1">{{ $study->name }}</h1>
 
@@ -63,6 +72,27 @@
 @endif
 
 <section class="section">
+
+<h2 class="heading-lv2">検索フォーム</h2>
+  <form action="/studies/{{ $study->id }}/indices" method="get">
+
+    <x-forms.drop-box 
+      id="" name="mastery" :options="App\Consts\StudyProblemConsts::MASTERIES"
+      :hasEmpty="true"
+      :selected="$search['mastery']"
+    />
+
+    No:
+    <input type="number" name="major_min" value="{{ $search['major_min']}}" class="input-no">.
+    <input type="number" name="minor_min" value="{{ $search['minor_min']}}" class="input-no">
+    ～
+    <input type="number" name="major_max" value="{{ $search['major_max']}}" class="input-no">.
+    <input type="number" name="minor_max" value="{{ $search['minor_max']}}" class="input-no">
+
+    <input name="random" type="checkbox" @if($search['random']) checked @endif>:ランダム
+    <input type="submit" value="検索">
+  </form>
+
   <h2 class="heading-lv2">新規フォーム</h2>
   <form id="create-form">
     <input type="hidden" name="index_id">
