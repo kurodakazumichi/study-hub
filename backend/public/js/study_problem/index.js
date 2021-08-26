@@ -10,8 +10,9 @@ function SetupCreateForm()
     const indices  = form.find("[name=index]").val().split('.');
 
     const data = {
-      kind     : form.find("[name=kind]").val(),
-      title    : form.find("[name=title]").val(),
+      kind      : form.find("[name=kind]").val(),
+      title     : form.find("[name=title]").val(),
+      difficulty: form.find("[name=difficulty]").val(),
     };
 
     const keys = ['major', 'minor', 'micro'];
@@ -58,6 +59,7 @@ class EditForm
     this.kind    = this.form.find('[name=kind]');
     this.comment = this.form.find('[name=comment]');
     this.note_id = this.form.find('[name=note_id]');
+    this.difficulty = this.form.find('[name=difficulty]');
 
     this.hide();
     $('#edit-button').on('click', this.update.bind(this));
@@ -85,6 +87,7 @@ class EditForm
       this.comment.val(res.data.comment);
       this.note_id.val(res.data.note_id);
       this.kind.val(res.data.kind);
+      this.difficulty.val(res.data.difficulty);
     });
   }
 
@@ -135,6 +138,7 @@ class EditForm
       kind: this.kind.val(),
       comment: this.comment.val(),
       note_id: this.note_id.val(),
+      difficulty: this.difficulty.val(),
     }
 
     return data;

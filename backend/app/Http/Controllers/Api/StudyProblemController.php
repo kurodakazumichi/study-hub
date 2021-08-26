@@ -32,5 +32,5 @@ class StudyProblemController extends Controller
     public function show($study_id, $problem_id) {
       $problem = StudyProblem::findOrFail($problem_id);
       return response200($problem);
-    }     
+    }
 }

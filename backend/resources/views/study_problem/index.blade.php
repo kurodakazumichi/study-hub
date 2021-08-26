@@ -79,13 +79,14 @@ mjx-container {
 <section class="section">
   <h2 class="heading-lv2">検索フォーム</h2>
   <form action="/studies/{{ $study->id }}/problems" method="get">
-    <x-forms.drop-box 
+    種別：<x-forms.drop-box 
       name="kind"
       :options="\App\Consts\StudyProblemConsts::KINDS"
       :hasEmpty="true"
       :selected="$search['kind']"
     />
-    <x-forms.drop-box 
+    Lv：<input type="number" name="difficulty" value="{{ $search['difficulty']}}" class="input-no">
+    M：<x-forms.drop-box 
       id="" name="mastery" :options="App\Consts\StudyProblemConsts::MASTERIES"
       :hasEmpty="true"
       :selected="$search['mastery']"
@@ -113,6 +114,7 @@ mjx-container {
     <label for="create-index">Index</label>
     <input type="text" name="index" size="1" value="">
     <input type="text" name="title" size="64" value="">
+    <input type="number" name="difficulty" value="1" min="1" max="5" class="input-no">
     <input type="button" value="作成" id="create-button">
   </form>
 
@@ -130,9 +132,12 @@ mjx-container {
     <input type="text" name="index" size="2"><input type="text" name="title" size="64"><br>
     mastery:<x-forms.drop-box 
       id="" name="mastery" :options="App\Consts\StudyProblemConsts::MASTERIES"
-    /><br>
+    />
+    Lv：<input type="number" name="difficulty" value="1" min="1" max="5" class="input-no">
+    <br>
     コメント：<input type="text" name="comment"><br>
     ノートID：<input type="text" name="note_id"><br>
+    
     <input type="button" value="更新" id="edit-button">
   </form>
 </div>
@@ -148,6 +153,7 @@ mjx-container {
         <th style="width:60px;">No</th>
         <th>タイトル</th>
         <th style="width:400px">コメント</th>
+        <th style="width:50.85px">Lv.</th>
         <th style="width:96px;">Mastery</th>
         <th style="width:60px;">&nbsp;</th>
         <th style="width:42.88px">&nbsp;</th>
@@ -182,7 +188,11 @@ mjx-container {
             @endif        
             
           </td>
+          
           <td><span style="font-size:.75em;">{{ $problem->comment }}</span></td>
+          <td class="txt-centered">
+            <span style="font-size:.75em;">{{ $problem->difficulty }}</span>
+          </td>
           <td>
             <div class="progress" style="width:75px">
               <div class="progress__bar" style="width:{{ $problem->mastery * 10 }}%">&nbsp;</div>

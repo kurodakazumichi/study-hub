@@ -19,6 +19,7 @@ class StudyProblemController extends Controller
       'minor_min' => "",
       'major_max' => "",
       'minor_max' => "",
+      'difficulty' => "",
     ];
 
     if (!is_null($request->kind)) {
@@ -41,6 +42,9 @@ class StudyProblemController extends Controller
     }
     if (!is_null($request->minor_max)) {
       $search["minor_max"] = $request->minor_max;
+    }
+    if (!is_null($request->difficulty)){
+      $search["difficulty"] = $request->difficulty;
     }
 
     $study = Study::findOrFail($id);
@@ -68,7 +72,11 @@ class StudyProblemController extends Controller
 
     if($search['minor_max'] !== "") {
       $problems = $problems->where('minor', '<=', $search['minor_max']);
-    }    
+    }
+
+    if($search['difficulty'] !== "") {
+      $problems = $problems->where('difficulty', '=', $search['difficulty']);
+    }
     
     
     $problems = $problems
